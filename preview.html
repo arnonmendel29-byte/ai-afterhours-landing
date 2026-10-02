@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="AI AfterHours - תצוגה מקומית ללא Node. פתח קובץ זה בדפדפן."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/styles.css" />
+    <title>AI AfterHours — Preview</title>
+  </head>
+  <body>
+    <div class="site-shell">
+      <div class="hero-stage">
+        <header class="site-header" aria-label="ניווט ראשי">
+          <a class="brand" href="#top" aria-label="AI AfterHours">
+            <span class="brand-mark">AI</span>
+            <span>AfterHours</span>
+          </a>
+          <nav class="desktop-nav" aria-label="קישורי עמוד">
+            <a href="#product-demo">המוצר</a>
+            <a href="#use-cases">למי זה מתאים</a>
+            <a href="#integrations">אינטגרציות</a>
+            <a href="#pricing">תמחור</a>
+            <a href="#faq">שאלות</a>
+          </nav>
+          <a class="button button-primary header-cta" href="#demo-form">הזמן דמו של 15 דקות</a>
+        </header>
+
+        <section class="hero" id="top" aria-labelledby="hero-title">
+          <div class="container hero-copy reveal">
+            <h1 id="hero-title">הבוט שלא נותן ללקוחות לחכות</h1>
+            <p class="hero-lede">
+              AI AfterHours עונה לשיחות אחרי שעות הפעילות, מנהל שיחה טבעית בעברית ומעביר ליד
+              מסודר לצוות שלך לפני שהלקוח ממשיך הלאה.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#demo-form">הזמן דמו של 15 דקות</a>
+              <a class="button button-secondary" href="#product-demo">ראה איך השיחה עובדת</a>
+            </div>
+          </div>
+
+          <div class="laptop-wrap reveal delay-1">
+            <div class="laptop-frame" aria-label="הדגמת מוצר">
+              <div class="laptop-camera" aria-hidden="true"></div>
+              <div class="laptop-screen">
+                <div class="product-screen">
+                  <div class="console-topbar">
+                    <span class="pulse-dot"></span>
+                    <span>שיחה פעילה</span>
+                    <span class="console-time">02:18</span>
+                  </div>
+                  <div class="product-screen-body">
+                    <div class="product-pane">
+                      <div class="call-card">
+                        <div>
+                          <p class="muted-label">שיחה נכנסת</p>
+                          <strong>לקוח חדש: מוסך</strong>
+                        </div>
+                        <span class="status-pill">עברית</span>
+                      </div>
+                      <div class="transcript">
+                        <div class="message">
+                          <span>לקוח</span>
+                          <p>היי, ראיתי שאתם סגורים. אפשר לקבוע טיפול לרכב למחר?</p>
+                        </div>
+                        <div class="message">
+                          <span>AI AfterHours</span>
+                          <p>בטח. אשמח לקחת פרטים ולבדוק מה סוג הטיפול שאתה צריך.</p>
+                        </div>
+                        <div class="message">
+                          <span>לקוח</span>
+                          <p>נורת מנוע נדלקה ואני צריך להגיע מוקדם בבוקר.</p>
+                        </div>
+                        <div class="message">
+                          <span>AI AfterHours</span>
+                          <p>הבנתי. אני מעביר למוסך ליד דחוף עם מספר הטלפון ושעת ההגעה המועדפת.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="product-pane product-pane-lead">
+                      <div class="lead-summary">
+                        <p class="muted-label">ליד שנוצר</p>
+                        <div class="lead-grid">
+                          <span>דחיפות: גבוהה</span>
+                          <span>נושא: נורת מנוע</span>
+                          <span>העדפה: מחר בבוקר</span>
+                          <span>יעד: CRM</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <main>
+
+        <section class="section problem" aria-labelledby="problem-title">
+          <div class="container split-grid">
+            <div class="section-copy reveal">
+              <p class="eyebrow">הבעיה</p>
+              <h2 id="problem-title">שיחה שלא נענתה היא לא רק פספוס. היא לקוח אבוד.</h2>
+            </div>
+            <div class="problem-flow reveal delay-1" aria-label="זרימת פספוס שיחה">
+              <span>שיחה אחרי שעות הפעילות</span>
+              <i></i>
+              <span>אין מענה</span>
+              <i></i>
+              <span>הלקוח עובר למתחרה</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="product-demo" aria-labelledby="demo-title">
+          <div class="container">
+            <div class="section-heading reveal">
+              <p class="eyebrow">Product Demo</p>
+              <h2 id="demo-title">כך שיחה הופכת לליד שאפשר לטפל בו</h2>
+              <p>
+                במקום לדבר על AI, הדמו מראה את ההתנהגות של המוצר: מענה, הבנה, איסוף פרטים והעברה
+                לתהליך הקיים.
+              </p>
+            </div>
+            <div class="flow-grid">
+              <article class="flow-step reveal" style="--delay: 0ms">
+                <span>01</span>
+                <h3>שיחה נכנסת</h3>
+                <p>לקוח מתקשר אחרי שעות הפעילות ומקבל מענה מיידי בעברית.</p>
+              </article>
+              <article class="flow-step reveal" style="--delay: 80ms">
+                <span>02</span>
+                <h3>שיחה טבעית</h3>
+                <p>הבוט שואל שאלות המשך, מבין כוונה ואוסף את הפרטים החשובים.</p>
+              </article>
+              <article class="flow-step reveal" style="--delay: 160ms">
+                <span>03</span>
+                <h3>ליד מסודר</h3>
+                <p>שם, טלפון, צורך, דחיפות והעדפות תיאום נארזים לתוך רשומה אחת.</p>
+              </article>
+              <article class="flow-step reveal" style="--delay: 240ms">
+                <span>04</span>
+                <h3>המשך טיפול</h3>
+                <p>הליד נשלח לצוות או ל-CRM כדי שלא ייפול בין הכיסאות בבוקר.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section compact" aria-labelledby="why-title">
+          <div class="container">
+            <div class="section-heading reveal">
+              <p class="eyebrow">למה AI AfterHours</p>
+              <h2 id="why-title">בנוי לשיחות אמיתיות של עסקים בישראל</h2>
+            </div>
+            <div class="feature-grid">
+              <article class="feature-card reveal">
+                <div class="line-icon" aria-hidden="true"></div>
+                <h3>עברית מדוברת</h3>
+                <p>
+                  חוויה שמרגישה טבעית ללקוח ישראלי, עם ניסוח ברור ושאלות המשך לפי ההקשר.
+                </p>
+              </article>
+              <article class="feature-card reveal">
+                <div class="line-icon" aria-hidden="true"></div>
+                <h3>תמחור לפי שיחה</h3>
+                <p>
+                  מודל שמתאים לעסקים שרוצים לשלם לפי שימוש בפועל, בלי לנפח התחייבויות מראש.
+                </p>
+              </article>
+              <article class="feature-card reveal">
+                <div class="line-icon" aria-hidden="true"></div>
+                <h3>מתחבר לתהליך הקיים</h3>
+                <p>
+                  הלידים מגיעים לאן שהצוות כבר עובד: CRM, גיליון, מערכת ניהול או תיבת מייל.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="use-cases" aria-labelledby="use-cases-title">
+          <div class="container">
+            <div class="section-heading reveal">
+              <p class="eyebrow">Use Cases</p>
+              <h2 id="use-cases-title">אותו מוצר, בעיות שונות לכל עסק</h2>
+            </div>
+            <div class="use-case-list">
+              <article class="use-case-row reveal">
+                <h3>מוסכים</h3>
+                <p>שיחות על תקלות דחופות מגיעות דווקא אחרי הסגירה.</p>
+                <strong>הבוט אוסף סוג רכב, תקלה, דחיפות ושעת הגעה רצויה.</strong>
+              </article>
+              <article class="use-case-row reveal">
+                <h3>מרפאות פרטיות</h3>
+                <p>פניות רגישות דורשות מענה רגוע גם מחוץ לשעות הקבלה.</p>
+                <strong>המערכת מתעדת צורך, זמינות ופרטי קשר להעברה לצוות.</strong>
+              </article>
+              <article class="use-case-row reveal">
+                <h3>נדל״ן</h3>
+                <p>מתעניינים עוברים למודעה הבאה אם אף אחד לא חוזר מהר.</p>
+                <strong>הבוט מזהה נכס, תקציב, אזור וזמינות לתיאום.</strong>
+              </article>
+              <article class="use-case-row reveal">
+                <h3>סטודיואים</h3>
+                <p>לידים לשיעורי ניסיון נעלמים בין הודעות ושיחות שלא נענו.</p>
+                <strong>המערכת אוספת עניין, רמת ניסיון ושעה נוחה לחזרה.</strong>
+              </article>
+              <article class="use-case-row reveal">
+                <h3>שירותי שטח</h3>
+                <p>קריאות שירות אחרי שעות העבודה צריכות סיווג מהיר.</p>
+                <strong>הבוט מבין מיקום, סוג תקלה ודחיפות לפני העברה.</strong>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section integrations" id="integrations" aria-labelledby="integrations-title">
+          <div class="container split-grid">
+            <div class="section-copy reveal">
+              <p class="eyebrow">Integrations</p>
+              <h2 id="integrations-title">מתחבר לתהליך הקיים שלך</h2>
+              <p>
+                המטרה היא לא להוסיף עוד מערכת לצוות, אלא להעביר כל ליד למקום שבו כבר מנהלים
+                עבודה ומכירות.
+              </p>
+            </div>
+            <div class="integration-cloud reveal delay-1" aria-label="מערכות נתמכות">
+              <span>Monday</span>
+              <span>Powerlink</span>
+              <span>CRM קיים</span>
+              <span>Google Sheets</span>
+              <span>Email</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section compact" id="pricing" aria-labelledby="pricing-title">
+          <div class="container pricing-panel reveal">
+            <div>
+              <p class="eyebrow">Pricing Preview</p>
+              <h2 id="pricing-title">תמחור לפי שיחה, בלי להמציא חבילות לפני שיש נתונים</h2>
+              <p>
+                המודל מבוסס על תמחור לפי שיחה. המחירים, המגבלות ומה כלול בכל מסלול יוצגו רק אחרי
+                אישור עסקי.
+              </p>
+            </div>
+            <a class="button button-secondary" href="#demo-form">דברו איתי על תמחור</a>
+          </div>
+        </section>
+
+        <section class="section" id="faq" aria-labelledby="faq-title">
+          <div class="container faq-grid">
+            <div class="section-copy reveal">
+              <p class="eyebrow">FAQ</p>
+              <h2 id="faq-title">שאלות שמורידות חסמים לפני הדמו</h2>
+            </div>
+            <div class="faq-list">
+              <details class="faq-item reveal">
+                <summary>האם הבוט באמת מבין עברית?</summary>
+                <p>
+                  החוויה מתוכננת לעברית מדוברת ולשיחות עסקיות מקומיות. בדמו מציגים תרחישים
+                  אמיתיים או מאושרים לפי סוג העסק.
+                </p>
+              </details>
+              <details class="faq-item reveal">
+                <summary>מה קורה אם הוא לא מבין?</summary>
+                <p>
+                  המערכת יכולה לבקש הבהרה, לסכם את מה שהובן ולהעביר ליד מסומן לבדיקה אנושית
+                  במקום להמציא תשובה.
+                </p>
+              </details>
+              <details class="faq-item reveal">
+                <summary>איך הליד מגיע אליי?</summary>
+                <p>
+                  אפשר לשלוח ליד מסודר למייל, ל-CRM, למערכת ניהול או לכל יעד שיוגדר בתהליך
+                  ההטמעה.
+                </p>
+              </details>
+              <details class="faq-item reveal">
+                <summary>עם אילו מערכות הוא עובד?</summary>
+                <p>
+                  הדגש הוא חיבור לתהליך הקיים. אינטגרציות כמו Monday, Powerlink ו-CRM רלוונטי
+                  יוצגו לפי המערכות של העסק.
+                </p>
+              </details>
+              <details class="faq-item reveal">
+                <summary>כמה זה עולה?</summary>
+                <p>
+                  המודל מבוסס על תמחור לפי שיחה. מחירים וחבילות יוצגו רק אחרי אישור נתוני
+                  התמחור הסופיים.
+                </p>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <section class="section final-cta" id="demo-form" aria-labelledby="final-title">
+          <div class="container final-grid">
+            <div class="section-copy reveal">
+              <p class="eyebrow">Demo של 15 דקות</p>
+              <h2 id="final-title">ראה איך זה נשמע כשהבוט עונה ללקוחות שלך בעברית</h2>
+              <p>
+                השאר פרטים ונחזור עם דמו ממוקד לתרחיש העסקי שלך. אימייל עסקי נדרש כדי להתאים את
+                ההדגמה לחברה.
+              </p>
+            </div>
+            <form class="demo-form reveal delay-1" action="#" method="get">
+              <label>
+                <span>שם פרטי</span>
+                <input type="text" placeholder="שם פרטי" required />
+              </label>
+              <label>
+                <span>שם משפחה</span>
+                <input type="text" placeholder="שם משפחה" required />
+              </label>
+              <label>
+                <span>חברה</span>
+                <input type="text" placeholder="חברה" required />
+              </label>
+              <label>
+                <span>אימייל עסקי</span>
+                <input type="email" placeholder="name@company.co.il" required />
+              </label>
+              <label>
+                <span>טלפון</span>
+                <input type="text" placeholder="טלפון" required />
+              </label>
+              <label>
+                <span>גודל חברה</span>
+                <input type="text" placeholder="גודל חברה" required />
+              </label>
+              <label>
+                <span>תחום פעילות</span>
+                <input type="text" placeholder="תחום פעילות" required />
+              </label>
+              <p class="form-note">נא להשתמש באימייל עסקי. Gmail/פרטי ייבדק ידנית.</p>
+              <button class="button button-primary" type="submit">הזמן דמו של 15 דקות</button>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="container footer-inner">
+          <a class="brand" href="#top" aria-label="AI AfterHours">
+            <span class="brand-mark">AI</span>
+            <span>AfterHours</span>
+          </a>
+          <div class="footer-links">
+            <a href="#product-demo">המוצר</a>
+            <a href="#pricing">תמחור</a>
+            <a href="#faq">שאלות</a>
+            <a href="#demo-form">יצירת קשר</a>
+          </div>
+          <p>© 2026 AI AfterHours. כל הזכויות שמורות.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
