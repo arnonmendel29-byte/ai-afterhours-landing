@@ -1220,73 +1220,9 @@ p {
     padding: 18px 20px 0;
   }
 
-  /* Hero — mobile/tablet only (desktop layout unchanged above 1024px) */
-  .hero-blob {
-    display: none;
-  }
-
-  .hero-card {
-    min-height: auto;
-  }
-
-  .hero-card::after {
-    position: absolute;
-    z-index: 0;
-    bottom: 0;
-    left: 50%;
-    width: 170%;
-    height: clamp(320px, 54%, 460px);
-    border-radius: 50% 50% 0 0;
-    background: #1e4bd8;
-    content: '';
-    pointer-events: none;
-    transform: translateX(-50%);
-  }
-
-  .hero {
-    min-height: auto;
-    align-items: stretch;
-    padding: 8px 20px 28px;
-  }
-
+  /* Hero: same layout as desktop — only relax min column width so it fits narrow screens */
   .hero-layout {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    width: 100%;
-    padding-inline: 0;
-  }
-
-  .hero-copy {
-    position: relative;
-    z-index: 2;
-    order: -1;
-    max-width: none;
-    width: 100%;
-  }
-
-  .hero-phones {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    min-height: clamp(260px, 46vw, 360px);
-    align-items: flex-end;
-    justify-content: center;
-    justify-self: center;
-    margin-inline: auto;
-    margin-top: 8px;
-    width: 100%;
-    max-width: 100%;
-    padding-bottom: 10px;
-  }
-
-  .hero-robot {
-    width: min(80vw, 320px);
-    height: auto;
-    max-height: clamp(250px, 40vw, 340px);
-    margin-inline: auto;
-    object-fit: contain;
-    object-position: center bottom;
-    filter: drop-shadow(0 16px 24px rgba(12, 27, 77, 0.14));
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .section.problem {
@@ -1367,29 +1303,14 @@ p {
     --container: min(100% - 24px, 560px);
   }
 
-  .site-shell {
-    overflow-x: hidden;
-  }
-
   .site-header {
-    gap: 12px;
-    padding: 12px 16px 0;
-  }
-
-  .hero-stage .brand {
-    font-size: 18px;
-    letter-spacing: 0.06em;
-  }
-
-  .header-end {
-    gap: 10px;
+    padding: 14px 0;
   }
 
   .header-cta {
-    min-height: 40px;
-    padding: 10px 16px;
-    font-size: 13px;
-    white-space: nowrap;
+    min-height: 42px;
+    padding: 12px 14px;
+    font-size: 14px;
   }
 
   .brand-logo-image {
@@ -1403,37 +1324,6 @@ p {
 
   .section-heading {
     margin-bottom: 28px;
-  }
-
-  .hero {
-    padding: 4px 16px 24px;
-  }
-
-  .hero-layout {
-    gap: 6px;
-  }
-
-  .hero-card::after {
-    width: 190%;
-    height: clamp(300px, 58%, 440px);
-  }
-
-  .hero-stage h1 {
-    margin-bottom: 14px;
-    font-size: clamp(40px, 10.5vw, 52px);
-    line-height: 0.96;
-  }
-
-  .hero-lede {
-    max-width: none;
-    margin-bottom: 20px;
-    font-size: clamp(16px, 4.2vw, 19px);
-    line-height: 1.6;
-  }
-
-  .hero-copy .hero-btn {
-    width: 100%;
-    max-width: 280px;
   }
 
   h2 {
@@ -1459,21 +1349,6 @@ p {
   .eyebrow {
     margin-bottom: 10px;
     font-size: 12px;
-  }
-
-  .hero-btn {
-    min-height: 44px;
-  }
-
-  .hero-phones {
-    min-height: clamp(220px, 52vw, 290px);
-    margin-top: 6px;
-    padding-bottom: 6px;
-  }
-
-  .hero-robot {
-    width: min(74vw, 290px);
-    max-height: clamp(210px, 44vw, 270px);
   }
 
   .section.problem {
@@ -1565,13 +1440,7 @@ p {
     font-size: 13px;
   }
 
-  .pricing-panel .button {
-    width: 100%;
-  }
-
   .footer-inner {
-    flex-direction: column;
-    align-items: flex-start;
     gap: 14px;
   }
 
