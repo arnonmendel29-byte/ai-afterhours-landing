@@ -73,15 +73,15 @@ function Hero() {
         </div>
         <div className="hero-copy">
           <h1 id="hero-title">
-            אתרים
+            הבוט שלא
             <br />
-            שמעוררים
+            נותן ללקוחות
             <br />
-            <span className="hero-accent">לחיים</span>
+            <span className="hero-accent">לחכות</span>
           </h1>
           <p className="hero-lede">
-            הדגמות לבני אתרים – אלגנטיות, סטוריטלינג, ויזואליזציה וכל מה
-            שצריך לדעת כדי לבנות אווירה פרימיום אנרגטית לאלגוריתמים
+            בוט שיחה בעברית שעונה אחרי שעות הפעילות — מדבר עם הלקוח, מבין מה
+            הוא צריך ומעביר ליד מסודר לצוות שלכם.
           </p>
           <a className="hero-btn" href="#demo-form">
             דברו איתנו
