@@ -1,10 +1,13 @@
 import {
+  about,
+  faqSection,
   faqs,
   formFields,
   integrations,
+  navItems,
   productFlow,
-  useCases,
 } from './content';
+import { PillarsSection } from './PillarsSection';
 import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from 'react';
 
 function App() {
@@ -14,7 +17,7 @@ function App() {
         <div className="hero-card">
           <svg className="hero-blob" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
             <path
-              fill="#1E4BD8"
+              fill="#9333EA"
               d="M1000 0v1000H470C640 980 580 820 710 700c130-120 40-170 160-280C980 300 920 90 1000 0Z"
             />
           </svg>
@@ -23,12 +26,15 @@ function App() {
         </div>
       </div>
       <main>
-        <Problem />
-        <ProductDemo />
-        <UseCases />
+        <div className="grid-band">
+          <Problem />
+          <ProductDemo />
+        </div>
+        <PillarsSection />
         <Integrations />
         <PricingPreview />
-        <Faq />
+        <AboutSection />
+        <FaqSection />
         <FinalCta />
       </main>
       <Footer />
@@ -39,18 +45,19 @@ function App() {
 function Header() {
   return (
     <header className="site-header" aria-label="ניווט ראשי">
-      <a className="brand" href="#top" aria-label="LOGO">
-        LOGO
+      <a className="brand" href="#top" aria-label="קוליד">
+        קוליד
       </a>
       <div className="header-end">
         <nav className="desktop-nav" aria-label="קישורי עמוד">
-          <a href="#top">עמוד הבית</a>
-          <a href="#product-demo">אודות</a>
-          <a href="#use-cases">פרויקטים</a>
-          <a href="#demo-form">צור קשר</a>
+          {navItems.map((item) => (
+            <a href={item.href} key={item.href}>
+              {item.label}
+            </a>
+          ))}
         </nav>
         <a className="hero-btn header-cta" href="#demo-form">
-          דברו איתנו
+          דבר איתנו
         </a>
       </div>
     </header>
@@ -61,30 +68,31 @@ function Hero() {
   return (
     <section className="hero" id="top" aria-labelledby="hero-title">
       <div className="hero-layout">
-        <div className="hero-phones" aria-hidden="true">
+        <div className="hero-phones">
           <img
             className="hero-robot"
             src="/hero-robot.png"
-            alt=""
+            alt="איור של בוט שיחות AI של קוליד"
             width={560}
             height={560}
             decoding="async"
+            fetchPriority="high"
           />
         </div>
         <div className="hero-copy">
           <h1 id="hero-title">
-            הבוט שלא
+            הבוט שמדבר
             <br />
-            נותן ללקוחות
+            עם הלידים שלך
             <br />
-            <span className="hero-accent">לחכות</span>
+            <span className="hero-accent">ומביא לקוחות</span>
           </h1>
           <p className="hero-lede">
-            בוט שיחה בעברית שעונה אחרי שעות הפעילות — מדבר עם הלקוח, מבין מה
-            הוא צריך ומעביר ליד מסודר לצוות שלכם.
+            בוט שיחות מבוסס AI שמנהל שיחות טבעיות עם הלידים שלך, מסנן את
+            המתעניינים ומעביר לצוות המכירות רק את מי שבאמת רלוונטי.
           </p>
           <a className="hero-btn" href="#demo-form">
-            דברו איתנו
+            קבל הדגמה
           </a>
         </div>
       </div>
@@ -99,16 +107,16 @@ function Problem() {
         <div className="section-copy reveal">
           <p className="eyebrow">הבעיה</p>
           <h2 id="problem-title">
-            שיחה שלא נענתה היא לא רק פספוס. היא{' '}
-            <span className="text-highlight">לקוח אבוד</span>.
+            צוות המכירות מבזבז זמן על{' '}
+            <span className="text-highlight">לידים קרים</span>.
           </h2>
         </div>
-        <div className="problem-flow reveal delay-1" aria-label="זרימת פספוס שיחה">
-          <span>שיחה אחרי שעות הפעילות</span>
+        <div className="problem-flow reveal delay-1" aria-label="איך זמן מכירה מתבזבז">
+          <span>ליד נכנס בלי סינון</span>
           <i />
-          <span>אין מענה</span>
+          <span>שיחה עם מי שלא בשל</span>
           <i />
-          <span>הלקוח עובר למתחרה</span>
+          <span>הזמן של הצוות מתבזבז</span>
         </div>
       </div>
     </section>
@@ -194,13 +202,13 @@ function ProductDemo() {
     <section className="section" id="product-demo" aria-labelledby="demo-title">
       <div className="container">
         <div className="section-heading reveal">
-          <p className="eyebrow">Product Demo</p>
+          <p className="eyebrow">הבוט בפעולה</p>
           <h2 id="demo-title">
-            כך שיחה הופכת <span className="text-highlight">לליד שאפשר לטפל בו</span>
+            כך שיחה הופכת <span className="text-highlight">לליד רלוונטי</span>
           </h2>
           <p>
-            במקום לדבר על AI, הדמו מראה את ההתנהגות של המוצר: מענה, הבנה, איסוף
-            פרטים והעברה לתהליך הקיים.
+            בוט שיחות AI פותח שיחה, שואל, מזהה התעניינות ומעביר לצוות המכירות רק
+            את מי שרלוונטי.
           </p>
         </div>
         <div
@@ -242,40 +250,18 @@ function ProductDemo() {
   );
 }
 
-function UseCases() {
-  return (
-    <section className="section" id="use-cases" aria-labelledby="use-cases-title">
-      <div className="container">
-        <div className="section-heading reveal">
-          <p className="eyebrow">Use Cases</p>
-          <h2 id="use-cases-title">אותו מוצר, בעיות שונות לכל עסק</h2>
-        </div>
-        <div className="use-case-list">
-          {useCases.map((item) => (
-            <article className="use-case-row reveal" key={item.name}>
-              <h3>{item.name}</h3>
-              <p>{item.pain}</p>
-              <strong>{item.result}</strong>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Integrations() {
   return (
     <section className="section integrations" id="integrations" aria-labelledby="integrations-title">
       <div className="container split-grid">
         <div className="section-copy reveal">
-          <p className="eyebrow">Integrations</p>
+          <p className="eyebrow">הטכנולוגיה</p>
           <h2 id="integrations-title">
-            מתחבר ל<span className="text-highlight">תהליך הקיים שלך</span>
+            הטכנולוגיה שמאחורי <span className="text-highlight">השיחות</span>
           </h2>
           <p>
-            המטרה היא לא להוסיף עוד מערכת לצוות, אלא להעביר כל ליד למקום שבו כבר
-            מנהלים עבודה ומכירות.
+            פלטפורמת קוליד משתמשת בטכנולוגיית AI מתקדמת לניהול שיחות טבעיות, זיהוי
+            הזדמנויות עסקיות וסינון לידים איכותיים.
           </p>
         </div>
         <div className="integration-cloud reveal delay-1" aria-label="מערכות נתמכות">
@@ -290,33 +276,67 @@ function Integrations() {
 
 function PricingPreview() {
   return (
-    <section className="section compact" id="pricing" aria-labelledby="pricing-title">
+    <section
+      className="section compact section-surface-purple pricing-section"
+      id="pricing"
+      aria-labelledby="pricing-title"
+    >
       <div className="container pricing-panel reveal">
         <div>
-          <p className="eyebrow">Pricing Preview</p>
-          <h2 id="pricing-title">תמחור לפי שיחה, בלי להמציא חבילות לפני שיש נתונים</h2>
+          <p className="eyebrow">הדגמה</p>
+          <h2 id="pricing-title">רוצים לראות איך הבוט עובד אצלכם?</h2>
           <p>
-            הבריף מגדיר מודל per-call. המחירים, המגבלות ומה כלול בכל מסלול יוצגו
-            רק אחרי אישור עסקי.
+            המודל המסחרי יוצג בהדגמה, אחרי שנבין את תהליך המכירה ואת כמות הלידים.
           </p>
         </div>
         <a className="button button-secondary" href="#demo-form">
-          דברו איתי על תמחור
+          קבל הדגמה
         </a>
       </div>
     </section>
   );
 }
 
-function Faq() {
+function AboutSection() {
   return (
-    <section className="section" id="faq" aria-labelledby="faq-title">
-      <div className="container faq-grid">
-        <div className="section-copy reveal">
-          <p className="eyebrow">FAQ</p>
-          <h2 id="faq-title">שאלות שמורידות חסמים לפני הדמו</h2>
+    <section className="section about-section" id="about" aria-labelledby="about-title">
+      <div className="container about-grid">
+        <div className="about-copy section-copy reveal">
+          <p className="eyebrow">{about.eyebrow}</p>
+          <h2 id="about-title">{about.title}</h2>
+          <div className="about-founder">
+            <h3>{about.name}</h3>
+            <p>{about.role}</p>
+          </div>
+          {about.paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
-        <div className="faq-list">
+        <figure className="about-portrait reveal delay-1">
+          <img
+            src="/niv-ashour.png"
+            alt={about.portraitAlt}
+            width={420}
+            height={525}
+            sizes="(max-width: 767px) min(100vw - 48px, 320px), (max-width: 1023px) 360px, 400px"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </div>
+    </section>
+  );
+}
+
+function FaqSection() {
+  return (
+    <section className="section faq-section" id="faq" aria-labelledby="faq-title">
+      <div className="container">
+        <div className="section-heading reveal">
+          <p className="eyebrow">{faqSection.eyebrow}</p>
+          <h2 id="faq-title">{faqSection.title}</h2>
+        </div>
+        <div className="faq-list faq-list-standalone">
           {faqs.map((item) => (
             <details className="faq-item reveal" key={item.question}>
               <summary>{item.question}</summary>
@@ -338,30 +358,28 @@ function FinalCta() {
     <section className="section final-cta" id="demo-form" aria-labelledby="final-title">
       <div className="container final-grid">
         <div className="section-copy reveal">
-          <p className="eyebrow">Demo של 15 דקות</p>
+          <p className="eyebrow">הדגמה</p>
           <h2 id="final-title">
-            ראה איך זה נשמע כשהבוט{' '}
-            <span className="text-highlight">עונה ללקוחות שלך בעברית</span>
+            מוכנים להפוך לידים קרים <span className="text-highlight">ללקוחות</span>?
           </h2>
-          <p>
-            השאר פרטים ונחזור עם דמו ממוקד לתרחיש העסקי שלך. אימייל עסקי נדרש
-            כדי להתאים את ההדגמה לחברה.
-          </p>
+          <p>מלאו את הפרטים ונציג שלנו יחזור אליכם לתיאום הדגמה אישית של הבוט.</p>
         </div>
         <form className="demo-form reveal delay-1" onSubmit={handleSubmit}>
           {formFields.map((field) => (
             <label key={field}>
               <span>{field}</span>
               <input
-                type={field.includes('אימייל') ? 'email' : 'text'}
+                type={
+                  field.includes('אימייל') ? 'email' : field.includes('טלפון') ? 'tel' : 'text'
+                }
                 placeholder={field.includes('אימייל') ? 'name@company.co.il' : field}
-                required
+                required={field !== 'הודעה'}
               />
             </label>
           ))}
-          <p className="form-note">נא להשתמש באימייל עסקי. Gmail/פרטי ייבדק ידנית.</p>
+          <p className="form-note">אפשר גם להתקשר: 054-4460533. זמינות 24/7.</p>
           <button className="button button-primary" type="submit">
-            הזמן דמו של 15 דקות
+            קבל הדגמה
           </button>
         </form>
       </div>
@@ -373,17 +391,17 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="container footer-inner">
-        <a className="brand" href="#top" aria-label="AI AfterHours">
-          <span className="brand-mark">AI</span>
-          <span>AfterHours</span>
+        <a className="brand" href="#top" aria-label="קוליד">
+          <span className="brand-mark">ק</span>
+          <span>קוליד</span>
         </a>
         <div className="footer-links">
-          <a href="#product-demo">המוצר</a>
-          <a href="#pricing">תמחור</a>
+          <a href="#product-demo">איך זה עובד</a>
+          <a href="#use-cases">יתרונות</a>
           <a href="#faq">שאלות</a>
           <a href="#demo-form">יצירת קשר</a>
         </div>
-        <p>© 2026 AI AfterHours. כל הזכויות שמורות.</p>
+        <p>© 2026 קוליד. כל הזכויות שמורות. 054-4460533 · זמינות 24/7.</p>
       </div>
     </footer>
   );
