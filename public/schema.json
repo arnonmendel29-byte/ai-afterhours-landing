@@ -1,0 +1,28 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://num8.vercel.app/#organization",
+      "name": "קוליד",
+      "alternateName": "Kolid",
+      "url": "https://num8.vercel.app/",
+      "telephone": "+972544460533",
+      "description": "בוט שיחות AI לסינון לידים ולאוטומציה של השיחה הראשונה מול צוות המכירות."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://num8.vercel.app/#website",
+      "name": "קוליד",
+      "url": "https://num8.vercel.app/",
+      "inLanguage": "he",
+      "publisher": { "@id": "https://num8.vercel.app/#organization" }
+    },
+    {
+      "@type": "Person",
+      "name": "ניב אשור",
+      "jobTitle": "מייסד ו-CEO",
+      "worksFor": { "@id": "https://num8.vercel.app/#organization" }
+    }
+  ]
+}

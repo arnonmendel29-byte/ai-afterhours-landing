@@ -8,6 +8,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           motion: ['framer-motion'],
+          react: ['react', 'react-dom'],
         },
       },
     },

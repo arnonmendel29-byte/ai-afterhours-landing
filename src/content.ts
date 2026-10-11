@@ -1,8 +1,10 @@
 export const navItems = [
-  { label: 'עמוד הבית', href: '#top' },
+  { label: 'בית', href: '#top' },
+  { label: 'הפתרונות', href: '#solutions' },
+  { label: 'תגובה מיידית', href: '/lead-warming' },
+  { label: 'שיחות יזומות', href: '/outbound-call-bot' },
+  { label: 'תמחור', href: '/lead-warming#pricing' },
   { label: 'אודות', href: '#about' },
-  { label: 'המוצר', href: '#product-demo' },
-  { label: 'יתרונות', href: '#use-cases' },
 ];
 
 export const faqSection = {
@@ -22,6 +24,44 @@ export const about = {
     'המטרה שלנו היא לחסוך לעסקים זמן, כסף ומשאבים, ולאפשר לצוותי המכירות להתמקד במה שהכי חשוב — סגירת עסקאות.',
   ],
 };
+
+export type RoadmapStage = {
+  number: string;
+  title: string;
+  description: string;
+  href?: string;
+  linkLabel?: string;
+};
+
+/** שלבי «איך זה עובד» — דף חימום לידים */
+export const leadWarmingFlow: RoadmapStage[] = [
+  {
+    number: '01',
+    title: 'ליד משאיר פרטים',
+    description:
+      'הפנייה מגיעה מפרסום, טופס דיגיטלי או ערוץ שיווק אחר שאתם מפעילים.',
+  },
+  {
+    number: '02',
+    title: 'הבוט יוצר קשר טלפוני',
+    description:
+      'בהתאם להגדרות המערכת, הבוט מתקשר לליד ומנהל שיחה קולית — לא מסתפק בהודעת טקסט בלבד.',
+  },
+  {
+    number: '03',
+    title: 'שיחה ואיסוף מידע',
+    description:
+      'הבוט שואל שאלות לפי תסריט, מזהה רמת עניין ואוסף מידע רלוונטי להמשך הטיפול.',
+  },
+  {
+    number: '04',
+    title: 'העברה להמשך טיפול',
+    description:
+      'לידים רלוונטיים מועברים לצוות המכירות שלכם, כדי שהזמן שלהם יושקע בשיחות שיכולות להתקדם.',
+    href: '/#demo-form',
+    linkLabel: 'קבל הדגמה',
+  },
+];
 
 export const productFlow = [
   {

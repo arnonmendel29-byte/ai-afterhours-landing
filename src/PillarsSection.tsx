@@ -2,6 +2,7 @@ import { pillars } from './pillars';
 import {
   motion,
   useMotionTemplate,
+  useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
@@ -18,7 +19,9 @@ const REVEAL_WINDOWS: Array<[number, number]> = [
 ];
 
 function useIsMobile(maxWidth = 767) {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia(`(max-width: ${maxWidth}px)`).matches,
+  );
 
   useEffect(() => {
     const media = window.matchMedia(`(max-width: ${maxWidth}px)`);
@@ -43,6 +46,22 @@ function useReveal(
   return { opacity, x, y };
 }
 
+const DESKTOP_OFFSETS = [
+  { y: -48, x: 0 },
+  { y: 0, x: 56 },
+  { y: 0, x: -56 },
+  { y: 48, x: 40 },
+  { y: 48, x: -40 },
+];
+
+const MOBILE_OFFSETS = [
+  { y: -40, x: 0 },
+  { y: 0, x: 40 },
+  { y: 0, x: -40 },
+  { y: 40, x: 28 },
+  { y: 40, x: -28 },
+];
+
 function PillarCard({
   index,
   progress,
@@ -53,13 +72,7 @@ function PillarCard({
   isMobile: boolean;
 }) {
   const pillar = pillars[index];
-  const offsets = [
-    { y: -48, x: 0 },
-    { y: 0, x: 56 },
-    { y: 0, x: -56 },
-    { y: 48, x: 40 },
-    { y: 48, x: -40 },
-  ][index];
+  const offsets = (isMobile ? MOBILE_OFFSETS : DESKTOP_OFFSETS)[index];
 
   const reveal = useReveal(
     progress,
@@ -74,25 +87,21 @@ function PillarCard({
     [0, index % 2 === 0 ? -18 : 18],
   );
 
-  const motionStyle = isMobile
-    ? undefined
-    : {
-        opacity: reveal.opacity,
-        x: reveal.x,
-        y: reveal.y,
-      };
-
   return (
     <motion.article
       className={`pillar pillar--${index + 1}${pillar.italic ? ' is-italic' : ''}${
         pillar.style === 'outline' ? ' is-outline' : ''
       }`}
-      style={motionStyle}
+      style={{
+        opacity: reveal.opacity,
+        x: reveal.x,
+        y: reveal.y,
+      }}
     >
       <motion.span
         className="pillar-numeral"
         aria-hidden="true"
-        style={isMobile ? undefined : { y: numeralDrift }}
+        style={{ y: numeralDrift }}
       >
         {pillar.id}
       </motion.span>
@@ -104,31 +113,14 @@ function PillarCard({
   );
 }
 
-export function PillarsSection() {
-  const isMobile = useIsMobile();
-  const trackRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: trackRef,
-    offset: ['start start', 'end end'],
-  });
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 28,
-    mass: 0.35,
-  });
-
-  const headlineScale = useTransform(smoothProgress, [0, 0.5, 1], [1, 1.02, 1]);
-  const glowOpacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0.35, 0.55, 0.7, 0.45]);
-  const glow = useMotionTemplate`radial-gradient(ellipse 55% 45% at 50% 48%, rgba(233, 213, 255, ${glowOpacity}), transparent 70%)`;
-
-  if (isMobile) {
-    return (
-      <section
-        className="pillars-section pillars-section--mobile"
-        id="use-cases"
-        aria-labelledby="use-cases-title"
-      >
+function PillarsMobileLayout() {
+  return (
+    <section
+      className="pillars-section pillars-section--mobile"
+      id="use-cases"
+      aria-labelledby="use-cases-title"
+    >
+      <div className="container pillars-mobile-inner">
         <div className="pillars-center">
           <p className="pillars-eyebrow">יתרונות</p>
           <h2 id="use-cases-title">
@@ -161,8 +153,33 @@ export function PillarsSection() {
             </motion.article>
           ))}
         </div>
-      </section>
-    );
+      </div>
+    </section>
+  );
+}
+
+export function PillarsSection() {
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = useReducedMotion();
+  const trackRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: trackRef,
+    offset: ['start start', 'end end'],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 110,
+    damping: 32,
+    mass: 0.28,
+    restDelta: 0.001,
+  });
+
+  const headlineScale = useTransform(smoothProgress, [0, 0.5, 1], [1, 1.02, 1]);
+  const glowOpacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0.35, 0.55, 0.7, 0.45]);
+  const glow = useMotionTemplate`radial-gradient(ellipse 55% 45% at 50% 48%, rgba(233, 213, 255, ${glowOpacity}), transparent 70%)`;
+
+  if (prefersReducedMotion) {
+    return <PillarsMobileLayout />;
   }
 
   return (
@@ -175,7 +192,7 @@ export function PillarsSection() {
             key={pillars[index].id}
             index={index}
             progress={smoothProgress}
-            isMobile={false}
+            isMobile={isMobile}
           />
         ))}
 
