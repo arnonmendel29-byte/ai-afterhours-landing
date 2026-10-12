@@ -19,8 +19,11 @@ export function PageLoader({ children }: PageLoaderProps) {
     let removeTimer = 0;
     let cancelled = false;
 
+    let dismissed = false;
+
     const dismiss = () => {
-      if (cancelled) return;
+      if (cancelled || dismissed) return;
+      dismissed = true;
       const elapsed = performance.now() - startedAt;
       const wait = Math.max(0, MIN_VISIBLE_MS - elapsed);
 
@@ -33,15 +36,20 @@ export function PageLoader({ children }: PageLoaderProps) {
       }, wait);
     };
 
-    if (document.readyState === 'complete') {
+    const maxWaitTimer = window.setTimeout(dismiss, 8000);
+
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
       dismiss();
     } else {
+      window.addEventListener('DOMContentLoaded', dismiss, { once: true });
       window.addEventListener('load', dismiss, { once: true });
     }
 
     return () => {
       cancelled = true;
+      window.removeEventListener('DOMContentLoaded', dismiss);
       window.removeEventListener('load', dismiss);
+      window.clearTimeout(maxWaitTimer);
       window.clearTimeout(exitTimer);
       window.clearTimeout(removeTimer);
     };

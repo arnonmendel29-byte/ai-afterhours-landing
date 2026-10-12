@@ -1,4 +1,3 @@
-import { lazy, Suspense } from 'react';
 import { AccessibilityWidget } from './accessibility/AccessibilityWidget';
 import { AccessibilityPage } from './pages/AccessibilityPage';
 import { AiCallBotsPage } from './pages/AiCallBotsPage';
@@ -7,8 +6,7 @@ import { LeadWarmingPage } from './pages/LeadWarmingPage';
 import { OutboundCallBotPage } from './pages/OutboundCallBotPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { PageLoader } from './PageLoader';
-
-const LandingApp = lazy(() => import('./LandingApp'));
+import LandingApp from './LandingApp';
 
 function normalizePath(pathname: string): string {
   const path = pathname.replace(/\/+$/, '') || '/';
@@ -41,11 +39,7 @@ function RouteBody() {
     return <OutboundCallBotPage />;
   }
 
-  return (
-    <Suspense fallback={null}>
-      <LandingApp />
-    </Suspense>
-  );
+  return <LandingApp />;
 }
 
 export function AppRouter() {

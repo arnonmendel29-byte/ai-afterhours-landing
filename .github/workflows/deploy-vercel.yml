@@ -27,11 +27,5 @@ jobs:
           npm ci
           npm run build
 
-      - name: Deploy to Vercel (production)
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: team_kuBvh6MooSeM9okk9HOk6rbx
-          vercel-project-id: prj_sxzXxf4jQIFB7ffh5CbWn58hakop
-          vercel-args: '--prod'
-          working-directory: ./
+      # Production deploy runs via Vercel ↔ GitHub integration (not this workflow).
+      # To deploy from CI, add repository secret VERCEL_TOKEN and restore vercel-action.
