@@ -23,9 +23,10 @@ export const siteConfig = {
    * קישור WhatsApp רשמי (wa.me). השאירו null עד לאימות מספר וטקסט פתיחה.
    * דוגמה: https://wa.me/972544460533?text=...
    */
-  whatsAppUrl: null as string | null,
-  /** נקודת קצה לשליחת טופס (HTTPS). null = אין שרת טופס מחובר */
-  formActionUrl: import.meta.env.VITE_FORM_ACTION_URL ?? null,
+  whatsAppUrl: 'https://wa.me/972544460533',
+  /** נקודת קצה לשליחת טופס (HTTPS). ניתן לדרוס עם VITE_FORM_ACTION_URL */
+  formActionUrl:
+    import.meta.env.VITE_FORM_ACTION_URL ?? 'https://formspree.io/f/xyekppay',
 } as const;
 
 export function isOwnerPlaceholder(value: string): boolean {

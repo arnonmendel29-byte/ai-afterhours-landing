@@ -1,5 +1,6 @@
 import { homeProductCards, homeProducts, productChooser } from './callbotProducts';
 import { Reveal } from './Reveal';
+import { LeadCtaStrip } from './SiteLeadCtas';
 import { CtaStar } from './StarBorder';
 import './HomeProductsSection.css';
 
@@ -62,6 +63,7 @@ export function HomeProductsSection() {
             </Reveal>
           ))}
         </div>
+        <LeadCtaStrip formHref="#demo-form" />
       </div>
     </section>
   );

@@ -21,8 +21,9 @@ if (typeof window !== 'undefined') {
 const PATH_DESKTOP =
   'M 360 56 C 540 56, 648 120, 648 208 C 648 296, 108 336, 108 424 C 108 512, 648 552, 648 640 C 648 728, 360 768, 360 856';
 
+/** מובייל: מרכז 260, זיגזג סימטרי ±216px (44 ↔ 476) */
 const PATH_MOBILE =
-  'M 200 56 C 300 56, 348 124, 348 204 C 348 284, 52 324, 52 404 C 52 484, 348 524, 348 604 C 348 684, 200 724, 200 804';
+  'M 260 52 C 352 52, 476 108, 476 204 C 476 300, 44 340, 44 436 C 44 532, 476 572, 476 668 C 476 764, 352 820, 260 868';
 
 type LayoutMode = 'desktop' | 'mobile';
 
@@ -72,7 +73,7 @@ export function RoadmapScrollSection({
 
   const layout = useLayoutMode();
   const pathD = layout === 'mobile' ? PATH_MOBILE : PATH_DESKTOP;
-  const viewBox = layout === 'mobile' ? '0 0 400 872' : '0 0 720 896';
+  const viewBox = layout === 'mobile' ? '0 0 520 920' : '0 0 720 896';
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [nodePoints, setNodePoints] = useState<Array<{ x: number; y: number }>>([]);
@@ -84,7 +85,7 @@ export function RoadmapScrollSection({
 
   const stage = stages[activeIndex] ?? stages[0];
 
-  const nodeSize = layout === 'mobile' ? 58 : 64;
+  const nodeSize = layout === 'mobile' ? 62 : 64;
 
   useLayoutEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');

@@ -1,4 +1,4 @@
-import { CtaStar } from '../StarBorder';
+import { LeadCtaStrip, SiteLeadCtas } from '../SiteLeadCtas';
 import { siteConfig } from '../siteConfig';
 import { ServiceCrossSell, ServicePageLayout, ServiceRelatedLinks } from './ServicePageLayout';
 
@@ -62,13 +62,13 @@ export function OutboundCallBotPage() {
             בוט קולי מבוסס AI שמבצע שיחות יזומות, מנהל שיחה טבעית עם לידים ומסייע לצוות
             המכירות להתמקד בהזדמנויות הרלוונטיות.
           </p>
-          <div className="svc-hero-actions">
-            <CtaStar as="a" className="hero-cta" href="/#demo-form">
-              דברו איתנו
-            </CtaStar>
-            <a className="svc-link-quiet" href={`tel:${siteConfig.contact.phoneE164}`}>
-              להתקשר: {siteConfig.contact.phoneDisplay}
-            </a>
+          <div className="svc-hero-actions svc-hero-actions--lead">
+            <SiteLeadCtas />
+            <div className="svc-hero-actions-row">
+              <a className="svc-link-quiet" href={`tel:${siteConfig.contact.phoneE164}`}>
+                להתקשר: {siteConfig.contact.phoneDisplay}
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -103,6 +103,7 @@ export function OutboundCallBotPage() {
               </li>
             ))}
           </ol>
+          <LeadCtaStrip />
         </div>
       </section>
 
@@ -158,9 +159,7 @@ export function OutboundCallBotPage() {
                 {siteConfig.brandName} יחזור אליכם.
               </p>
             </div>
-            <CtaStar as="a" className="pricing-cta" href="/#demo-form">
-              דברו איתנו
-            </CtaStar>
+            <LeadCtaStrip align="start" tone="on-purple" />
           </div>
         </div>
       </section>

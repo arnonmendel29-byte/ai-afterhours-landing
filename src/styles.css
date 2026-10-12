@@ -528,7 +528,7 @@ main h3 {
 }
 
 .hero-accent {
-  color: var(--blue);
+  vertical-align: baseline;
 }
 
 .hero-lede {
@@ -1548,6 +1548,11 @@ p {
   margin-bottom: 0;
 }
 
+.pricing-panel .pricing-lead-ctas {
+  flex: 0 1 auto;
+  max-width: min(100%, 520px);
+}
+
 .faq-grid {
   grid-template-columns: 0.78fr 1fr;
   align-items: start;
@@ -2065,6 +2070,11 @@ p {
   .pricing-panel {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .pricing-panel .pricing-lead-ctas {
+    width: 100%;
+    max-width: none;
   }
 }
 

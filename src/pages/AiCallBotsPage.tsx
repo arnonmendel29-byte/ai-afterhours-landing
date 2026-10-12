@@ -1,4 +1,4 @@
-import { CtaStar } from '../StarBorder';
+import { LeadCtaStrip, SiteLeadCtas } from '../SiteLeadCtas';
 import { siteConfig } from '../siteConfig';
 import { ServicePageLayout, ServiceRelatedLinks } from './ServicePageLayout';
 
@@ -21,13 +21,13 @@ export function AiCallBotsPage() {
             טלפון עם לקוחות פוטנציאליים או קיימים. בניגוד לצ׳אטבוטים הפועלים בטקסט, בוטי
             שיחות מתמחים בתקשורת קולית ויכולים לנהל דיאלוג בהתאם להקשר השיחה.
           </p>
-          <div className="svc-hero-actions">
-            <CtaStar as="a" className="hero-cta" href="/#demo-form">
-              קבל הדגמה
-            </CtaStar>
-            <a className="svc-link-quiet" href="/lead-warming">
-              לשירות חימום לידים
-            </a>
+          <div className="svc-hero-actions svc-hero-actions--lead">
+            <SiteLeadCtas />
+            <div className="svc-hero-actions-row">
+              <a className="svc-link-quiet" href="/lead-warming">
+                לשירות חימום לידים
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -114,6 +114,7 @@ export function AiCallBotsPage() {
               </p>
             </article>
           </div>
+          <LeadCtaStrip />
         </div>
       </section>
 
@@ -158,9 +159,7 @@ export function AiCallBotsPage() {
                 {siteConfig.contact.phoneDisplay}, או השאירו פרטים בטופס בעמוד הבית.
               </p>
             </div>
-            <CtaStar as="a" className="pricing-cta" href="/#demo-form">
-              קבל הדגמה
-            </CtaStar>
+            <LeadCtaStrip align="start" tone="on-purple" />
           </div>
         </div>
       </section>

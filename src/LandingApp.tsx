@@ -9,8 +9,10 @@ import {
 } from './content';
 import { HomeProductsSection } from './HomeProductsSection';
 import { Reveal } from './Reveal';
+import { SiteLeadCtas } from './SiteLeadCtas';
 import { CtaStar } from './StarBorder';
 import { BrandLogo } from './BrandLogo';
+import GradientText from './GradientText';
 import { siteConfig } from './siteConfig';
 import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties, type FormEvent } from 'react';
 
@@ -185,20 +187,21 @@ function Hero() {
             <br />
             עם הלידים שלך
             <br />
-            <span className="hero-accent">ומביא לקוחות</span>
+            <GradientText
+              className="hero-accent"
+              colors={['#5227FF', '#FF9FFC', '#B497CF']}
+              animationSpeed={8}
+              variant="linear"
+              glow={0}
+            >
+              ומביא לקוחות
+            </GradientText>
           </h1>
           <p className="hero-lede">
             בוט שיחות מבוסס AI שמנהל שיחות טבעיות עם הלידים שלך, מסנן את
             המתעניינים ומעביר לצוות המכירות רק את מי שבאמת רלוונטי.
           </p>
-          <div className="hero-actions">
-            <CtaStar as="a" className="hero-cta" href="#demo-form">
-              קבל הדגמה
-            </CtaStar>
-            <a className="hero-secondary" href="#solutions">
-              לשני הפתרונות
-            </a>
-          </div>
+          <SiteLeadCtas className="hero-actions" formHref="#demo-form" />
         </div>
       </div>
     </section>
@@ -395,9 +398,7 @@ function PricingPreview() {
             המודל המסחרי יוצג בהדגמה, אחרי שנבין את תהליך המכירה ואת כמות הלידים.
           </p>
         </div>
-        <CtaStar as="a" className="pricing-cta" href="#demo-form">
-          קבל הדגמה
-        </CtaStar>
+        <SiteLeadCtas className="pricing-lead-ctas" formHref="#demo-form" />
       </Reveal>
     </section>
   );
@@ -503,7 +504,15 @@ function FinalCta() {
           </h2>
           <p>מלאו את הפרטים ונציג שלנו יחזור אליכם לתיאום הדגמה אישית של הבוט.</p>
         </Reveal>
-        <Reveal as="form" className="demo-form" delay onSubmit={handleSubmit}>
+        <Reveal
+          as="form"
+          className="demo-form"
+          delay
+          onSubmit={handleSubmit}
+          action={siteConfig.formActionUrl ?? undefined}
+          method="post"
+        >
+          <input type="hidden" name="_subject" value={`בקשת הדגמה — ${siteConfig.brandName}`} />
           {formFields.map((field) => {
             const meta = FORM_FIELD_ATTR[field] ?? {
               id: `field-${field}`,
@@ -558,7 +567,7 @@ function FinalCta() {
             {status === 'sending' && 'שולח…'}
           </div>
           <CtaStar className="cta-block" type="submit" disabled={status === 'sending'}>
-            קבל הדגמה
+            השאר פרטים
           </CtaStar>
         </Reveal>
       </div>

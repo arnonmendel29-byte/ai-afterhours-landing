@@ -1,6 +1,7 @@
 import { instantLeadPricing } from '../callbotProducts';
 import { leadWarmingFlow } from '../content';
 import { RoadmapScrollSection } from '../RoadmapScrollSection';
+import { LeadCtaStrip, SiteLeadCtas } from '../SiteLeadCtas';
 import { CtaStar } from '../StarBorder';
 import { siteConfig } from '../siteConfig';
 import { ServiceCrossSell, ServicePageLayout, ServiceRelatedLinks } from './ServicePageLayout';
@@ -57,13 +58,16 @@ export function LeadWarmingPage() {
             בוט קולי מבוסס AI שמתקשר ללידים חדשים באופן אוטומטי, מנהל שיחה ראשונית ומסייע
             לעסק להגיב בזמן ולנצל טוב יותר את ההזדמנויות שמגיעות מהשיווק.
           </p>
-          <div className="svc-hero-actions">
-            <CtaStar as="a" className="hero-cta" href="#pricing">
-              בדקו איזה מסלול מתאים לכם
-            </CtaStar>
-            <a className="svc-link-quiet" href="#how-it-works">
-              איך זה עובד?
-            </a>
+          <div className="svc-hero-actions svc-hero-actions--lead">
+            <SiteLeadCtas />
+            <div className="svc-hero-actions-row">
+              <CtaStar as="a" className="hero-cta" href="#pricing">
+                בדקו איזה מסלול מתאים לכם
+              </CtaStar>
+              <a className="svc-link-quiet" href="#how-it-works">
+                איך זה עובד?
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -90,6 +94,10 @@ export function LeadWarmingPage() {
         intro="השירות מתבסס על בוט שיחות שפועל לפי ההגדרות שלכם, יוצר קשר קולי עם הליד ואוסף מידע רלוונטי לפני שהנציג האנושי נכנס לתמונה."
         stages={leadWarmingFlow}
       />
+
+      <div className="container">
+        <LeadCtaStrip />
+      </div>
 
       <section className="svc-section" aria-labelledby="lw-benefits-title">
         <div className="container">
@@ -174,9 +182,7 @@ export function LeadWarmingPage() {
                 {siteConfig.brandName} יחזור לתיאום.
               </p>
             </div>
-            <CtaStar as="a" className="pricing-cta" href="/#demo-form">
-              דברו איתנו
-            </CtaStar>
+            <LeadCtaStrip align="start" tone="on-purple" />
           </div>
         </div>
       </section>
