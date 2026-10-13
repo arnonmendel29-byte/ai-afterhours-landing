@@ -12,10 +12,7 @@ export function PrivacyPolicyPage() {
     : business.legalName;
 
   return (
-    <LegalLayout
-      title="מדיניות פרטיות"
-      description="מסמך זה מתאר כיצד אתר קוליד מטפל במידע, בהתאם להתנהגות האתר כפי שנבדקה בקוד ובסביבת האירוח."
-    >
+    <LegalLayout path="/privacy-policy">
       <section aria-labelledby="pp-controller">
         <h2 id="pp-controller">1. מי אחראי על המידע</h2>
         <p>

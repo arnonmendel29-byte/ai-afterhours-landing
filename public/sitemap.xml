@@ -2,30 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://num8.vercel.app/</loc>
-    <lastmod>2026-10-09</lastmod>
-  </url>
-  <url>
-    <loc>https://num8.vercel.app/privacy-policy</loc>
-    <lastmod>2026-10-09</lastmod>
-  </url>
-  <url>
-    <loc>https://num8.vercel.app/accessibility</loc>
-    <lastmod>2026-10-09</lastmod>
-  </url>
-  <url>
-    <loc>https://num8.vercel.app/cookie-policy</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://num8.vercel.app/lead-warming</loc>
-    <lastmod>2026-10-11</lastmod>
-  </url>
-  <url>
-    <loc>https://num8.vercel.app/ai-call-bots</loc>
-    <lastmod>2026-10-10</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://num8.vercel.app/outbound-call-bot</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-13</lastmod>
+  </url>
+  <url>
+    <loc>https://num8.vercel.app/ai-call-bots</loc>
+    <lastmod>2026-10-13</lastmod>
+  </url>
+  <url>
+    <loc>https://num8.vercel.app/privacy-policy</loc>
+    <lastmod>2026-10-13</lastmod>
+  </url>
+  <url>
+    <loc>https://num8.vercel.app/accessibility</loc>
+    <lastmod>2026-10-13</lastmod>
+  </url>
+  <url>
+    <loc>https://num8.vercel.app/cookie-policy</loc>
+    <lastmod>2026-10-13</lastmod>
   </url>
 </urlset>

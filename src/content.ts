@@ -5,7 +5,41 @@ export const navItems = [
   { label: 'שיחות יזומות', href: '/outbound-call-bot' },
   { label: 'תמחור', href: '/lead-warming#pricing' },
   { label: 'אודות', href: '#about' },
-];
+] as const;
+
+/** קישורי עוגן מעמוד הבית → קישורים מלאים מדפי משנה */
+export function navHrefForPage(href: string): string {
+  if (href.startsWith('#')) return `/${href}`;
+  return href;
+}
+
+export function isNavItemCurrent(
+  href: string,
+  currentPath: string,
+  locationHash = typeof window !== 'undefined' ? window.location.hash.replace(/^#/, '') : '',
+): boolean {
+  if (href.includes('#')) {
+    const hashIndex = href.indexOf('#');
+    const path = href.slice(0, hashIndex) || '/';
+    const anchor = href.slice(hashIndex + 1);
+    if (path !== currentPath) return false;
+    return locationHash === anchor;
+  }
+
+  if (href.startsWith('#')) {
+    if (currentPath !== '/') return false;
+    const anchor = href.slice(1);
+    if (anchor === 'top') return locationHash === '' || locationHash === 'top';
+    return locationHash === anchor;
+  }
+
+  if (href.startsWith('/')) {
+    if (href !== currentPath) return false;
+    return locationHash === '';
+  }
+
+  return false;
+}
 
 export const faqSection = {
   eyebrow: 'שאלות נפוצות',

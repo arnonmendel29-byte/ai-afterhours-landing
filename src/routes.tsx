@@ -3,6 +3,7 @@ import { AccessibilityPage } from './pages/AccessibilityPage';
 import { AiCallBotsPage } from './pages/AiCallBotsPage';
 import { CookiePolicyPage } from './pages/CookiePolicyPage';
 import { LeadWarmingPage } from './pages/LeadWarmingPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 import { OutboundCallBotPage } from './pages/OutboundCallBotPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import { PageLoader } from './PageLoader';
@@ -19,6 +20,9 @@ function RouteBody() {
   if (path === '/instant-lead-response') {
     window.history.replaceState(null, '', '/lead-warming');
     return <LeadWarmingPage />;
+  }
+  if (path === '/') {
+    return <LandingApp />;
   }
   if (path === '/privacy-policy') {
     return <PrivacyPolicyPage />;
@@ -39,7 +43,7 @@ function RouteBody() {
     return <OutboundCallBotPage />;
   }
 
-  return <LandingApp />;
+  return <NotFoundPage />;
 }
 
 export function AppRouter() {

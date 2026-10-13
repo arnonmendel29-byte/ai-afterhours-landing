@@ -4,9 +4,9 @@ import {
   faqs,
   formFields,
   integrations,
-  navItems,
   productFlow,
 } from './content';
+import { SiteHeader } from './SiteHeader';
 import { HomeProductsSection } from './HomeProductsSection';
 import { Reveal } from './Reveal';
 import { SiteLeadCtas } from './SiteLeadCtas';
@@ -14,6 +14,8 @@ import { CtaStar } from './StarBorder';
 import { BrandLogo } from './BrandLogo';
 import GradientText from './GradientText';
 import { siteConfig } from './siteConfig';
+import { applyDocumentMeta } from './seo/documentMeta';
+import { buildHomeJsonLd, getSeoPage } from './seo/pages';
 import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties, type FormEvent } from 'react';
 
 const FORM_FIELD_ATTR: Record<
@@ -34,6 +36,13 @@ const PillarsSection = lazy(() =>
 );
 
 export default function LandingApp() {
+  useEffect(() => {
+    applyDocumentMeta({
+      page: getSeoPage('/'),
+      jsonLd: buildHomeJsonLd(),
+    });
+  }, []);
+
   return (
     <div className="site-shell">
       <a className="skip-link" href="#main-content">
@@ -47,7 +56,7 @@ export default function LandingApp() {
               d="M1000 0v1000H470C640 980 580 820 710 700c130-120 40-170 160-280C980 300 920 90 1000 0Z"
             />
           </svg>
-          <Header />
+          <SiteHeader home currentPath="/" />
           <Hero />
         </div>
       </div>
@@ -71,98 +80,6 @@ export default function LandingApp() {
   );
 }
 
-function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMenuOpen(false);
-    };
-    const onResize = () => {
-      if (window.matchMedia('(min-width: 1024px)').matches) setMenuOpen(false);
-    };
-
-    document.addEventListener('keydown', onKey);
-    window.addEventListener('resize', onResize);
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      window.removeEventListener('resize', onResize);
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [menuOpen]);
-
-  const closeMenu = () => setMenuOpen(false);
-
-  return (
-    <header className={`site-header${menuOpen ? ' is-menu-open' : ''}`} aria-label="ניווט ראשי">
-      <div className="header-brand">
-        <BrandLogo href="#top" />
-      </div>
-      <nav className="desktop-nav" aria-label="קישורי עמוד">
-        {navItems.map((item) => (
-          <a href={item.href} key={item.href}>
-            {item.label}
-          </a>
-        ))}
-      </nav>
-      <div className="header-actions">
-        <CtaStar as="a" className="header-cta" href="#demo-form">
-          דבר איתנו
-        </CtaStar>
-        <button
-          type="button"
-          className="nav-toggle"
-          aria-expanded={menuOpen}
-          aria-controls="mobile-nav-panel"
-          aria-label={menuOpen ? 'סגירת תפריט' : 'פתיחת תפריט'}
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          <span className="nav-toggle-bar" aria-hidden="true" />
-          <span className="nav-toggle-bar" aria-hidden="true" />
-          <span className="nav-toggle-bar" aria-hidden="true" />
-        </button>
-      </div>
-      <div
-        className={`mobile-nav-backdrop${menuOpen ? ' is-open' : ''}`}
-        hidden={!menuOpen}
-        onClick={closeMenu}
-        aria-hidden="true"
-      />
-      <nav
-        id="mobile-nav-panel"
-        className={`mobile-nav${menuOpen ? ' is-open' : ''}`}
-        aria-label="תפריט נייד"
-        hidden={!menuOpen}
-        onClick={(event) => {
-          const anchor = (event.target as HTMLElement).closest('a');
-          if (!anchor) return;
-          const href = anchor.getAttribute('href') || '';
-          if (href.startsWith('/')) {
-            event.preventDefault();
-            window.location.assign(href);
-            return;
-          }
-          closeMenu();
-        }}
-      >
-        {navItems.map((item) => (
-          <a href={item.href} key={item.href}>
-            {item.label}
-          </a>
-        ))}
-        <CtaStar as="a" className="mobile-nav-cta" href="#demo-form">
-          דבר איתנו
-        </CtaStar>
-      </nav>
-    </header>
-  );
-}
-
 function Hero() {
   return (
     <section className="hero" id="top" aria-labelledby="hero-title">
@@ -183,7 +100,7 @@ function Hero() {
         </div>
         <div className="hero-copy">
           <h1 id="hero-title">
-            הבוט שמדבר
+            בוט השיחות שמדבר
             <br />
             עם הלידים שלך
             <br />
@@ -578,14 +495,14 @@ function FinalCta() {
 function Footer() {
   return (
     <footer className="footer">
-      <div className="container footer-inner">
+      <Reveal className="container footer-inner" variant="fade">
         <BrandLogo href="#top" compact />
         <div className="footer-links">
           <a href="#solutions">הפתרונות</a>
-          <a href="/lead-warming">תגובה מיידית ללידים</a>
-          <a href="/lead-warming#pricing">תמחור</a>
-          <a href="/outbound-call-bot">שיחות יזומות</a>
-          <a href="/ai-call-bots">בוטי שיחות AI</a>
+          <a href="/lead-warming">תגובה מיידית — Kolid Flash</a>
+          <a href="/lead-warming#pricing">תמחור Kolid Flash</a>
+          <a href="/outbound-call-bot">שיחות יזומות — Kolid Spark</a>
+          <a href="/ai-call-bots">מדריך בוטי שיחות AI</a>
           <a href="#about">אודות</a>
           <a href="#faq">שאלות</a>
           <a href="#demo-form">יצירת קשר</a>
@@ -598,7 +515,7 @@ function Footer() {
           <a href={`tel:${siteConfig.contact.phoneE164}`}>{siteConfig.contact.phoneDisplay}</a> ·
           זמינות 24/7.
         </p>
-      </div>
+      </Reveal>
     </footer>
   );
 }

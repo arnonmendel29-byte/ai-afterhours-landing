@@ -3,7 +3,43 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm ci",
+  "redirects": [
+    {
+      "source": "/instant-lead-response",
+      "destination": "/lead-warming",
+      "permanent": true
+    },
+    {
+      "source": "/instant-lead-response/",
+      "destination": "/lead-warming",
+      "permanent": true
+    }
+  ],
   "rewrites": [
+    {
+      "source": "/lead-warming",
+      "destination": "/lead-warming/index.html"
+    },
+    {
+      "source": "/outbound-call-bot",
+      "destination": "/outbound-call-bot/index.html"
+    },
+    {
+      "source": "/ai-call-bots",
+      "destination": "/ai-call-bots/index.html"
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacy-policy/index.html"
+    },
+    {
+      "source": "/accessibility",
+      "destination": "/accessibility/index.html"
+    },
+    {
+      "source": "/cookie-policy",
+      "destination": "/cookie-policy/index.html"
+    },
     {
       "source": "/((?!.*\\..*).*)",
       "destination": "/index.html"

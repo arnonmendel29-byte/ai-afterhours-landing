@@ -7,10 +7,7 @@ export function AccessibilityPage() {
     : siteConfig.contact.email;
 
   return (
-    <LegalLayout
-      title="הצהרת נגישות"
-      description="מידע על מאמצי הנגישות באתר קוליד, מגבלות ידועות ודרכי פנייה."
-    >
+    <LegalLayout path="/accessibility">
       <section aria-labelledby="a11y-commitment">
         <h2 id="a11y-commitment">1. מחויבות</h2>
         <p>

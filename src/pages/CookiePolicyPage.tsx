@@ -2,10 +2,7 @@ import { LegalLayout } from './LegalLayout';
 
 export function CookiePolicyPage() {
   return (
-    <LegalLayout
-      title="מידע על עוגיות ואחסון מקומי"
-      description="סיכום הבדיקה הטכנית — ללא באנר הסכמה, כי לא אותרו כלי מעקב או פרסום."
-    >
+    <LegalLayout path="/cookie-policy">
       <section aria-labelledby="ck-summary">
         <h2 id="ck-summary">1. סיכום</h2>
         <p>

@@ -2,19 +2,19 @@ export const homeProducts = {
   eyebrow: 'הפתרונות שלנו',
   title: 'שני פתרונות קוליים. שתי מטרות עסקיות ברורות.',
   subtitle:
-    'קולבוט מציעה בוטים קוליים מבוססי AI שמנהלים שיחות טלפון ומייעלים את הטיפול בלידים. בחרו לפי סוג הלידים שאתם מטפלים בהם.',
+    'קוליד מציעה בוטים קוליים מבוססי AI שמנהלים שיחות טלפון ומייעלים את הטיפול בלידים. בחרו לפי סוג הלידים שאתם מטפלים בהם.',
 } as const;
 
 export const productChooser = [
   {
     question: 'לידים חדשים שהשאירו פרטים?',
-    answer: 'בוט לתגובה מיידית',
+    answer: 'Kolid Flash',
     href: '/lead-warming',
     featured: true,
   },
   {
     question: 'לידים קרים או רשימות קיימות?',
-    answer: 'בוט לשיחות יזומות',
+    answer: 'Kolid Spark',
     href: '/outbound-call-bot',
     featured: false,
   },
@@ -32,12 +32,12 @@ export type HomeProduct = {
   featured: boolean;
 };
 
-/** המוצר המרכזי (תגובה מיידית) ראשון ברשימה */
+/** המוצר המרכזי (Kolid Flash — תגובה מיידית) ראשון ברשימה */
 export const homeProductCards: HomeProduct[] = [
   {
     id: 'instant',
     href: '/lead-warming',
-    title: 'בוט קולי לתגובה מיידית ללידים',
+    title: 'Kolid Flash — תגובה מיידית ללידים',
     fit: 'מתאים לעסקים שמקבלים פניות ורוצים לחזור לליד במהירות.',
     description:
       'פתרון AI שמתקשר אוטומטית ללידים חדשים לאחר שהשאירו פרטים, מנהל שיחה ראשונית ואוסף מידע להמשך טיפול.',
@@ -47,14 +47,14 @@ export const homeProductCards: HomeProduct[] = [
       'תשאול ראשוני ואיסוף מידע.',
       'צמצום הסיכון לאובדן לידים בגלל עיכוב במענה.',
     ],
-    cta: 'לפרטים על בוט לתגובה מיידית',
+    cta: 'לפרטים על Kolid Flash',
     secondaryCta: { label: 'למסלולי תמחור', href: '/lead-warming#pricing' },
     featured: true,
   },
   {
     id: 'outbound',
     href: '/outbound-call-bot',
-    title: 'בוט קולי לשיחות יזומות וחימום לידים',
+    title: 'Kolid Spark — שיחות יזומות וחימום לידים',
     fit: 'מתאים לעסקים שרוצים ליצור קשר עם קהל קיים או עם לידים שעדיין לא הביעו עניין פעיל.',
     description:
       'פתרון AI שמבצע שיחות יזומות ללידים קרים או לרשימות קיימות, מסנן את רמת העניין ומעביר לידים רלוונטיים לנציג מכירות.',
@@ -64,7 +64,7 @@ export const homeProductCards: HomeProduct[] = [
       'זיהוי לקוחות שהביעו עניין.',
       'העברת לידים רלוונטיים לנציג אנושי.',
     ],
-    cta: 'לפרטים על בוט לחימום לידים',
+    cta: 'לפרטים על Kolid Spark',
     featured: false,
   },
 ];

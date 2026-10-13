@@ -63,7 +63,9 @@ export function HomeProductsSection() {
             </Reveal>
           ))}
         </div>
-        <LeadCtaStrip formHref="#demo-form" />
+        <Reveal variant="fade">
+          <LeadCtaStrip formHref="#demo-form" />
+        </Reveal>
       </div>
     </section>
   );

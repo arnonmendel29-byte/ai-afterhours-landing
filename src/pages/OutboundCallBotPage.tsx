@@ -1,4 +1,5 @@
 import { LeadCtaStrip, SiteLeadCtas } from '../SiteLeadCtas';
+import { Reveal } from '../Reveal';
 import { siteConfig } from '../siteConfig';
 import { ServiceCrossSell, ServicePageLayout, ServiceRelatedLinks } from './ServicePageLayout';
 
@@ -46,36 +47,38 @@ const benefits = [
   },
 ];
 
+function staggerStep(index: number): 0 | 1 | 2 {
+  return (index % 3) as 0 | 1 | 2;
+}
+
 export function OutboundCallBotPage() {
   return (
     <ServicePageLayout
-      title="בוט קולי לשיחות יזומות וחימום לידים"
-      description="בוט קולי מבוסס AI של קוליד שמבצע שיחות יזומות ללידים קרים ולרשימות קיימות, בוחן רמת עניין ומעביר לידים רלוונטיים לנציג אנושי."
       path={PATH}
       currentPath={PATH}
+      serviceName="Kolid Spark — שיחות יזומות וחימום לידים"
     >
       <section className="svc-hero" aria-labelledby="ob-hero-title">
         <div className="container svc-hero-inner">
-          <p className="svc-eyebrow">שירות · שיחות יזומות</p>
-          <h1 id="ob-hero-title">הפסיקו לבזבז זמן על שיחות שלא מובילות לשום מקום.</h1>
-          <p className="svc-lede">
-            בוט קולי מבוסס AI שמבצע שיחות יזומות, מנהל שיחה טבעית עם לידים ומסייע לצוות
-            המכירות להתמקד בהזדמנויות הרלוונטיות.
-          </p>
-          <div className="svc-hero-actions svc-hero-actions--lead">
-            <SiteLeadCtas />
-            <div className="svc-hero-actions-row">
-              <a className="svc-link-quiet" href={`tel:${siteConfig.contact.phoneE164}`}>
-                להתקשר: {siteConfig.contact.phoneDisplay}
-              </a>
+          <Reveal>
+            <p className="svc-eyebrow">שירות · Kolid Spark</p>
+            <h1 id="ob-hero-title">בוט שיחות יזומות — בלי לבזבז זמן על שיחות שלא מובילות</h1>
+            <p className="svc-lede">
+              בוט קולי מבוסס AI שמבצע שיחות יזומות, מנהל שיחה טבעית עם לידים ומסייע לצוות
+              המכירות להתמקד בהזדמנויות הרלוונטיות.
+            </p>
+          </Reveal>
+          <Reveal delay>
+            <div className="svc-hero-actions svc-hero-actions--lead">
+              <SiteLeadCtas />
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="svc-section" aria-labelledby="ob-challenge-title">
         <div className="container">
-          <div className="svc-section-head">
+          <Reveal className="svc-section-head">
             <p className="svc-eyebrow">האתגר</p>
             <h2 id="ob-challenge-title">שיחות יזומות דורשות זמן לפני שהן מגיעות להזדמנות</h2>
             <p>
@@ -83,42 +86,49 @@ export function OutboundCallBotPage() {
               מהשיחות עדיין לא בשל. סינון ראשוני קולי עוזר לצוות להתמקד בשיחות שיש להן
               פוטנציאל להמשיך, במקום לפתוח כל רשומה מאפס.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="svc-section svc-section--soft" aria-labelledby="ob-how-title">
         <div className="container">
-          <div className="svc-section-head">
+          <Reveal className="svc-section-head">
             <p className="svc-eyebrow">איך זה עובד</p>
             <h2 id="ob-how-title">מרשימה — לשיחה — לנציג</h2>
-          </div>
+          </Reveal>
           <ol className="svc-steps">
-            {steps.map((step) => (
-              <li className="svc-step" key={step.title}>
+            {steps.map((step, index) => (
+              <Reveal as="li" className="svc-step" key={step.title} delayStep={staggerStep(index)}>
                 <div>
                   <h3>{step.title}</h3>
                   <p>{step.body}</p>
                 </div>
-              </li>
+              </Reveal>
             ))}
           </ol>
-          <LeadCtaStrip />
+          <Reveal variant="fade">
+            <LeadCtaStrip />
+          </Reveal>
         </div>
       </section>
 
       <section className="svc-section" aria-labelledby="ob-benefits-title">
         <div className="container">
-          <div className="svc-section-head">
+          <Reveal className="svc-section-head">
             <p className="svc-eyebrow">יתרונות</p>
             <h2 id="ob-benefits-title">מה הבוט משנה בשלב הראשון של המכירה</h2>
-          </div>
+          </Reveal>
           <div className="svc-grid-2">
-            {benefits.map((item) => (
-              <article className="svc-card" key={item.title}>
+            {benefits.map((item, index) => (
+              <Reveal
+                as="article"
+                className="svc-card"
+                key={item.title}
+                delayStep={staggerStep(index)}
+              >
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
-              </article>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -126,32 +136,32 @@ export function OutboundCallBotPage() {
 
       <section className="svc-section svc-section--soft" aria-labelledby="ob-fit-title">
         <div className="container">
-          <div className="svc-section-head">
+          <Reveal className="svc-section-head">
             <p className="svc-eyebrow">למי זה מתאים</p>
             <h2 id="ob-fit-title">עסקים שרוצים ליצור קשר עם קהל קיים או לידים קרים</h2>
             <p>
               הפתרון רלוונטי כשיש רשימות לידים, פניות ישנות או קהל שעדיין לא הביע עניין פעיל,
               ורוצים לסנן לפני שהנציג האנושי ממשיך.
             </p>
-          </div>
-          <ul className="svc-audience">
+          </Reveal>
+          <Reveal as="ul" className="svc-audience" delay>
             <li>עסקים עם רשימות לידים או מאגרי פניות קיימים</li>
             <li>צוותי מכירות שרוצים לצמצם שיחות קרות לא רלוונטיות</li>
             <li>ארגונים שמחפשים סינון ראשוני לפני העברה לנציג</li>
-          </ul>
+          </Reveal>
         </div>
       </section>
 
       <ServiceCrossSell
         title="מקבלים לידים חדשים שמשאירים פרטים?"
-        body="לתגובה מהירה אחרי טופס או קמפיין יש פתרון נפרד — בוט שמתקשר אוטומטית ומנהל שיחה ראשונית."
+        body="לתגובה מהירה אחרי טופס או קמפיין יש פתרון נפרד — Kolid Flash, בוט שמתקשר אוטומטית ומנהל שיחה ראשונית."
         href="/lead-warming"
-        cta="לפרטים על בוט לתגובה מיידית"
+        cta="לפרטים על Kolid Flash"
       />
 
       <section className="svc-section svc-section--purple" aria-labelledby="ob-cta-title">
         <div className="container">
-          <div className="svc-cta-panel">
+          <Reveal className="svc-cta-panel">
             <div>
               <h2 id="ob-cta-title">תנו לצוות המכירות להתמקד בהזדמנויות הנכונות.</h2>
               <p>
@@ -160,7 +170,7 @@ export function OutboundCallBotPage() {
               </p>
             </div>
             <LeadCtaStrip align="start" tone="on-purple" />
-          </div>
+          </Reveal>
         </div>
       </section>
 

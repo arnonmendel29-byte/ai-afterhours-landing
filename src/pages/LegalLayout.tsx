@@ -1,19 +1,20 @@
 import { BrandLogo } from '../BrandLogo';
 import { siteConfig } from '../siteConfig';
+import { applyDocumentMeta } from '../seo/documentMeta';
+import { getSeoPage } from '../seo/pages';
 import { useEffect, type ReactNode } from 'react';
 
 type LegalLayoutProps = {
-  title: string;
-  description: string;
+  path: string;
   children: ReactNode;
 };
 
-export function LegalLayout({ title, description, children }: LegalLayoutProps) {
+export function LegalLayout({ path, children }: LegalLayoutProps) {
+  const page = getSeoPage(path);
+
   useEffect(() => {
-    document.title = `${title} | ${siteConfig.brandName}`;
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute('content', description);
-  }, [title, description]);
+    applyDocumentMeta({ page, jsonLd: null });
+  }, [page]);
 
   return (
     <div className="site-shell legal-page">
@@ -33,8 +34,8 @@ export function LegalLayout({ title, description, children }: LegalLayoutProps) 
       </header>
       <main id="legal-main" className="legal-main container" tabIndex={-1}>
         <header className="legal-title-block">
-          <h1>{title}</h1>
-          <p className="legal-lede">{description}</p>
+          <h1>{page.title.replace(/\s*\|\s*קוליד\s*$/, '')}</h1>
+          <p className="legal-lede">{page.description}</p>
           <p className="legal-updated">
             עודכן לאחרונה:{' '}
             {new Date(siteConfig.policyLastUpdated).toLocaleDateString('he-IL', {
