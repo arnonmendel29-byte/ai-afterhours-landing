@@ -1,180 +1,123 @@
-import { LeadCtaStrip, SiteLeadCtas } from '../SiteLeadCtas';
-import { Reveal } from '../Reveal';
+import { LeadCtaStrip } from '../SiteLeadCtas';
 import { siteConfig } from '../siteConfig';
-import { ServiceCrossSell, ServicePageLayout, ServiceRelatedLinks } from './ServicePageLayout';
+import { ServicePageLayout } from './ServicePageLayout';
 
 const PATH = '/outbound-call-bot';
 
-const steps = [
-  {
-    title: 'חיבור רשימת לידים',
-    body: 'מזינים או מחברים רשימת לידים בהתאם ליכולות המערכת.',
-  },
-  {
-    title: 'שיחות יזומות',
-    body: 'הבוט יוצר קשר באמצעות שיחות יזומות.',
-  },
-  {
-    title: 'בחינת רמת העניין',
-    body: 'הבוט מנהל שיחה ובוחן את רמת העניין.',
-  },
-  {
-    title: 'העברה לנציג',
-    body: 'לידים רלוונטיים מועברים לנציג אנושי בהתאם להגדרות המערכת.',
-  },
-];
-
-const benefits = [
-  {
-    title: 'אוטומציה של השיחות הראשוניות',
-    body: 'הבוט מבצע את שלב השיחה הראשוני במקום לפתוח כל שיחה ידנית.',
-  },
-  {
-    title: 'טיפול בהיקף פניות',
-    body: 'אפשר לטפל בכמויות פניות בהתאם לקיבולת המערכת, בלי להגדיר מראש מכסה שלא אושרה.',
-  },
-  {
-    title: 'סינון ראשוני',
-    body: 'השיחה עוזרת להבין מי מביע עניין לפני שהשיחה עוברת לצוות.',
-  },
-  {
-    title: 'חיסכון בזמן',
-    body: 'צוות המכירות משקיע פחות זמן בשיחות שעדיין לא בשלות.',
-  },
-  {
-    title: 'העברה לנציג אנושי',
-    body: 'שיחות רלוונטיות מועברות לנציג בהתאם להגדרות שתקבעו.',
-  },
-];
-
-function staggerStep(index: number): 0 | 1 | 2 {
-  return (index % 3) as 0 | 1 | 2;
-}
-
 export function OutboundCallBotPage() {
+  const { phoneDisplay, phoneE164 } = siteConfig.contact;
+  const { whatsAppUrl } = siteConfig;
+
   return (
     <ServicePageLayout
       path={PATH}
       currentPath={PATH}
       serviceName="Kolid Spark — שיחות יזומות וחימום לידים"
     >
-      <section className="svc-hero" aria-labelledby="ob-hero-title">
-        <div className="container svc-hero-inner">
-          <Reveal>
-            <p className="svc-eyebrow">שירות · Kolid Spark</p>
-            <h1 id="ob-hero-title">בוט שיחות יזומות — בלי לבזבז זמן על שיחות שלא מובילות</h1>
-            <p className="svc-lede">
-              בוט קולי מבוסס AI שמבצע שיחות יזומות, מנהל שיחה טבעית עם לידים ומסייע לצוות
-              המכירות להתמקד בהזדמנויות הרלוונטיות.
-            </p>
-          </Reveal>
-          <Reveal delay>
-            <div className="svc-hero-actions svc-hero-actions--lead">
-              <SiteLeadCtas />
+      <article className="essay">
+        <header className="essay-band essay-band--open">
+          <div className="essay-inner">
+            <div className="essay-header">
+              <p className="essay-kicker">Kolid Spark</p>
+              <h1>שיחות יזומות מתחילות ברשימה, לא בנציג</h1>
             </div>
-          </Reveal>
-        </div>
-      </section>
 
-      <section className="svc-section" aria-labelledby="ob-challenge-title">
-        <div className="container">
-          <Reveal className="svc-section-head">
-            <p className="svc-eyebrow">האתגר</p>
-            <h2 id="ob-challenge-title">שיחות יזומות דורשות זמן לפני שהן מגיעות להזדמנות</h2>
-            <p>
-              פנייה לרשימות ישנות או ללידים קרים דורשת זמן ומשאבים מצוות המכירות. חלק גדול
-              מהשיחות עדיין לא בשל. סינון ראשוני קולי עוזר לצוות להתמקד בשיחות שיש להן
-              פוטנציאל להמשיך, במקום לפתוח כל רשומה מאפס.
+            <p className="essay-lede">
+              רוב העסקים שמדברים איתנו על שיחות יזומות לא מחפשים עוד ערוץ. יש להם כבר רשימה:
+              לידים ישנים, פניות שלא נסגרו, אנשים שנרשמו פעם ולא חזרו. מה שחסר הוא מי שמוכן
+              לפתוח את השיחה הראשונה ולבדוק אם בכלל יש עם מי לדבר.
             </p>
-          </Reveal>
-        </div>
-      </section>
 
-      <section className="svc-section svc-section--soft" aria-labelledby="ob-how-title">
-        <div className="container">
-          <Reveal className="svc-section-head">
-            <p className="svc-eyebrow">איך זה עובד</p>
-            <h2 id="ob-how-title">מרשימה — לשיחה — לנציג</h2>
-          </Reveal>
-          <ol className="svc-steps">
-            {steps.map((step, index) => (
-              <Reveal as="li" className="svc-step" key={step.title} delayStep={staggerStep(index)}>
-                <div>
-                  <h3>{step.title}</h3>
-                  <p>{step.body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </ol>
-          <Reveal variant="fade">
-            <LeadCtaStrip />
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="svc-section" aria-labelledby="ob-benefits-title">
-        <div className="container">
-          <Reveal className="svc-section-head">
-            <p className="svc-eyebrow">יתרונות</p>
-            <h2 id="ob-benefits-title">מה הבוט משנה בשלב הראשון של המכירה</h2>
-          </Reveal>
-          <div className="svc-grid-2">
-            {benefits.map((item, index) => (
-              <Reveal
-                as="article"
-                className="svc-card"
-                key={item.title}
-                delayStep={staggerStep(index)}
-              >
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </Reveal>
-            ))}
+            <p>
+              כשהנציג הוא זה שפותח, חלק גדול מהיום הולך על אנשים שלא זוכרים את הפנייה, לא
+              פנויים, או אומרים מיד שזה לא רלוונטי. מה שנשאר לצוות המכירות הוא לא השיחה. זה
+              הסינון שלפניה.
+            </p>
           </div>
-        </div>
-      </section>
+        </header>
 
-      <section className="svc-section svc-section--soft" aria-labelledby="ob-fit-title">
-        <div className="container">
-          <Reveal className="svc-section-head">
-            <p className="svc-eyebrow">למי זה מתאים</p>
-            <h2 id="ob-fit-title">עסקים שרוצים ליצור קשר עם קהל קיים או לידים קרים</h2>
+        <section className="essay-band essay-band--tint">
+          <div className="essay-inner">
+            <h2>מה קורה כשמתקשרים לרשימה קרה</h2>
             <p>
-              הפתרון רלוונטי כשיש רשימות לידים, פניות ישנות או קהל שעדיין לא הביע עניין פעיל,
-              ורוצים לסנן לפני שהנציג האנושי ממשיך.
+              ליד קר הוא לא בהכרח אדם שלא מתעניין. לפעמים הוא לא זוכר שהשאיר פרטים. לפעמים
+              השאיר אותם בעונה אחרת, לעסק אחר, מסיבה שכבר לא קיימת. בגיליון כולם נראים אותו
+              דבר: שם, טלפון, סטטוס ישן. בטלפון ההבדל נשמע תוך דקה.
             </p>
-          </Reveal>
-          <Reveal as="ul" className="svc-audience" delay>
-            <li>עסקים עם רשימות לידים או מאגרי פניות קיימים</li>
-            <li>צוותי מכירות שרוצים לצמצם שיחות קרות לא רלוונטיות</li>
-            <li>ארגונים שמחפשים סינון ראשוני לפני העברה לנציג</li>
-          </Reveal>
-        </div>
-      </section>
+            <p>
+              מישהו אומר לחזור בעוד חודשיים. מישהו אחר אומר שאין לו מושג מי אתם. בגיליון שניהם
+              היו יכולים להופיע כ״לא ענה״ או כ״לחזור״. השיחה היא מה שמפריד ביניהם.
+            </p>
+            <p>
+              Kolid Spark הוא בוט קולי שיוצא לרשימה הזו. הוא מתקשר, מציג את עצמו, ומנהל שיחה
+              קצרה שמטרתה אחת: להבין אם יש עניין להמשיך. מי שמביע עניין עובר לנציג. מי שלא,
+              השיחה נגמרת שם.
+            </p>
+            <p>
+              אין כאן הבטחה שכל רשומה תהפוך לפגישה. יש ציפייה צנועה יותר: הנציג נכנס אחרי
+              שמישהו כבר דיבר עם האדם בצד השני.
+            </p>
+            <LeadCtaStrip align="start" className="essay-cta" />
+          </div>
+        </section>
 
-      <ServiceCrossSell
-        title="מקבלים לידים חדשים שמשאירים פרטים?"
-        body="לתגובה מהירה אחרי טופס או קמפיין יש פתרון נפרד — Kolid Flash, בוט שמתקשר אוטומטית ומנהל שיחה ראשונית."
-        href="/lead-warming"
-        cta="לפרטים על Kolid Flash"
-      />
+        <section className="essay-band">
+          <div className="essay-inner">
+            <h2>השיחה קצרה בכוונה</h2>
+            <p>
+              בוט שיוצא החוצה לא אמור לסגור עסקה. הוא אמור לשאול את מה שנציג היה שואל בדקה
+              הראשונה, ולהקשיב לתשובה. מתעניין. לא מתעניין. תתקשרו בעוד חודש. תורידו אותי
+              מהרשימה. כל אחת מהתשובות האלה שווה יותר משורה ריקה.
+            </p>
+            <p>
+              את מה שנחשב עניין קובעים מראש, לפי מה שהעסק באמת רוצה לדעת. אצל אחד זו שאלה על
+              לוח זמנים. אצל אחר, אם בכלל נשאר תקציב השנה. הבוט לא אמור לאלתר תסריט שנשמע
+              סביר בכל תחום.
+            </p>
+            <p>
+              כשהשיחה רלוונטית, היא עוברת לנציג אנושי. הנציג מקבל אדם שכבר דיבר, לא מספר
+              טלפון מתוך רשימה.
+            </p>
+          </div>
+        </section>
 
-      <section className="svc-section svc-section--purple" aria-labelledby="ob-cta-title">
-        <div className="container">
-          <Reveal className="svc-cta-panel">
-            <div>
-              <h2 id="ob-cta-title">תנו לצוות המכירות להתמקד בהזדמנויות הנכונות.</h2>
-              <p>
-                השאירו פרטים להדגמה, או התקשרו ל־{siteConfig.contact.phoneDisplay}. נציג של{' '}
-                {siteConfig.brandName} יחזור אליכם.
-              </p>
-            </div>
-            <LeadCtaStrip align="start" tone="on-purple" />
-          </Reveal>
-        </div>
-      </section>
+        <section className="essay-band essay-band--tint">
+          <div className="essay-inner">
+            <h2>מאיפה זה מתחיל אצלכם</h2>
+            <p>
+              מתחילים בחיבור הרשימה. אחר כך קובעים מה הבוט שואל, מתי הוא מתקשר, ומתי שיחה
+              נחשבת בשלה להעברה. מכאן השיחות יוצאות, והצוות רואה את מי שכדאי לחזור אליו.
+            </p>
+            <p>
+              זה מתאים כשיש מאגר: פניות ישנות, לידים מקמפיין שכבר נגמר, לקוחות שלא דיברתם
+              איתם תקופה. זה פחות העניין כשהליד השאיר פרטים עכשיו ומחכה שמישהו יחזור אליו.
+              בשביל זה יש{' '}
+              <a href="/lead-warming">Kolid Flash</a>, שמתקשר לליד חדש אחרי הטופס.
+            </p>
+          </div>
+        </section>
 
-      <ServiceRelatedLinks exclude={PATH} />
+        <section className="essay-band essay-band--close">
+          <div className="essay-inner">
+            <h2>אם הרשימה כבר מחכה</h2>
+            <p>
+              אפשר לשמוע איך Spark נשמע על שיחה כזאת.{' '}
+              <a href="/#demo-form">השאירו פרטים</a>
+              {whatsAppUrl ? (
+                <>
+                  , כתבו <a href={whatsAppUrl}>בוואטסאפ</a>
+                </>
+              ) : null}
+              , או התקשרו ל־<a href={`tel:${phoneE164}`}>{phoneDisplay}</a>.
+            </p>
+            <p>
+              הסבר רחב יותר על בוטי שיחות, בלי קשר למוצר הזה, נמצא{' '}
+              <a href="/ai-call-bots">במדריך</a>.
+            </p>
+            <LeadCtaStrip align="start" className="essay-cta essay-cta--page-end" />
+          </div>
+        </section>
+      </article>
     </ServicePageLayout>
   );
 }

@@ -12,8 +12,15 @@
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="preload" href="/kolid-logo.png" as="image" type="image/png" />
-    <link rel="preload" href="/hero-robot.webp" as="image" type="image/webp" fetchpriority="high" />
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="/hero-robot.webp"
+      imagesrcset="/hero-robot-mobile.webp 680w, /hero-robot.webp 1120w"
+      imagesizes="(max-width: 767px) min(100vw, 340px), min(56vw, 560px)"
+      fetchpriority="high"
+    />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="he_IL" />
     <meta property="og:site_name" content="קוליד" />
@@ -34,14 +41,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,600;0,700;1,400&display=swap"
-    />
-    <link
       href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,600;0,700;1,400&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
     <!-- JSON-LD בסיסי ב-HTML; העשרה מלאה (FAQ/Service) מוזרקת בזמן ריצה -->
     <script type="application/ld+json" id="kolid-jsonld">
       {
