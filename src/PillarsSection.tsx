@@ -214,9 +214,9 @@ export function PillarsSection() {
   const isMobile = useIsMobile();
   const prefersReducedMotion = useReducedMotion();
 
-  if (isMobile || prefersReducedMotion) {
+  if (prefersReducedMotion) {
     return <PillarsMobileLayout />;
   }
 
-  return <PillarsScroll isMobile={false} />;
+  return <PillarsScroll isMobile={isMobile} />;
 }
