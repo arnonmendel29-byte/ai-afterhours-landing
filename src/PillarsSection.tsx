@@ -158,9 +158,7 @@ function PillarsMobileLayout() {
   );
 }
 
-export function PillarsSection() {
-  const isMobile = useIsMobile();
-  const prefersReducedMotion = useReducedMotion();
+function PillarsScroll({ isMobile }: { isMobile: boolean }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: trackRef,
@@ -177,10 +175,6 @@ export function PillarsSection() {
   const headlineScale = useTransform(smoothProgress, [0, 0.5, 1], [1, 1.02, 1]);
   const glowOpacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0.35, 0.55, 0.7, 0.45]);
   const glow = useMotionTemplate`radial-gradient(ellipse 55% 45% at 50% 48%, rgba(233, 213, 255, ${glowOpacity}), transparent 70%)`;
-
-  if (prefersReducedMotion) {
-    return <PillarsMobileLayout />;
-  }
 
   return (
     <div className="pillars-track" ref={trackRef} id="use-cases">
@@ -214,4 +208,15 @@ export function PillarsSection() {
       </section>
     </div>
   );
+}
+
+export function PillarsSection() {
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = useReducedMotion();
+
+  if (isMobile || prefersReducedMotion) {
+    return <PillarsMobileLayout />;
+  }
+
+  return <PillarsScroll isMobile={false} />;
 }

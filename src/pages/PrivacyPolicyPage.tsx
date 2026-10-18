@@ -73,10 +73,10 @@ export function PrivacyPolicyPage() {
           שימוש לרעה. לא אותרו בקוד האתר כלי Analytics (Google Analytics, Meta Pixel וכו&apos;)
           או מנגנוני פרסום.
         </p>
-        <h3>2.5 Google Fonts</h3>
+        <h3>2.5 גופנים</h3>
         <p>
-          האתר טוען גופנים מ-Google Fonts (fonts.googleapis.com / fonts.gstatic.com). בקשות
-          אלה עשויות לחשוף ל-Google את כתובת IP שלכם ופרטי דפדפן, בהתאם למדיניות Google.
+          גופן Rubik מוגש מהאתר עצמו (קבצים מקומיים). אין טעינה של גופנים מ-Google Fonts
+          ואין העברת כתובת IP ל-Google לצורך הצגת הטקסט.
         </p>
       </section>
 
@@ -99,9 +99,6 @@ export function PrivacyPolicyPage() {
           <li>
             <strong>Vercel</strong> — אירוח ופריסת האתר (עשוי לכלול עיבוד בשרתים מחוץ
             לישראל).
-          </li>
-          <li>
-            <strong>Google</strong> — אספקת גופנים (Fonts).
           </li>
           {hasFormBackend && (
             <li>

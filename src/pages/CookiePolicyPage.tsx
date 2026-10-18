@@ -20,8 +20,8 @@ export function CookiePolicyPage() {
           <li>
             קוד מקור — localStorage רק להעדפות נגישות (`kolid-a11y-prefs`), לא למעקב או פרסום.
           </li>
-          <li>index.html — ללא תגיות צד שלישי למעקב.</li>
-          <li>משאבים חיצוניים: Google Fonts בלבד (גופנים).</li>
+          <li>index.html — ללא תגיות צד שלישי למעקב או לגופנים.</li>
+          <li>גופן Rubik מוגש מקומית מהאתר, בלי בקשה ל-Google Fonts.</li>
         </ul>
         <p>
           <em>מגבלה:</em> לא נבדקו הגדרות Vercel שלא נגישות מהמאגר (Analytics, Speed Insights,
@@ -37,10 +37,10 @@ export function CookiePolicyPage() {
           עוגיות תשתית (למשל _vercel_jwt ב-preview) — רלוונטי בעיקר לסביבות preview, לא בהכרח
           ל-production הציבורי.
         </p>
-        <h3>3.2 צד שלישי — Google Fonts</h3>
+        <h3>3.2 גופנים</h3>
         <p>
-          טעינת גופנים מ-Google עשויה לכלול בקשות לדומיינים של Google. מדיניות העוגיות של Google
-          חלה על השירות. אין שימוש ב-Cookie Consent Mode בפרויקט.
+          גופן האתר נטען מהשרת של האתר עצמו. אין בקשה לגופנים מצד שלישי, ואין שימוש ב-Cookie
+          Consent Mode בפרויקט.
         </p>
         <h3>3.3 מעקב ופרסום</h3>
         <p>לא אותרו — אם יוספו בעתיד, יש לעדכן מדיניות זו ולהעריך מחדש צורך בהסכמה.</p>
@@ -49,8 +49,8 @@ export function CookiePolicyPage() {
       <section aria-labelledby="ck-control">
         <h2 id="ck-control">4. שליטה בדפדפן</h2>
         <p>
-          ניתן לחסום עוגיות או משאבים של צד שלישי בהגדרות הדפדפן. חסימה עלולה לשנות את מראה
-          האתר (גופנים).
+          ניתן לחסום עוגיות או משאבים של צד שלישי בהגדרות הדפדפן. גופן האתר אינו תלוי בצד
+          שלישי.
         </p>
       </section>
 

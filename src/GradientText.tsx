@@ -80,7 +80,9 @@ export default function GradientText({
     const root = rootRef.current;
     if (!root) return undefined;
 
-    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    const reduce =
+      (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false) ||
+      (window.matchMedia?.('(max-width: 767px)').matches ?? false);
     const state = {
       time: 0,
       inside: false,

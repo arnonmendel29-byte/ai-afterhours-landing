@@ -86,6 +86,11 @@ function Hero() {
       <div className="hero-layout">
         <div className="hero-phones">
           <picture>
+            <source
+              media="(max-width: 767px)"
+              srcSet="/hero-robot-mobile.webp"
+              type="image/webp"
+            />
             <source srcSet="/hero-robot.webp" type="image/webp" />
             <img
               className="hero-robot"

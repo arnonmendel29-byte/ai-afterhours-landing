@@ -17,8 +17,15 @@ function getMinVisibleMs() {
   return DESKTOP_MIN_VISIBLE_MS;
 }
 
+function shouldShowLoader() {
+  if (typeof window === 'undefined') return true;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+  if (window.matchMedia('(max-width: 767px)').matches) return false;
+  return true;
+}
+
 export function PageLoader({ children }: PageLoaderProps) {
-  const [mounted, setMounted] = useState(true);
+  const [mounted, setMounted] = useState(shouldShowLoader);
   const [exiting, setExiting] = useState(false);
 
   useEffect(() => {
