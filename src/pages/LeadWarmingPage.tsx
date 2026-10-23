@@ -103,40 +103,42 @@ export function LeadWarmingPage() {
       currentPath={PATH}
       serviceName="Kolid Flash — תגובה מיידית ללידים"
     >
-      <article className="essay">
-        <div className="essay-waves">
-          <header className="essay-band essay-band--open">
-            <div className="essay-inner">
-              <div className="essay-header">
-                <h1 id="lw-hero-title">תגובה מיידית ללידים — אנחנו כבר על הקו</h1>
-              </div>
+      <article className="essay essay--flash">
+        <header className="essay-band essay-band--open flash-hero">
+          <div className="essay-inner flash-hero__grid">
+            <div className="essay-header">
+              <h1 id="lw-hero-title">תגובה מיידית ללידים — אנחנו כבר על הקו</h1>
+            </div>
+            <div className="flash-hero__aside">
               <p className="essay-lede">
                 בוט קולי מבוסס AI שמתקשר ללידים חדשים באופן אוטומטי, מנהל שיחה ראשונית ומסייע
                 לעסק להגיב בזמן ולנצל טוב יותר את ההזדמנויות שמגיעות מהשיווק.
               </p>
               <LeadCtaStrip align="start" className="essay-cta" />
             </div>
-          </header>
+          </div>
+        </header>
 
-          <section className="essay-band" aria-labelledby="lw-speed-title">
-            <div className="essay-inner">
-              <h2 id="lw-speed-title">ליד שהשאיר פרטים מצפה למענה</h2>
+        <section className="essay-band flash-split" aria-labelledby="lw-speed-title">
+          <div className="essay-inner flash-split__grid">
+            <h2 id="lw-speed-title">ליד שהשאיר פרטים מצפה למענה</h2>
+            <p>
+              לקוח שהשאיר פרטים מצפה שיחזרו אליו. ככל שהמענה מתעכב, גדל הסיכון שהוא יאבד
+              עניין או יפנה למקום אחר. בוט שמתקשר לפי ההגדרות שלכם פותח את השיחה בשלב הזה,
+              כדי שההזדמנות לא תישאר ממתינה עד שנציג פנוי.
+            </p>
+          </div>
+        </section>
+
+        <section className="essay-band essay-band--tint flash-process" id="how-it-works" aria-labelledby="lw-how-title">
+          <div className="essay-inner">
+            <div className="flash-process__intro">
+              <h2 id="lw-how-title">מתהליך קצר: מפרטים — לשיחה — להמשך טיפול</h2>
               <p>
-                לקוח שהשאיר פרטים מצפה שיחזרו אליו. ככל שהמענה מתעכב, גדל הסיכון שהוא יאבד
-                עניין או יפנה למקום אחר. בוט שמתקשר לפי ההגדרות שלכם פותח את השיחה בשלב הזה,
-                כדי שההזדמנות לא תישאר ממתינה עד שנציג פנוי.
+                השירות מתבסס על בוט שיחות שפועל לפי ההגדרות שלכם, יוצר קשר קולי עם הליד ואוסף
+                מידע רלוונטי לפני שהנציג האנושי נכנס לתמונה.
               </p>
             </div>
-          </section>
-        </div>
-
-        <section className="essay-band essay-band--tint" id="how-it-works" aria-labelledby="lw-how-title">
-          <div className="essay-inner">
-            <h2 id="lw-how-title">מתהליך קצר: מפרטים — לשיחה — להמשך טיפול</h2>
-            <p>
-              השירות מתבסס על בוט שיחות שפועל לפי ההגדרות שלכם, יוצר קשר קולי עם הליד ואוסף
-              מידע רלוונטי לפני שהנציג האנושי נכנס לתמונה.
-            </p>
             <EssayScrollTimeline>
               {leadWarmingFlow.map((step) => (
                 <div className="essay-timeline__item" key={step.number}>
@@ -155,56 +157,64 @@ export function LeadWarmingPage() {
           </div>
         </section>
 
-        <section className="essay-band" aria-labelledby="lw-benefits-title">
+        <section className="essay-band flash-benefits" aria-labelledby="lw-benefits-title">
           <div className="essay-inner">
             <h2 id="lw-benefits-title">יתרונות של תגובה מיידית ללידים</h2>
-            {benefits.map((item) => (
-              <div key={item.title}>
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </div>
-            ))}
+            <div className="flash-benefit-list">
+              {benefits.map((item) => (
+                <div className="flash-benefit" key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section className="essay-band essay-band--tint" aria-labelledby="lw-fit-title">
-          <div className="essay-inner">
-            <h2 id="lw-fit-title">דוגמאות לקהלים שבהם המענה המהיר רלוונטי</h2>
-            <p>
-              הרשימה מתארת קהלי יעד אפשריים. היא לא קובעת שכל סוג עסק נתמך, ולא מחליפה
-              בדיקה של תהליך העבודה אצלכם.
-            </p>
-            {audiences.map((item) => (
-              <p key={item}>{item}</p>
-            ))}
+        <section className="essay-band essay-band--tint flash-audiences" aria-labelledby="lw-fit-title">
+          <div className="essay-inner flash-audiences__grid">
+            <div className="flash-audiences__copy">
+              <h2 id="lw-fit-title">דוגמאות לקהלים שבהם המענה המהיר רלוונטי</h2>
+              <p>
+                הרשימה מתארת קהלי יעד אפשריים. היא לא קובעת שכל סוג עסק נתמך, ולא מחליפה
+                בדיקה של תהליך העבודה אצלכם.
+              </p>
+            </div>
+            <div className="flash-audience-list">
+              {audiences.map((item) => (
+                <p key={item}>{item}</p>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section className="essay-band" id="pricing" aria-labelledby="lw-pricing-title">
+        <section className="essay-band flash-pricing" id="pricing" aria-labelledby="lw-pricing-title">
           <div className="essay-inner">
             <h2 id="lw-pricing-title">{instantLeadPricing.title}</h2>
-            {instantLeadPricing.plans.map((plan) => (
-              <div key={plan.id}>
-                <h3>{plan.name}</h3>
-                <p>
-                  {plan.priceLabel}. {plan.description}
-                </p>
-                {plan.features.length > 0 ? (
-                  plan.features.map((feature) => <p key={feature}>{feature}</p>)
-                ) : (
-                  <p>{plan.featuresPendingNote}</p>
-                )}
-                <p>
-                  <a href={plan.ctaHref}>{plan.ctaLabel}</a>
-                </p>
-              </div>
-            ))}
-            <p>{instantLeadPricing.footnote}</p>
+            <div className="flash-plans">
+              {instantLeadPricing.plans.map((plan) => (
+                <div className="flash-plan" key={plan.id}>
+                  <h3>{plan.name}</h3>
+                  <p>
+                    {plan.priceLabel}. {plan.description}
+                  </p>
+                  {plan.features.length > 0 ? (
+                    plan.features.map((feature) => <p key={feature}>{feature}</p>)
+                  ) : (
+                    <p>{plan.featuresPendingNote}</p>
+                  )}
+                  <p>
+                    <a href={plan.ctaHref}>{plan.ctaLabel}</a>
+                  </p>
+                </div>
+              ))}
+            </div>
+            <p className="flash-pricing__note">{instantLeadPricing.footnote}</p>
           </div>
         </section>
 
-        <section className="essay-band essay-band--tint">
-          <div className="essay-inner">
+        <section className="essay-band flash-bridge">
+          <div className="essay-inner flash-bridge__grid">
             <h2>מחפשים ליצור קשר עם לידים קרים או רשימות קיימות?</h2>
             <p>
               לשיחות יזומות ולחימום רשימות יש פתרון נפרד — Kolid Spark, בוט שיוצא לשיחה ומסנן
@@ -213,7 +223,7 @@ export function LeadWarmingPage() {
           </div>
         </section>
 
-        <section className="essay-band essay-band--close" aria-labelledby="lw-cta-title">
+        <section className="essay-band essay-band--close flash-close" aria-labelledby="lw-cta-title">
           <div className="essay-inner">
             <h2 id="lw-cta-title">רוצים לראות איך Kolid Flash עובד אצלכם?</h2>
             <p>

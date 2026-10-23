@@ -1,8 +1,41 @@
+import { useEffect, useRef } from 'react';
 import { LeadCtaStrip } from '../SiteLeadCtas';
 import { siteConfig } from '../siteConfig';
 import { ServicePageLayout } from './ServicePageLayout';
 
 const PATH = '/outbound-call-bot';
+
+function ReadingProgress() {
+  const barRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const bar = barRef.current;
+    if (!bar) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let frame = 0;
+    const sync = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      bar.style.transform = `scaleX(${progress})`;
+    };
+    const schedule = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(sync);
+    };
+
+    sync();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
+  }, []);
+
+  return <div className="spark-progress" ref={barRef} aria-hidden="true" />;
+}
 
 export function OutboundCallBotPage() {
   const { phoneDisplay, phoneE164 } = siteConfig.contact;
@@ -14,12 +47,14 @@ export function OutboundCallBotPage() {
       currentPath={PATH}
       serviceName="Kolid Spark — שיחות יזומות וחימום לידים"
     >
-      <article className="essay">
-        <header className="essay-band essay-band--open">
+      <article className="essay essay--spark">
+        <ReadingProgress />
+        <div className="spark-frame">
+        <header className="essay-band essay-band--open spark-open">
           <div className="essay-inner">
             <div className="essay-header">
               <p className="essay-kicker">Kolid Spark</p>
-              <h1>שיחות יזומות מתחילות ברשימה, לא בנציג</h1>
+              <h1>שיחות יזומות מתחילות ברשימה, <span className="spark-title-accent">לא בנציג</span></h1>
             </div>
 
             <p className="essay-lede">
@@ -36,7 +71,8 @@ export function OutboundCallBotPage() {
           </div>
         </header>
 
-        <section className="essay-band essay-band--tint">
+        <div className="spark-body">
+        <section className="essay-band essay-band--tint" id="spark-cold">
           <div className="essay-inner">
             <h2>מה קורה כשמתקשרים לרשימה קרה</h2>
             <p>
@@ -61,7 +97,7 @@ export function OutboundCallBotPage() {
           </div>
         </section>
 
-        <section className="essay-band">
+        <section className="essay-band" id="spark-short">
           <div className="essay-inner">
             <h2>השיחה קצרה בכוונה</h2>
             <p>
@@ -81,7 +117,7 @@ export function OutboundCallBotPage() {
           </div>
         </section>
 
-        <section className="essay-band essay-band--tint">
+        <section className="essay-band essay-band--tint" id="spark-start">
           <div className="essay-inner">
             <h2>מאיפה זה מתחיל אצלכם</h2>
             <p>
@@ -97,7 +133,7 @@ export function OutboundCallBotPage() {
           </div>
         </section>
 
-        <section className="essay-band essay-band--close">
+        <section className="essay-band essay-band--close" id="spark-wait">
           <div className="essay-inner">
             <h2>אם הרשימה כבר מחכה</h2>
             <p>
@@ -117,6 +153,8 @@ export function OutboundCallBotPage() {
             <LeadCtaStrip align="start" className="essay-cta essay-cta--page-end" />
           </div>
         </section>
+        </div>
+        </div>
       </article>
     </ServicePageLayout>
   );
