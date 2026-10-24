@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img">
+  <rect width="960" height="360" fill="#faf5ff"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="36" y="48" width="200" height="180" rx="16" fill="#fff" stroke="#ddd6fe"/>
+    <text x="136" y="120" fill="#7c3aed" font-size="40" font-weight="700">300</text>
+    <text x="136" y="164" fill="#1c1917" font-size="18" style="direction:rtl;unicode-bidi:plaintext">לידים</text>
+    <rect x="264" y="48" width="200" height="180" rx="16" fill="#fff" stroke="#ddd6fe"/>
+    <text x="364" y="120" fill="#7c3aed" font-size="40" font-weight="700">150</text>
+    <text x="364" y="164" fill="#1c1917" font-size="18" style="direction:rtl;unicode-bidi:plaintext">שוחחו</text>
+    <rect x="492" y="48" width="200" height="180" rx="16" fill="#fff" stroke="#ddd6fe"/>
+    <text x="592" y="120" fill="#7c3aed" font-size="40" font-weight="700">150</text>
+    <text x="592" y="164" fill="#1c1917" font-size="18" style="direction:rtl;unicode-bidi:plaintext">נשארו בגיליון</text>
+    <rect x="720" y="48" width="204" height="180" rx="16" fill="#7c3aed"/>
+    <text x="822" y="116" fill="#fff" font-size="32" font-weight="700">12,000</text>
+    <text x="822" y="156" fill="#fff" font-size="18" style="direction:rtl;unicode-bidi:plaintext">ש״ח</text>
+  </g>
+</svg>

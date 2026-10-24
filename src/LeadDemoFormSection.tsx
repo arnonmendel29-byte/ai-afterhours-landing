@@ -121,7 +121,7 @@ export function LeadDemoFormSection({
         </p>
         <p className="form-note">
           אפשר גם להתקשר:{' '}
-          <a href={`tel:${siteConfig.contact.phoneE164}`}>{siteConfig.contact.phoneDisplay}</a>. זמינות 24/7.
+          <a href={`tel:${siteConfig.contact.phoneE164}`}>{siteConfig.contact.phoneDisplay}</a>.
         </p>
         <div className="form-status" data-form-status tabIndex={-1} role="status" aria-live="polite">
           {status === 'offline' && (

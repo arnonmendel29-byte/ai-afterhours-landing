@@ -37,6 +37,7 @@ type WhatsAppLeadButtonProps = {
 };
 
 export const FLASH_TRY_CTA_LABEL = 'נסו את Kolid Flash עכשיו';
+export const WHATSAPP_CTA_LABEL = 'דברו איתנו בוואטסאפ';
 
 type FlashTryLeadButtonProps = {
   className?: string;
@@ -60,7 +61,7 @@ export function FlashTryLeadButton({ className = '', onClick }: FlashTryLeadButt
 /** כפתור וואטסאפ בודד — לשילוב בתוך בלוקים (למשל סוף timeline) */
 export function WhatsAppLeadButton({
   className = '',
-  children = 'דיברו איתנו בווטאצפ',
+  children = WHATSAPP_CTA_LABEL,
 }: WhatsAppLeadButtonProps) {
   const { whatsAppUrl } = siteConfig;
   if (!whatsAppUrl) {
@@ -147,7 +148,7 @@ export function SiteLeadCtas({
         rel="noopener noreferrer"
       >
         <WhatsAppIcon />
-        <span>דיברו איתנו בווטאצפ</span>
+        <span>{WHATSAPP_CTA_LABEL}</span>
       </a>
     ) : null;
 

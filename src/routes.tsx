@@ -8,6 +8,11 @@ const AccessibilityWidget = lazy(() =>
   })),
 );
 
+const AboutPage = lazy(() =>
+  import('./pages/AboutPage').then((module) => ({
+    default: module.AboutPage,
+  })),
+);
 const AccessibilityPage = lazy(() =>
   import('./pages/AccessibilityPage').then((module) => ({
     default: module.AccessibilityPage,
@@ -21,6 +26,16 @@ const AiCallBotsPage = lazy(() =>
 const CookiePolicyPage = lazy(() =>
   import('./pages/CookiePolicyPage').then((module) => ({
     default: module.CookiePolicyPage,
+  })),
+);
+const HowToGetMoreLeadsPage = lazy(() =>
+  import('./pages/HowToGetMoreLeadsPage').then((module) => ({
+    default: module.HowToGetMoreLeadsPage,
+  })),
+);
+const ImproveSalesProcessPage = lazy(() =>
+  import('./pages/ImproveSalesProcessPage').then((module) => ({
+    default: module.ImproveSalesProcessPage,
   })),
 );
 const LeadWarmingPage = lazy(() =>
@@ -67,6 +82,13 @@ function RouteBody() {
   if (path === '/') {
     return <LandingApp />;
   }
+  if (path === '/about') {
+    return (
+      <Suspense fallback={<RouteFallback />}>
+        <AboutPage />
+      </Suspense>
+    );
+  }
   if (path === '/privacy-policy') {
     return (
       <Suspense fallback={<RouteFallback />}>
@@ -106,6 +128,20 @@ function RouteBody() {
     return (
       <Suspense fallback={<RouteFallback />}>
         <OutboundCallBotPage />
+      </Suspense>
+    );
+  }
+  if (path === '/how-to-get-more-leads') {
+    return (
+      <Suspense fallback={<RouteFallback />}>
+        <HowToGetMoreLeadsPage />
+      </Suspense>
+    );
+  }
+  if (path === '/improve-sales-process') {
+    return (
+      <Suspense fallback={<RouteFallback />}>
+        <ImproveSalesProcessPage />
       </Suspense>
     );
   }

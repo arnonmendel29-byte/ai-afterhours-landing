@@ -2,9 +2,10 @@
  * אחרי vite build: יוצר HTML סטטי לכל נתיב עם Title/Description/Canonical נכונים,
  * כדי שסורקים יקבלו מטא-דאטה גם לפני הרצת JavaScript.
  */
-import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { build } from 'esbuild';
+import { copyFileSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
@@ -21,7 +22,7 @@ function absoluteUrl(path) {
   return `${siteUrl}${path}`;
 }
 
-function replaceMeta(html, { title, description, path }) {
+function replaceMeta(html, { title, description, path, image = ogImage, ogType = 'website', jsonLd }) {
   const canonical = absoluteUrl(path);
   let out = html;
 
@@ -50,8 +51,12 @@ function replaceMeta(html, { title, description, path }) {
     `<meta property="og:url" content="${canonical}" />`,
   );
   out = out.replace(
+    /<meta\s+property="og:type"\s+content="[^"]*"\s*\/>/,
+    `<meta property="og:type" content="${ogType}" />`,
+  );
+  out = out.replace(
     /<meta\s+property="og:image"\s+content="[^"]*"\s*\/>/,
-    `<meta property="og:image" content="${ogImage}" />`,
+    `<meta property="og:image" content="${image}" />`,
   );
 
   out = out.replace(
@@ -64,8 +69,15 @@ function replaceMeta(html, { title, description, path }) {
   );
   out = out.replace(
     /<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/>/,
-    `<meta name="twitter:image" content="${ogImage}" />`,
+    `<meta name="twitter:image" content="${image}" />`,
   );
+
+  if (jsonLd) {
+    out = out.replace(
+      /<script type="application\/ld\+json" id="kolid-jsonld">[\s\S]*?<\/script>/,
+      `<script type="application/ld+json" id="kolid-jsonld">${JSON.stringify(jsonLd)}</script>`,
+    );
+  }
 
   return out;
 }
@@ -85,10 +97,37 @@ function escapeAttr(value) {
     .replaceAll('>', '&gt;');
 }
 
+const articleBundle = join(distDir, '.seo-articles.mjs');
+await build({
+  entryPoints: [join(root, 'src/articles/seoArticles.ts')],
+  bundle: true,
+  format: 'esm',
+  platform: 'node',
+  outfile: articleBundle,
+  logLevel: 'silent',
+  define: {
+    'import.meta.env.VITE_FORM_ACTION_URL': 'undefined',
+    'import.meta.env.VITE_LEAD_WEBHOOK_URL': 'undefined',
+  },
+});
+const { seoArticles, buildArticleJsonLd } = await import(pathToFileURL(articleBundle).href);
+const articlesByPath = new Map(seoArticles.map((article) => [article.path, article]));
+
 const template = readFileSync(join(distDir, 'index.html'), 'utf8');
 
 for (const [path, meta] of Object.entries(pages)) {
-  const html = replaceMeta(template, { ...meta, path });
+  const article = articlesByPath.get(path);
+  const html = replaceMeta(template, {
+    ...meta,
+    path,
+    ...(article
+      ? {
+          image: absoluteUrl(article.hero.src),
+          ogType: 'article',
+          jsonLd: buildArticleJsonLd(article),
+        }
+      : {}),
+  });
 
   if (path === '/') {
     writeFileSync(join(distDir, 'index.html'), html, 'utf8');
@@ -106,6 +145,8 @@ try {
 } catch {
   // ignore
 }
+
+unlinkSync(articleBundle);
 
 console.log(
   `SEO route HTML generated for ${Object.keys(pages).length} pages → ${distDir}`,

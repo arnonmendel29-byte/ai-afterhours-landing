@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img">
+  <defs>
+    <clipPath id="card">
+      <rect x="48" y="36" width="864" height="468" rx="18"/>
+    </clipPath>
+  </defs>
+  <rect width="960" height="540" fill="#f5f3ff"/>
+  <g clip-path="url(#card)">
+    <rect x="48" y="36" width="864" height="468" fill="#fff"/>
+    <rect x="48" y="36" width="864" height="64" fill="#7c3aed"/>
+    <text x="880" y="76" text-anchor="end" fill="#fff" font-family="Arial, sans-serif" font-size="20" font-weight="700">גיליון לידים</text>
+    <g font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#4c1d95">
+      <text x="880" y="132" text-anchor="end">שם</text>
+      <text x="560" y="132" text-anchor="end">טלפון</text>
+      <text x="240" y="132" text-anchor="end">סטטוס</text>
+    </g>
+    <line x1="72" y1="148" x2="888" y2="148" stroke="#ddd6fe" stroke-width="2"/>
+    <g font-family="Arial, sans-serif" font-size="16" fill="#1c1917">
+      <text x="880" y="186" text-anchor="end">רשומה לדוגמה</text>
+      <text x="560" y="186" text-anchor="end">050-0000000</text>
+      <text x="240" y="186" text-anchor="end" fill="#7c3aed" font-weight="700">לא ענה</text>
+
+      <text x="880" y="236" text-anchor="end">רשומה לדוגמה</text>
+      <text x="560" y="236" text-anchor="end">052-0000000</text>
+      <text x="240" y="236" text-anchor="end" fill="#7c3aed" font-weight="700">לחזור</text>
+
+      <text x="880" y="286" text-anchor="end">רשומה לדוגמה</text>
+      <text x="560" y="286" text-anchor="end">054-0000000</text>
+      <text x="240" y="286" text-anchor="end" fill="#7c3aed" font-weight="700">לא ענה</text>
+
+      <text x="880" y="336" text-anchor="end">רשומה לדוגמה</text>
+      <text x="560" y="336" text-anchor="end">053-0000000</text>
+      <text x="240" y="336" text-anchor="end" fill="#7c3aed" font-weight="700">לחזור</text>
+
+      <text x="880" y="386" text-anchor="end">רשומה לדוגמה</text>
+      <text x="560" y="386" text-anchor="end">058-0000000</text>
+      <text x="240" y="386" text-anchor="end" fill="#7c3aed" font-weight="700">לא ענה</text>
+
+      <text x="880" y="436" text-anchor="end">רשומה לדוגמה</text>
+      <text x="560" y="436" text-anchor="end">055-0000000</text>
+      <text x="240" y="436" text-anchor="end" fill="#7c3aed" font-weight="700">לחזור</text>
+    </g>
+  </g>
+  <rect x="48" y="36" width="864" height="468" rx="18" fill="none" stroke="#ddd6fe" stroke-width="2"/>
+</svg>

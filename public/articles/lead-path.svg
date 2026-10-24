@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="280" viewBox="0 0 960 280" role="img">
+  <rect width="960" height="280" fill="#fffdf8"/>
+  <g font-family="Arial, sans-serif" font-size="22" fill="#1c1917" text-anchor="middle">
+    <rect x="40" y="70" width="150" height="88" rx="8" fill="#fff" stroke="#44403c" stroke-width="3"/>
+    <text x="115" y="124">טופס</text>
+    <rect x="280" y="70" width="150" height="88" rx="8" fill="#fff" stroke="#44403c" stroke-width="3"/>
+    <text x="355" y="124">CRM</text>
+    <rect x="530" y="70" width="150" height="88" rx="8" fill="#fff" stroke="#44403c" stroke-width="3"/>
+    <text x="605" y="124">נציג</text>
+    <rect x="770" y="70" width="150" height="88" rx="8" fill="#fff" stroke="#44403c" stroke-width="3"/>
+    <text x="845" y="124">שיחה</text>
+  </g>
+  <path d="M200 114 H270" fill="none" stroke="#44403c" stroke-width="3"/>
+  <polygon points="270,108 284,114 270,120" fill="#44403c"/>
+  <path d="M440 114 H490" fill="none" stroke="#44403c" stroke-width="3"/>
+  <path d="M500 114 H520" fill="none" stroke="#b91c1c" stroke-width="4" stroke-dasharray="6 8"/>
+  <path d="M690 114 H760" fill="none" stroke="#44403c" stroke-width="3"/>
+  <polygon points="760,108 774,114 760,120" fill="#44403c"/>
+</svg>

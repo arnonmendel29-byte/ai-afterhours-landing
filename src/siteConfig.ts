@@ -23,7 +23,7 @@ export const siteConfig = {
    * קישור WhatsApp רשמי (wa.me). השאירו null עד לאימות מספר וטקסט פתיחה.
    * דוגמה: https://wa.me/972544460533?text=...
    */
-  whatsAppUrl: 'https://wa.me/972544460533',
+  whatsAppUrl: 'https://wa.me/972557720398',
   /** נקודת קצה לשליחת טופס (HTTPS). ניתן לדרוס עם VITE_FORM_ACTION_URL */
   formActionUrl:
     import.meta.env.VITE_FORM_ACTION_URL ?? 'https://formspree.io/f/xyekppay',

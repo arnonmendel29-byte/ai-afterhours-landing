@@ -106,7 +106,6 @@ function PillarCard({
         {pillar.id}
       </motion.span>
       <div className="pillar-label">
-        <p className="pillar-eyebrow">עמוד תווך · {pillar.id}</p>
         <h3 className="pillar-word">{pillar.word}</h3>
       </div>
     </motion.article>
@@ -147,7 +146,6 @@ function PillarsMobileLayout() {
                 {pillar.id}
               </span>
               <div className="pillar-label">
-                <p className="pillar-eyebrow">עמוד תווך · {pillar.id}</p>
                 <h3 className="pillar-word">{pillar.word}</h3>
               </div>
             </motion.article>

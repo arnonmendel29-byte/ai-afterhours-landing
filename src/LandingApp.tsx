@@ -1,5 +1,4 @@
 import {
-  about,
   faqSection,
   faqs,
   integrations,
@@ -82,7 +81,6 @@ export default function LandingApp() {
         <Integrations />
         <HomeProductsSection />
         <PricingPreview />
-        <AboutSection />
         <FaqSection />
         <FinalCta />
       </main>
@@ -116,9 +114,7 @@ function Hero() {
         </div>
         <div className="hero-copy">
           <h1 id="hero-title">
-            בוט השיחות שמדבר
-            <br />
-            עם הלידים שלך
+            הבוט הקולי שהופך
             <br />
             <GradientText
               className="hero-accent"
@@ -127,7 +123,7 @@ function Hero() {
               variant="linear"
               glow={0}
             >
-              ומביא לקוחות
+              לידים ללקוחות
             </GradientText>
           </h1>
           <p className="hero-lede">
@@ -287,7 +283,7 @@ function ProductDemo() {
             })}
           </ol>
           <div className="timeline-cta">
-            <WhatsAppLeadButton>דברו איתנו בווצאפ</WhatsAppLeadButton>
+            <WhatsAppLeadButton>דברו איתנו בוואטסאפ</WhatsAppLeadButton>
           </div>
         </div>
       </div>
@@ -339,44 +335,6 @@ function PricingPreview() {
   );
 }
 
-function AboutSection() {
-  return (
-    <section className="section about-section" id="about" aria-labelledby="about-title">
-      <div className="container about-grid">
-        <Reveal className="about-copy section-copy">
-          <p className="eyebrow">{about.eyebrow}</p>
-          <h2 id="about-title">{about.title}</h2>
-          <div className="about-founder">
-            <h3>{about.name}</h3>
-            <p>{about.role}</p>
-          </div>
-          {about.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </Reveal>
-        <Reveal as="figure" className="about-portrait" delay>
-          <picture>
-            <source
-              srcSet="/niv-ashour.webp"
-              type="image/webp"
-              sizes="(max-width: 767px) min(100vw - 48px, 320px), (max-width: 1023px) 360px, 400px"
-            />
-            <img
-              src="/niv-ashour.png"
-              alt={about.portraitAlt}
-              width={420}
-              height={525}
-              sizes="(max-width: 767px) min(100vw - 48px, 320px), (max-width: 1023px) 360px, 400px"
-              loading="lazy"
-              decoding="async"
-            />
-          </picture>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
 function FaqSection() {
   return (
     <section className="section faq-section" id="faq" aria-labelledby="faq-title">
@@ -419,7 +377,7 @@ function Footer() {
           <a href="/lead-warming#pricing">תמחור Kolid Flash</a>
           <a href="/outbound-call-bot">שיחות יזומות — Kolid Spark</a>
           <a href="/ai-call-bots">מדריך בוטי שיחות AI</a>
-          <a href="#about">אודות</a>
+          <a href="/about">אודות</a>
           <a href="#faq">שאלות</a>
           <a href="#demo-form">יצירת קשר</a>
           <a href="/privacy-policy">מדיניות פרטיות</a>
@@ -428,8 +386,7 @@ function Footer() {
         </div>
         <p>
           © {new Date().getFullYear()} {siteConfig.brandName}. כל הזכויות שמורות.{' '}
-          <a href={`tel:${siteConfig.contact.phoneE164}`}>{siteConfig.contact.phoneDisplay}</a> ·
-          זמינות 24/7.
+          <a href={`tel:${siteConfig.contact.phoneE164}`}>{siteConfig.contact.phoneDisplay}</a>.
         </p>
       </Reveal>
     </footer>

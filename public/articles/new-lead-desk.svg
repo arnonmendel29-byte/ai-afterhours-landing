@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img">
+  <rect width="960" height="540" fill="#faf5ff"/>
+  <rect x="0" y="300" width="960" height="240" fill="#ede9fe"/>
+  <rect x="250" y="150" width="220" height="360" rx="28" fill="#1c1917"/>
+  <rect x="266" y="176" width="188" height="300" rx="12" fill="#7c3aed"/>
+  <text x="360" y="250" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="22" font-weight="700" style="direction:rtl;unicode-bidi:plaintext">ליד חדש</text>
+  <ellipse cx="680" cy="250" rx="46" ry="18" fill="#fff" stroke="#c4b5fd"/>
+  <rect x="650" y="250" width="60" height="70" rx="8" fill="#fff" stroke="#c4b5fd"/>
+  <rect x="760" y="220" width="110" height="140" rx="8" fill="#fff" stroke="#ddd6fe"/>
+  <path d="M780 260h70M780 284h70M780 308h50" stroke="#c4b5fd" stroke-width="4"/>
+</svg>

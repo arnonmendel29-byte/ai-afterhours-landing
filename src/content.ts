@@ -1,10 +1,10 @@
 export const navItems = [
   { label: 'בית', href: '#top' },
-  { label: 'הפתרונות', href: '#solutions' },
   { label: 'תגובה מיידית', href: '/lead-warming' },
   { label: 'שיחות יזומות', href: '/outbound-call-bot' },
-  { label: 'תמחור', href: '/lead-warming#pricing' },
-  { label: 'אודות', href: '#about' },
+  { label: 'איך להשיג עוד לידים', href: '/how-to-get-more-leads' },
+  { label: 'שיפור תהליך המכירה', href: '/improve-sales-process' },
+  { label: 'אודות', href: '/about' },
 ] as const;
 
 /** קישורי עוגן מעמוד הבית → קישורים מלאים מדפי משנה */
@@ -111,7 +111,7 @@ export const productFlow = [
   {
     eyebrow: '03',
     title: 'זיהוי התעניינות',
-    body: 'תוך כדי השיחה הבוט מזהה אם מדובר במתעניין רלוונטי או בליד שעדיין לא בשל.',
+    body: 'תוך כדי השיחה הבוט מזהה אם מדובר במתעניין רלוונטי או בליד שעדיין לא בשל. ניתן להוסיף גם תיאום פגישה ביומן.',
   },
   {
     eyebrow: '04',
@@ -139,7 +139,7 @@ export const useCases = [
 ];
 
 // TODO: VERIFY BUSINESS CLAIM — שמות המערכות בפועל לא אושרו. מוצגות קטגוריות, לא ספקים.
-export const integrations = ['CRM', 'מערכות מכירה', 'אימייל', 'ניהול לידים', 'צוות מכירות'];
+export const integrations = ['AI & Agents', 'מערכות מכירה', 'אוטומציות', 'ניהול לידים', 'עיבוד קולי'];
 
 export const faqs = [
   {
@@ -165,7 +165,7 @@ export const faqs = [
   {
     question: 'איך קובעים הדגמה?',
     answer:
-      'משאירים פרטים בטופס, או מתקשרים ל-054-4460533. נציג חוזר לתיאום הדגמה אישית של הבוט. המענה זמין 24/7.',
+      'משאירים פרטים בטופס, או מתקשרים ל-054-4460533. נציג חוזר לתיאום הדגמה אישית של הבוט.',
   },
 ];
 
