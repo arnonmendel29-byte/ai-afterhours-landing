@@ -33,6 +33,7 @@ export function PageLoader({ children }: PageLoaderProps) {
   useEffect(() => {
     cancelledRef.current = false;
     const reduceMotion = prefersReducedMotion();
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
     let raf = 0;
     let removeTimer = 0;
     let failsafeTimer = 0;
@@ -104,8 +105,12 @@ export function PageLoader({ children }: PageLoaderProps) {
     };
 
     const onDomReady = () => {
+      if (reduceMotion || isMobile) {
+        markReady();
+        return;
+      }
       void (async () => {
-        if (!reduceMotion && document.fonts?.ready) {
+        if (document.fonts?.ready) {
           try {
             await Promise.race([
               document.fonts.ready,
@@ -121,9 +126,9 @@ export function PageLoader({ children }: PageLoaderProps) {
       })();
     };
 
-    paintProgress(reduceMotion ? 1 : 0.04, true);
+    paintProgress(reduceMotion || isMobile ? 1 : 0.04, true);
 
-    if (!reduceMotion) {
+    if (!reduceMotion && !isMobile) {
       raf = requestAnimationFrame(tickIndicative);
     }
 

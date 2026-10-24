@@ -1,3 +1,4 @@
+import { leadFormHref } from '../leadForm';
 import { Reveal } from '../Reveal';
 import { SiteHeader } from '../SiteHeader';
 import { siteConfig } from '../siteConfig';
@@ -87,7 +88,7 @@ export function ServiceRelatedLinks({ exclude }: { exclude: string }) {
         </a>
       ))}
       <a href="/">עמוד הבית</a>
-      <a href="/#demo-form">קבל הדגמה</a>
+      <a href={leadFormHref(exclude)}>קבל הדגמה</a>
     </Reveal>
   );
 }

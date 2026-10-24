@@ -8,7 +8,7 @@ export const siteConfig = {
   logoAlt: 'קוליד — לוגו עם סמל רובוט ואוזניות',
   siteUrl: 'https://num8.vercel.app',
   /** תאריך עדכון מדיניות (ISO) — עדכנו בכל שינוי מהותי */
-  policyLastUpdated: '2026-10-09',
+  policyLastUpdated: '2026-10-24',
   contact: {
     phoneDisplay: '054-4460533',
     phoneE164: '+972544460533',
@@ -27,6 +27,13 @@ export const siteConfig = {
   /** נקודת קצה לשליחת טופס (HTTPS). ניתן לדרוס עם VITE_FORM_ACTION_URL */
   formActionUrl:
     import.meta.env.VITE_FORM_ACTION_URL ?? 'https://formspree.io/f/xyekppay',
+  /**
+   * Webhook ליצירת קשר: name, phone, contact.
+   * contact 0 — הבוט מתקשר (נסו את Kolid Flash). contact 1 — השארת פרטים בלי שיחה.
+   */
+  leadWebhookUrl:
+    import.meta.env.VITE_LEAD_WEBHOOK_URL ??
+    'https://hook.eu2.make.com/yt3nkb3crcq5c5qf6b5x4mex288dfivt',
 } as const;
 
 export function isOwnerPlaceholder(value: string): boolean {

@@ -1,4 +1,5 @@
 import { BrandLogo } from './BrandLogo';
+import { leadFormHref } from './leadForm';
 import { CtaStar } from './StarBorder';
 import { isNavItemCurrent, navHrefForPage, navItems } from './content';
 import { useEffect, useState } from 'react';
@@ -49,7 +50,7 @@ export function SiteHeader({ home = false, currentPath = '/', className = '' }: 
 
   const closeMenu = () => setMenuOpen(false);
   const logoHref = home ? '#top' : '/';
-  const ctaHref = home ? '#demo-form' : '/#demo-form';
+  const ctaHref = leadFormHref(home ? '/' : currentPath);
 
   const resolveHref = (href: string) => (home ? href : navHrefForPage(href));
 

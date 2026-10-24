@@ -1,10 +1,16 @@
 import { homeProductCards, homeProducts, productChooser } from './callbotProducts';
+import { FlashTryDialog } from './FlashTryDialog';
 import { Reveal } from './Reveal';
-import { LeadCtaStrip } from './SiteLeadCtas';
+import { FlashTryLeadButton, LeadCtaStrip } from './SiteLeadCtas';
 import { CtaStar } from './StarBorder';
+import { useCallback, useState } from 'react';
 import './HomeProductsSection.css';
 
 export function HomeProductsSection() {
+  const [tryOpen, setTryOpen] = useState(false);
+  const openTry = useCallback(() => setTryOpen(true), []);
+  const closeTry = useCallback(() => setTryOpen(false), []);
+
   return (
     <section className="section hp-section" id="solutions" aria-labelledby="solutions-title">
       <div className="container">
@@ -35,7 +41,6 @@ export function HomeProductsSection() {
               className={`hp-card${product.featured ? ' hp-card--featured' : ''}`}
               delay={!product.featured}
             >
-              {product.featured ? <p className="hp-kicker">הפתרון המרכזי כרגע</p> : null}
               <h3>{product.title}</h3>
               <p className="hp-fit">{product.fit}</p>
               <p>{product.description}</p>
@@ -44,11 +49,14 @@ export function HomeProductsSection() {
                   <li key={point}>{point}</li>
                 ))}
               </ul>
-              <div className="hp-actions">
+              <div className={`hp-actions${product.featured ? ' hp-actions--featured' : ''}`}>
                 {product.featured ? (
-                  <CtaStar as="a" className="cta-block" href={product.href}>
-                    {product.cta}
-                  </CtaStar>
+                  <>
+                    <CtaStar as="a" className="cta-block" href={product.href}>
+                      {product.cta}
+                    </CtaStar>
+                    <FlashTryLeadButton className="hp-flash-try" onClick={openTry} />
+                  </>
                 ) : (
                   <a className="hp-cta-quiet" href={product.href}>
                     {product.cta}
@@ -67,6 +75,7 @@ export function HomeProductsSection() {
           <LeadCtaStrip formHref="#demo-form" />
         </Reveal>
       </div>
+      <FlashTryDialog open={tryOpen} onClose={closeTry} />
     </section>
   );
 }

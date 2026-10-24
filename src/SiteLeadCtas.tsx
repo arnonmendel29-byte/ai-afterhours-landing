@@ -1,5 +1,24 @@
+import { leadFormHref } from './leadForm';
 import { siteConfig } from './siteConfig';
 import './SiteLeadCtas.css';
+
+function PhoneSparkIcon() {
+  return (
+    <svg className="site-lead-ctas__icon site-lead-ctas__icon--flash" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"
+      />
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        d="M14.5 4.5c2.2.75 3.9 2.45 4.65 4.65M14.5 7.2c1.2.4 2.15 1.35 2.55 2.55"
+      />
+    </svg>
+  );
+}
 
 function WhatsAppIcon() {
   return (
@@ -12,35 +31,139 @@ function WhatsAppIcon() {
   );
 }
 
+type WhatsAppLeadButtonProps = {
+  className?: string;
+  children?: string;
+};
+
+export const FLASH_TRY_CTA_LABEL = 'נסו את Kolid Flash עכשיו';
+
+type FlashTryLeadButtonProps = {
+  className?: string;
+  onClick: () => void;
+};
+
+/** כפתור «נסו את Kolid Flash» — פותח טופס webhook (contact: 0) */
+export function FlashTryLeadButton({ className = '', onClick }: FlashTryLeadButtonProps) {
+  return (
+    <button
+      type="button"
+      className={['site-lead-ctas__btn', 'site-lead-ctas__btn--flash-try', className].filter(Boolean).join(' ')}
+      onClick={onClick}
+    >
+      <PhoneSparkIcon />
+      <span>{FLASH_TRY_CTA_LABEL}</span>
+    </button>
+  );
+}
+
+/** כפתור וואטסאפ בודד — לשילוב בתוך בלוקים (למשל סוף timeline) */
+export function WhatsAppLeadButton({
+  className = '',
+  children = 'דיברו איתנו בווטאצפ',
+}: WhatsAppLeadButtonProps) {
+  const { whatsAppUrl } = siteConfig;
+  if (!whatsAppUrl) {
+    return null;
+  }
+
+  const btnClass = ['site-lead-ctas__btn', 'site-lead-ctas__btn--wa', className].filter(Boolean).join(' ');
+
+  return (
+    <a
+      className={btnClass}
+      href={whatsAppUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <WhatsAppIcon />
+      <span>{children}</span>
+    </a>
+  );
+}
+
 type SiteLeadCtasProps = {
   className?: string;
   formHref?: string;
+  /** מחליף את קישור «להשארת פרטים» בכפתור פעולה, למשל ניסיון Kolid Flash */
+  secondaryAction?: {
+    label: string;
+    onClick: () => void;
+    /** עיצוב בולט לניסיון Kolid Flash */
+    variant?: 'default' | 'flash-try';
+  };
 };
 
-export function SiteLeadCtas({ className = '', formHref = '/#demo-form' }: SiteLeadCtasProps) {
+export function SiteLeadCtas({
+  className = '',
+  formHref: formHrefProp,
+  secondaryAction,
+}: SiteLeadCtasProps) {
   const { whatsAppUrl } = siteConfig;
-  const rootClass = ['site-lead-ctas', 'site-lead-ctas--inline', className].filter(Boolean).join(' ');
+  const formHref = formHrefProp ?? leadFormHref();
+  const flashPromo = secondaryAction?.variant === 'flash-try';
+  const rootClass = [
+    'site-lead-ctas',
+    'site-lead-ctas--inline',
+    flashPromo ? 'site-lead-ctas--flash-promo' : '',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const flashTryButton = secondaryAction ? (
+    flashPromo ? (
+      <FlashTryLeadButton onClick={secondaryAction.onClick} />
+    ) : (
+      <button
+        type="button"
+        className="site-lead-ctas__btn site-lead-ctas__btn--form"
+        onClick={secondaryAction.onClick}
+      >
+        <span>{secondaryAction.label}</span>
+      </button>
+    )
+  ) : (
+    <a
+      className="site-lead-ctas__btn site-lead-ctas__btn--form"
+      href={formHref}
+      aria-label="להשארת פרטים"
+    >
+      <span>להשארת פרטים</span>
+    </a>
+  );
+
+  const whatsAppButton =
+    whatsAppUrl ? (
+      <a
+        className={[
+          'site-lead-ctas__btn site-lead-ctas__btn--wa',
+          flashPromo ? 'site-lead-ctas__btn--wa-secondary' : '',
+        ]
+          .filter(Boolean)
+          .join(' ')}
+        href={whatsAppUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <WhatsAppIcon />
+        <span>דיברו איתנו בווטאצפ</span>
+      </a>
+    ) : null;
 
   return (
     <div className={rootClass} role="group" aria-label="יצירת קשר">
-      {whatsAppUrl ? (
-        <a
-          className="site-lead-ctas__btn site-lead-ctas__btn--wa"
-          href={whatsAppUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <WhatsAppIcon />
-          <span>דיברו איתנו בווטאצפ</span>
-        </a>
-      ) : null}
-      <a
-        className="site-lead-ctas__btn site-lead-ctas__btn--form"
-        href={formHref}
-        aria-label="להשארת פרטים"
-      >
-        <span>להשארת פרטים</span>
-      </a>
+      {flashPromo ? (
+        <>
+          {flashTryButton}
+          {whatsAppButton}
+        </>
+      ) : (
+        <>
+          {whatsAppButton}
+          {flashTryButton}
+        </>
+      )}
     </div>
   );
 }
@@ -50,6 +173,7 @@ type LeadCtaStripProps = {
   align?: 'center' | 'start';
   tone?: 'default' | 'on-purple';
   formHref?: string;
+  secondaryAction?: SiteLeadCtasProps['secondaryAction'];
 };
 
 /** שורת כפתורי וואטסאפ + טופס — לשילוב אחרי בלוקי תוכן */
@@ -58,6 +182,7 @@ export function LeadCtaStrip({
   align = 'center',
   tone = 'default',
   formHref,
+  secondaryAction,
 }: LeadCtaStripProps) {
   const rootClass = [
     'lead-cta-strip',
@@ -70,7 +195,7 @@ export function LeadCtaStrip({
 
   return (
     <div className={rootClass}>
-      <SiteLeadCtas formHref={formHref} />
+      <SiteLeadCtas formHref={formHref} secondaryAction={secondaryAction} />
     </div>
   );
 }

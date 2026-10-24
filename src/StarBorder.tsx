@@ -233,6 +233,14 @@ const StarBorder = ({
     if (!root || !canvas || !ctx) return undefined;
 
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    const liteMotionQuery = window.matchMedia(
+      '(max-width: 767px), (pointer: coarse), (prefers-reduced-motion: reduce)',
+    );
+    let liteMotion = liteMotionQuery.matches;
+    const onLiteMotionChange = () => {
+      liteMotion = liteMotionQuery.matches;
+    };
+    liteMotionQuery.addEventListener('change', onLiteMotionChange);
     const point: Point = { x: 0, y: 0, nx: 0, ny: -1 };
     const state = {
       width: 0,
@@ -485,8 +493,9 @@ const StarBorder = ({
       const shape = shapeFor(s);
       const total = shape.total;
       const spacing = total / s.stars;
-      const engaged = state.hovered || state.focused;
-      const cruise = reduce ? 0 : (s.direction * total) / s.duration;
+      const engaged = state.hovered || state.focused || state.lap >= 0;
+      const cruise =
+        reduce || (liteMotion && !engaged) ? 0 : (s.direction * total) / s.duration;
 
       const revealTarget = s.hover === 'reveal' && !engaged ? 0 : 1;
       state.reveal += (revealTarget - state.reveal) * (1 - Math.exp(-dt / (revealTarget > state.reveal ? 0.16 : 0.45)));
@@ -538,7 +547,14 @@ const StarBorder = ({
         dust.length > 0;
       const moving = Math.abs(state.motion) > 0.05 || cruise !== 0 || state.lap >= 0;
       const showing = state.reveal > 0.002 || revealTarget > 0;
-      if (state.visible && (settling || (moving && showing) || state.hovered)) raf = requestAnimationFrame(frame);
+      const idleLite = liteMotion && !engaged && !settling;
+      if (
+        state.visible &&
+        !idleLite &&
+        (settling || (moving && showing) || state.hovered)
+      ) {
+        raf = requestAnimationFrame(frame);
+      }
     };
 
     const wake = () => {
@@ -608,6 +624,7 @@ const StarBorder = ({
       alive = false;
       wakeRef.current = null;
       cancelAnimationFrame(raf);
+      liteMotionQuery.removeEventListener('change', onLiteMotionChange);
       resizeObserver.disconnect();
       visibility.disconnect();
       root.removeEventListener('pointerenter', onEnter);

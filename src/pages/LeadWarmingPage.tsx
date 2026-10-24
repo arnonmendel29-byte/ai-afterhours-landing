@@ -1,9 +1,12 @@
 import { instantLeadPricing } from '../callbotProducts';
 import { leadWarmingFlow } from '../content';
-import { LeadCtaStrip, SiteLeadCtas } from '../SiteLeadCtas';
-import { siteConfig } from '../siteConfig';
-import { ServicePageLayout, ServiceRelatedLinks } from './ServicePageLayout';
-import { useEffect, useRef, type CSSProperties, type ReactNode } from 'react';
+import { FlashTryDialog } from '../FlashTryDialog';
+import { LEAD_FORM_ID, isLeadFormHash, scrollToLeadForm, scrollToLeadFormWhenReady } from '../leadForm';
+import { LeadDemoFormSection } from '../LeadDemoFormSection';
+import { FLASH_TRY_CTA_LABEL, LeadCtaStrip } from '../SiteLeadCtas';
+import { useInViewScrollSync } from '../useInViewScrollSync';
+import { ServicePageLayout } from './ServicePageLayout';
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 
 const PATH = '/lead-warming';
 
@@ -41,46 +44,44 @@ const audiences = [
   'עסקים שרוצים לשפר את מהירות התגובה לפניות חדשות.',
 ];
 
+const flashHeroSteps = [
+  { number: '01', title: 'ליד חדש', body: 'הפרטים התקבלו' },
+  { number: '02', title: 'Kolid Flash מתקשר', body: 'שיחה יוצאת' },
+  { number: '03', title: 'הבוט מנהל את השיחה', body: 'שיחה טבעית עם הלקוח' },
+  { number: '04', title: 'הלקוח מגלה עניין', body: 'הזדמנות עסקית עוברת אליכם' },
+];
+
+const flashPhoneMessages = ['ליד חדש', 'מתקשר', 'מנהל שיחה', 'מגלה עניין'];
+
 function EssayScrollTimeline({ children }: { children: ReactNode }) {
   const trackRef = useRef<HTMLDivElement>(null);
 
+  const syncTimeline = useCallback(() => {
+    const node = trackRef.current;
+    if (!node) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const reduceMotion =
+      reduced.matches || document.documentElement.classList.contains('a11y-reduce-motion');
+    if (reduceMotion) {
+      node.style.setProperty('--progress', '1');
+      return;
+    }
+
+    const rect = node.getBoundingClientRect();
+    const start = window.innerHeight * 0.72;
+    const progress = Math.min(1, Math.max(0, (start - rect.top) / Math.max(rect.height, 1)));
+    node.style.setProperty('--progress', progress.toFixed(4));
+  }, []);
+
+  useInViewScrollSync(trackRef, syncTimeline);
+
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let frame = 0;
-
-    const sync = () => {
-      const node = trackRef.current;
-      if (!node) return;
-      const reduceMotion =
-        reduced.matches || document.documentElement.classList.contains('a11y-reduce-motion');
-      if (reduceMotion) {
-        node.style.setProperty('--progress', '1');
-        return;
-      }
-
-      const rect = node.getBoundingClientRect();
-      const start = window.innerHeight * 0.72;
-      const progress = Math.min(1, Math.max(0, (start - rect.top) / Math.max(rect.height, 1)));
-      node.style.setProperty('--progress', progress.toFixed(4));
-    };
-
-    const schedule = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(sync);
-    };
-
-    schedule();
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule);
-    reduced.addEventListener('change', schedule);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener('scroll', schedule);
-      window.removeEventListener('resize', schedule);
-      reduced.removeEventListener('change', schedule);
-    };
-  }, []);
+    const onChange = () => syncTimeline();
+    reduced.addEventListener('change', onChange);
+    syncTimeline();
+    return () => reduced.removeEventListener('change', onChange);
+  }, [syncTimeline]);
 
   return (
     <div
@@ -96,7 +97,66 @@ function EssayScrollTimeline({ children }: { children: ReactNode }) {
   );
 }
 
+function FlashHeroVisual() {
+  return (
+    <div className="flash-hero-visual" aria-label="המחשה של תהליך Kolid Flash">
+      <div className="flash-phone-card" aria-hidden="true">
+        <div className="flash-phone-speaker" />
+        <div className="flash-phone-screen">
+          <span className="flash-phone-brand">Kolid Flash</span>
+          <div className="flash-phone-status">
+            {flashPhoneMessages.map((message) => (
+              <span key={message}>{message}</span>
+            ))}
+          </div>
+          <div className="flash-phone-waves">
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
+        </div>
+      </div>
+
+      <ol className="flash-hero-steps">
+        {flashHeroSteps.map((step) => (
+          <li key={step.number}>
+            <span>{step.number}</span>
+            <strong>{step.title}</strong>
+            <em>{step.body}</em>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+const flashTryAction = {
+  label: FLASH_TRY_CTA_LABEL,
+  variant: 'flash-try' as const,
+};
+
 export function LeadWarmingPage() {
+  const [tryOpen, setTryOpen] = useState(false);
+  const openTry = useCallback(() => setTryOpen(true), []);
+  const closeTry = useCallback(() => setTryOpen(false), []);
+  const secondaryAction = { ...flashTryAction, onClick: openTry };
+
+  useEffect(() => {
+    const cancelReadyScroll = scrollToLeadFormWhenReady();
+    const onHashChange = () => {
+      if (isLeadFormHash()) {
+        scrollToLeadForm();
+      }
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => {
+      cancelReadyScroll();
+      window.removeEventListener('hashchange', onHashChange);
+    };
+  }, []);
+
   return (
     <ServicePageLayout
       path={PATH}
@@ -106,16 +166,22 @@ export function LeadWarmingPage() {
       <article className="essay essay--flash">
         <header className="essay-band essay-band--open flash-hero">
           <div className="essay-inner flash-hero__grid">
-            <div className="essay-header">
-              <h1 id="lw-hero-title">תגובה מיידית ללידים — אנחנו כבר על הקו</h1>
+            <div className="flash-hero__copy">
+              <div className="essay-header">
+                <h1 id="lw-hero-title">
+                  <span className="flash-hero__title-line">תגובה מיידית ללידים</span>
+                  <span className="flash-hero__title-line">אנחנו כבר על הקו</span>
+                </h1>
+              </div>
+              <div className="flash-hero__aside">
+                <p className="essay-lede">
+                  בוט קולי מבוסס AI שמתקשר ללידים חדשים באופן אוטומטי, מנהל שיחה ראשונית ומסייע
+                  לעסק להגיב בזמן ולנצל טוב יותר את ההזדמנויות שמגיעות מהשיווק.
+                </p>
+                <LeadCtaStrip align="start" className="essay-cta" secondaryAction={secondaryAction} />
+              </div>
             </div>
-            <div className="flash-hero__aside">
-              <p className="essay-lede">
-                בוט קולי מבוסס AI שמתקשר ללידים חדשים באופן אוטומטי, מנהל שיחה ראשונית ומסייע
-                לעסק להגיב בזמן ולנצל טוב יותר את ההזדמנויות שמגיעות מהשיווק.
-              </p>
-              <LeadCtaStrip align="start" className="essay-cta" />
-            </div>
+            <FlashHeroVisual />
           </div>
         </header>
 
@@ -153,7 +219,7 @@ export function LeadWarmingPage() {
                 </div>
               ))}
             </EssayScrollTimeline>
-            <LeadCtaStrip align="start" className="essay-cta" />
+            <LeadCtaStrip align="start" className="essay-cta" secondaryAction={secondaryAction} />
           </div>
         </section>
 
@@ -223,20 +289,18 @@ export function LeadWarmingPage() {
           </div>
         </section>
 
-        <section className="essay-band essay-band--close flash-close" aria-labelledby="lw-cta-title">
-          <div className="essay-inner">
-            <h2 id="lw-cta-title">רוצים לראות איך Kolid Flash עובד אצלכם?</h2>
-            <p>
-              השאירו פרטים, או התקשרו ל־
-              <a href={`tel:${siteConfig.contact.phoneE164}`}>{siteConfig.contact.phoneDisplay}</a>
-              . נציג של {siteConfig.brandName} יחזור לתיאום.
-            </p>
-            <LeadCtaStrip align="start" className="essay-cta essay-cta--page-end" />
+        <section
+          className="essay-band essay-band--close flash-close flash-lead-form final-cta"
+          id={LEAD_FORM_ID}
+          aria-labelledby="lw-final-title"
+        >
+          <div className="essay-inner final-grid">
+            <LeadDemoFormSection titleId="lw-final-title" fieldIdPrefix="lw-" />
           </div>
         </section>
       </article>
 
-      <ServiceRelatedLinks exclude={PATH} />
+      <FlashTryDialog open={tryOpen} onClose={closeTry} />
     </ServicePageLayout>
   );
 }

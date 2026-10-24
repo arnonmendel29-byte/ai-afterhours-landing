@@ -2,34 +2,21 @@ import {
   about,
   faqSection,
   faqs,
-  formFields,
   integrations,
   productFlow,
 } from './content';
 import { SiteHeader } from './SiteHeader';
 import { HomeProductsSection } from './HomeProductsSection';
 import { Reveal } from './Reveal';
-import { SiteLeadCtas } from './SiteLeadCtas';
-import { CtaStar } from './StarBorder';
+import { SiteLeadCtas, WhatsAppLeadButton } from './SiteLeadCtas';
 import { BrandLogo } from './BrandLogo';
 import GradientText from './GradientText';
 import { siteConfig } from './siteConfig';
 import { applyDocumentMeta } from './seo/documentMeta';
 import { buildHomeJsonLd, getSeoPage } from './seo/pages';
-import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties, type FormEvent } from 'react';
-
-const FORM_FIELD_ATTR: Record<
-  string,
-  { id: string; name: string; autoComplete?: string; inputMode?: 'text' | 'tel' | 'email' }
-> = {
-  'שם מלא': { id: 'field-full-name', name: 'fullName', autoComplete: 'name' },
-  'שם החברה': { id: 'field-company', name: 'company', autoComplete: 'organization' },
-  אימייל: { id: 'field-email', name: 'email', autoComplete: 'email', inputMode: 'email' },
-  טלפון: { id: 'field-phone', name: 'phone', autoComplete: 'tel', inputMode: 'tel' },
-  'תחום עיסוק': { id: 'field-industry', name: 'industry', autoComplete: 'organization-title' },
-  'כמות לידים חודשית': { id: 'field-leads', name: 'monthlyLeads' },
-  הודעה: { id: 'field-message', name: 'message', autoComplete: 'off' },
-};
+import { LeadDemoFormSection } from './LeadDemoFormSection';
+import { isLeadFormHash, scrollToLeadForm, scrollToLeadFormWhenReady } from './leadForm';
+import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from 'react';
 
 const PillarsSection = lazy(() =>
   import('./PillarsSection').then((module) => ({ default: module.PillarsSection })),
@@ -43,6 +30,20 @@ export default function LandingApp() {
     });
   }, []);
 
+  useEffect(() => {
+    const cancelReadyScroll = scrollToLeadFormWhenReady();
+    const onHashChange = () => {
+      if (isLeadFormHash()) {
+        scrollToLeadForm();
+      }
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => {
+      cancelReadyScroll();
+      window.removeEventListener('hashchange', onHashChange);
+    };
+  }, []);
+
   return (
     <div className="site-shell">
       <a className="skip-link" href="#main-content">
@@ -51,8 +52,18 @@ export default function LandingApp() {
       <div className="hero-stage">
         <div className="hero-card">
           <svg className="hero-blob" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="hero-blob-fill" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                <stop offset="0%" stopColor="#9333EA" />
+                <stop offset="55%" stopColor="#9333EA" />
+                <stop offset="70%" stopColor="#9333EA" stopOpacity="0.75" />
+                <stop offset="82%" stopColor="#9333EA" stopOpacity="0.35" />
+                <stop offset="92%" stopColor="#9333EA" stopOpacity="0.1" />
+                <stop offset="100%" stopColor="#9333EA" stopOpacity="0" />
+              </linearGradient>
+            </defs>
             <path
-              fill="#9333EA"
+              fill="url(#hero-blob-fill)"
               d="M1000 0v1000H470C640 980 580 820 710 700c130-120 40-170 160-280C980 300 920 90 1000 0Z"
             />
           </svg>
@@ -275,6 +286,9 @@ function ProductDemo() {
               );
             })}
           </ol>
+          <div className="timeline-cta">
+            <WhatsAppLeadButton>דברו איתנו בווצאפ</WhatsAppLeadButton>
+          </div>
         </div>
       </div>
     </section>
@@ -314,7 +328,6 @@ function PricingPreview() {
     >
       <Reveal className="container pricing-panel">
         <div>
-          <p className="eyebrow">הדגמה</p>
           <h2 id="pricing-title">רוצים לראות איך הבוט עובד אצלכם?</h2>
           <p>
             המודל המסחרי יוצג בהדגמה, אחרי שנבין את תהליך המכירה ואת כמות הלידים.
@@ -386,112 +399,10 @@ function FaqSection() {
 }
 
 function FinalCta() {
-  const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'offline' | 'error'>('idle');
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const action = siteConfig.formActionUrl;
-
-    if (!action) {
-      setStatus('offline');
-      form.querySelector<HTMLElement>('[data-form-status]')?.focus();
-      return;
-    }
-
-    setStatus('sending');
-    try {
-      const body = new FormData(form);
-      const response = await fetch(action, {
-        method: 'POST',
-        body,
-        headers: { Accept: 'application/json' },
-      });
-      if (!response.ok) throw new Error('submit failed');
-      setStatus('ok');
-      form.reset();
-    } catch {
-      setStatus('error');
-    }
-    form.querySelector<HTMLElement>('[data-form-status]')?.focus();
-  };
-
   return (
     <section className="section final-cta" id="demo-form" aria-labelledby="final-title">
       <div className="container final-grid">
-        <Reveal className="section-copy">
-          <p className="eyebrow">הדגמה</p>
-          <h2 id="final-title">
-            מוכנים להפוך לידים קרים <span className="text-highlight">ללקוחות</span>?
-          </h2>
-          <p>מלאו את הפרטים ונציג שלנו יחזור אליכם לתיאום הדגמה אישית של הבוט.</p>
-        </Reveal>
-        <Reveal
-          as="form"
-          className="demo-form"
-          delay
-          onSubmit={handleSubmit}
-          action={siteConfig.formActionUrl ?? undefined}
-          method="post"
-        >
-          <input type="hidden" name="_subject" value={`בקשת הדגמה — ${siteConfig.brandName}`} />
-          {formFields.map((field) => {
-            const meta = FORM_FIELD_ATTR[field] ?? {
-              id: `field-${field}`,
-              name: field,
-            };
-            const isOptional = field === 'הודעה';
-            return (
-              <label key={field} htmlFor={meta.id}>
-                <span>{field}</span>
-                <input
-                  id={meta.id}
-                  name={meta.name}
-                  type={
-                    field.includes('אימייל') ? 'email' : field.includes('טלפון') ? 'tel' : 'text'
-                  }
-                  inputMode={meta.inputMode}
-                  autoComplete={meta.autoComplete}
-                  placeholder={field.includes('אימייל') ? 'name@company.co.il' : field}
-                  required={!isOptional}
-                  aria-required={!isOptional}
-                />
-              </label>
-            );
-          })}
-          <p className="form-privacy-note">
-            שליחת הטופס מהווה פנייה לקבלת הדגמה. פרטים נוספים ב{' '}
-            <a href="/privacy-policy">מדיניות הפרטיות</a>.
-          </p>
-          <p className="form-note">
-            אפשר גם להתקשר:{' '}
-            <a href={`tel:${siteConfig.contact.phoneE164}`}>{siteConfig.contact.phoneDisplay}</a>.
-            זמינות 24/7.
-          </p>
-          <div
-            className="form-status"
-            data-form-status
-            tabIndex={-1}
-            role="status"
-            aria-live="polite"
-          >
-            {status === 'offline' && (
-              <>
-                שליחת טופס אינה פעילה עדיין באתר. התקשרו או השאירו פרטים בטלפון:{' '}
-                <a href={`tel:${siteConfig.contact.phoneE164}`}>
-                  {siteConfig.contact.phoneDisplay}
-                </a>
-                .
-              </>
-            )}
-            {status === 'ok' && 'הפרטים נשלחו. נחזור אליכם בהקדם.'}
-            {status === 'error' && 'לא הצלחנו לשלוח. נסו שוב או התקשרו אלינו.'}
-            {status === 'sending' && 'שולח…'}
-          </div>
-          <CtaStar className="cta-block" type="submit" disabled={status === 'sending'}>
-            השאר פרטים
-          </CtaStar>
-        </Reveal>
+        <LeadDemoFormSection />
       </div>
     </section>
   );

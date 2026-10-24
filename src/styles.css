@@ -456,7 +456,8 @@ main h3 {
 .hero-card {
   position: relative;
   display: flex;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   min-height: 100vh;
   flex-direction: column;
   background: var(--hero-bg);
@@ -464,11 +465,16 @@ main h3 {
 
 .hero-blob {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  left: 0;
   z-index: 0;
   width: 100%;
-  height: 100%;
+  /* Fill the hero and spill slightly past it so the fade finishes over the next section */
+  height: calc(100% + clamp(56px, 12vh, 140px));
+  max-height: none;
   pointer-events: none;
+  overflow: visible;
 }
 
 .hero-stage .site-header {
@@ -598,15 +604,23 @@ main h3 {
   background: transparent;
 }
 
+.hero-phones picture {
+  display: contents;
+}
+
 .hero-robot {
+  position: absolute;
+  right: 0;
+  bottom: 0;
   display: block;
   width: auto;
-  height: clamp(420px, 58vh, 640px);
-  max-width: min(100%, 640px);
+  height: clamp(500px, 65vh, 740px);
+  max-width: none;
   border: 0;
   background: transparent;
   object-fit: contain;
   object-position: center bottom;
+  transform: translateX(185px);
 }
 
 .laptop-wrap,
@@ -1023,6 +1037,7 @@ p {
 
 .timeline {
   --progress: 0;
+  --timeline-cta-space: clamp(76px, 11vw, 104px);
   position: relative;
   padding: 8px 0 12px;
 }
@@ -1030,7 +1045,7 @@ p {
 .timeline-track {
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: var(--timeline-cta-space);
   left: 50%;
   z-index: 0;
   width: 2px;
@@ -1078,6 +1093,22 @@ p {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.timeline-cta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  min-height: var(--timeline-cta-space);
+  align-items: flex-end;
+  margin-top: clamp(20px, 3.5vw, 36px);
+  padding-bottom: clamp(8px, 1.5vw, 16px);
+}
+
+.timeline-cta .site-lead-ctas__btn--wa {
+  flex: 0 1 auto;
+  max-width: min(100%, 20rem);
 }
 
 .timeline-item {
@@ -1721,6 +1752,7 @@ p {
 }
 
 .final-cta {
+  scroll-margin-top: clamp(72px, 12vh, 96px);
   padding-bottom: 128px;
 }
 
@@ -1732,11 +1764,38 @@ p {
   padding: 24px;
 }
 
-.demo-form label {
+.demo-form label,
+.demo-form__field {
   display: grid;
   gap: 8px;
   color: var(--text-muted);
   font-size: 14px;
+}
+
+.demo-form__label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.demo-form__optional-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(124, 58, 237, 0.1);
+  color: var(--hero-navy, #5b21b6);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.demo-form__optional-hint {
+  margin: -2px 0 0;
+  color: var(--text-soft);
+  font-size: 12px;
+  line-height: 1.4;
 }
 
 .demo-form input {
@@ -2134,6 +2193,22 @@ p {
     scroll-padding-top: 72px;
   }
 
+  body {
+    touch-action: manipulation;
+    overscroll-behavior-y: none;
+  }
+
+  .reveal:not(.is-visible) {
+    transform: translate3d(0, 10px, 0);
+    transition-duration: 420ms;
+    will-change: opacity;
+  }
+
+  .product-console::before {
+    filter: none;
+    opacity: 0.35;
+  }
+
   :root {
     --container: min(100% - 24px, 560px);
   }
@@ -2258,9 +2333,13 @@ p {
   }
 
   .hero-robot {
+    position: static;
+    right: auto;
+    bottom: auto;
     width: auto;
     height: clamp(240px, 62vw, 340px);
     max-width: none;
+    transform: none;
     object-fit: contain;
     object-position: center bottom;
   }
