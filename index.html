@@ -16,9 +16,16 @@
       rel="preload"
       as="image"
       type="image/webp"
+      href="/hero-robot-mobile.webp"
+      media="(max-width: 767px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
       href="/hero-robot.webp"
-      imagesrcset="/hero-robot-mobile.webp 680w, /hero-robot.webp 1120w"
-      imagesizes="(max-width: 767px) min(100vw, 340px), min(56vw, 560px)"
+      media="(min-width: 768px)"
       fetchpriority="high"
     />
     <meta property="og:type" content="website" />
@@ -41,13 +48,6 @@
     <link
       rel="preload"
       href="/fonts/rubik-hebrew-700.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/rubik-hebrew-400.woff2"
       as="font"
       type="font/woff2"
       crossorigin

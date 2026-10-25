@@ -140,10 +140,9 @@ function Hero() {
               className="hero-robot"
               src="/hero-robot.png"
               alt="איור של בוט שיחות AI של קוליד"
-              width={560}
-              height={560}
+              width={520}
+              height={496}
               decoding="async"
-              fetchPriority="high"
             />
           </picture>
         </div>

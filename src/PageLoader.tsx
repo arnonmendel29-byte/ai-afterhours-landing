@@ -19,8 +19,15 @@ function documentIsReady() {
   return document.readyState === 'interactive' || document.readyState === 'complete';
 }
 
+/** ב-prerender התוכן כבר ב-HTML; מסך הטעינה רק יסתיר את ההירו עד ש-JS ייטען */
+function contentAlreadyPainted() {
+  if (typeof document === 'undefined') return true;
+  const root = document.getElementById('root');
+  return !!root && root.childElementCount > 0;
+}
+
 export function PageLoader({ children }: PageLoaderProps) {
-  const [mounted, setMounted] = useState(true);
+  const [mounted, setMounted] = useState(() => !contentAlreadyPainted());
   const [exiting, setExiting] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -31,6 +38,7 @@ export function PageLoader({ children }: PageLoaderProps) {
   const cancelledRef = useRef(false);
 
   useEffect(() => {
+    if (!mounted) return;
     cancelledRef.current = false;
     const reduceMotion = prefersReducedMotion();
     const isMobile = window.matchMedia('(max-width: 767px)').matches;
@@ -149,7 +157,7 @@ export function PageLoader({ children }: PageLoaderProps) {
       window.removeEventListener('DOMContentLoaded', onDomReady);
       window.removeEventListener('load', markReady);
     };
-  }, []);
+  }, [mounted]);
 
   const dashOffset = RING_CIRCUMFERENCE * (1 - progress / 100);
 

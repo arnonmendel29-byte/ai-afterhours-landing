@@ -1609,8 +1609,21 @@
     border-inline-start: 0;
   }
 
+  /* H1 → טלפון → טקסט ו-CTA (במקום טלפון מעל כל בלוק הטקסט) */
+  .essay.essay--flash .flash-hero__copy {
+    display: contents;
+  }
+
+  .essay.essay--flash .flash-hero__copy .essay-header {
+    order: 0;
+  }
+
   .essay.essay--flash .flash-hero-visual {
-    order: -1;
+    order: 1;
+  }
+
+  .essay.essay--flash .flash-hero__aside {
+    order: 2;
   }
 
   .essay.essay--flash .flash-plan {

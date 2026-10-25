@@ -164,7 +164,7 @@ export function LeadWarmingPage() {
             <div className="flash-hero__copy">
               <div className="essay-header">
                 <h1 id="lw-hero-title">
-                  <span className="flash-hero__title-line">תגובה מיידית ללידים</span>{' '}
+                  <span className="flash-hero__title-line">ליד מתקשר?</span>{' '}
                   <span className="flash-hero__title-line">אנחנו כבר על הקו</span>
                 </h1>
               </div>

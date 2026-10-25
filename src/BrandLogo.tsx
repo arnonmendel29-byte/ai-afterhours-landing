@@ -19,7 +19,6 @@ export function BrandLogo({ href = '#top', className = '', compact = false }: Br
           className="brand-logo-image"
           src={siteConfig.logoSrc}
           alt=""
-          fetchPriority={compact ? undefined : 'high'}
           width={compact ? 120 : 140}
           height={compact ? 34 : 40}
           decoding="async"

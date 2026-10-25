@@ -145,14 +145,35 @@ function renderRouteHtml(path, meta) {
 
   if (path !== '/') {
     out = out.replace(
-      /\s*<link\s+rel="preload"\s+as="image"[\s\S]*?fetchpriority="high"\s*\/>/,
+      /\s*<link\s+rel="preload"\s+as="image"[\s\S]*?fetchpriority="high"\s*\/>/g,
       '',
     );
   }
 
   out = replaceOrFail(out, /<\/head>/, () => `${routeAssetTags(path)}  </head>`, '</head>');
+  out = inlineLocalStylesheets(out);
 
   return out;
+}
+
+/**
+ * השרת החי מגיש CSS בלי gzip (Cache-Control: no-transform).
+ * הטמעה ב-HTML מעבירה את ה-CSS בתוך המסמך הדחוס ומבטלת בקשת CSS חוסמת.
+ */
+function inlineLocalStylesheets(html) {
+  return html.replace(
+    /<link\s+rel="stylesheet"[^>]*href="(\/[^"]+\.css)"[^>]*>/g,
+    (tag, href) => {
+      const file = join(distDir, href.slice(1));
+      let css;
+      try {
+        css = readFileSync(file, 'utf8');
+      } catch {
+        throw new Error(`generate-route-html: stylesheet not found for inlining: ${href}`);
+      }
+      return `<style>${css.replaceAll('</style', '<\\/style')}</style>`;
+    },
+  );
 }
 
 for (const [path, meta] of Object.entries(pages)) {
