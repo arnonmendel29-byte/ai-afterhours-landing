@@ -1,9 +1,8 @@
-import { instantLeadPricing } from '../callbotProducts';
 import { leadWarmingFlow } from '../content';
 import { FlashTryDialog } from '../FlashTryDialog';
 import { LEAD_FORM_ID, isLeadFormHash, scrollToLeadForm, scrollToLeadFormWhenReady } from '../leadForm';
 import { LeadDemoFormSection } from '../LeadDemoFormSection';
-import { FLASH_TRY_CTA_LABEL, LeadCtaStrip } from '../SiteLeadCtas';
+import { FLASH_TRY_CTA_LABEL, FlashTryLeadButton, LeadCtaStrip } from '../SiteLeadCtas';
 import { useInViewScrollSync } from '../useInViewScrollSync';
 import { ServicePageLayout } from './ServicePageLayout';
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
@@ -158,18 +157,14 @@ export function LeadWarmingPage() {
   }, []);
 
   return (
-    <ServicePageLayout
-      path={PATH}
-      currentPath={PATH}
-      serviceName="Kolid Flash — תגובה מיידית ללידים"
-    >
+    <ServicePageLayout path={PATH} currentPath={PATH}>
       <article className="essay essay--flash">
         <header className="essay-band essay-band--open flash-hero">
           <div className="essay-inner flash-hero__grid">
             <div className="flash-hero__copy">
               <div className="essay-header">
                 <h1 id="lw-hero-title">
-                  <span className="flash-hero__title-line">תגובה מיידית ללידים</span>
+                  <span className="flash-hero__title-line">תגובה מיידית ללידים</span>{' '}
                   <span className="flash-hero__title-line">אנחנו כבר על הקו</span>
                 </h1>
               </div>
@@ -245,6 +240,9 @@ export function LeadWarmingPage() {
                 הרשימה מתארת קהלי יעד אפשריים. היא לא קובעת שכל סוג עסק נתמך, ולא מחליפה
                 בדיקה של תהליך העבודה אצלכם.
               </p>
+              <div className="flash-audiences__cta">
+                <FlashTryLeadButton onClick={openTry} />
+              </div>
             </div>
             <div className="flash-audience-list">
               {audiences.map((item) => (
@@ -254,37 +252,12 @@ export function LeadWarmingPage() {
           </div>
         </section>
 
-        <section className="essay-band flash-pricing" id="pricing" aria-labelledby="lw-pricing-title">
-          <div className="essay-inner">
-            <h2 id="lw-pricing-title">{instantLeadPricing.title}</h2>
-            <div className="flash-plans">
-              {instantLeadPricing.plans.map((plan) => (
-                <div className="flash-plan" key={plan.id}>
-                  <h3>{plan.name}</h3>
-                  <p>
-                    {plan.priceLabel}. {plan.description}
-                  </p>
-                  {plan.features.length > 0 ? (
-                    plan.features.map((feature) => <p key={feature}>{feature}</p>)
-                  ) : (
-                    <p>{plan.featuresPendingNote}</p>
-                  )}
-                  <p>
-                    <a href={plan.ctaHref}>{plan.ctaLabel}</a>
-                  </p>
-                </div>
-              ))}
-            </div>
-            <p className="flash-pricing__note">{instantLeadPricing.footnote}</p>
-          </div>
-        </section>
-
         <section className="essay-band flash-bridge">
           <div className="essay-inner flash-bridge__grid">
             <h2>מחפשים ליצור קשר עם לידים קרים או רשימות קיימות?</h2>
             <p>
               לשיחות יזומות ולחימום רשימות יש פתרון נפרד — Kolid Spark, בוט שיוצא לשיחה ומסנן
-              עניין לפני שהנציג נכנס. <a href="/outbound-call-bot">לפרטים על Kolid Spark</a>
+              עניין לפני שהנציג נכנס. <a href="/outbound-call-bot/">לפרטים על Kolid Spark</a>
             </p>
           </div>
         </section>

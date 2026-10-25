@@ -38,7 +38,7 @@
 
 ## 4. דומיין ו-SEO
 
-- [ ] דומיין סופי (אם לא `num8.vercel.app`) — עדכון `canonical`, `sitemap.xml`, `siteConfig.siteUrl`, `public/schema.json`
+- [x] דומיין סופי: `https://kolid.co.il` — עודכנו `canonical`, `sitemap.xml`, `siteConfig.siteUrl`, `public/schema.json`, `robots.txt`, `index.html`
 - [ ] אימות Google Search Console / Rich Results ל-JSON-LD
 
 ---

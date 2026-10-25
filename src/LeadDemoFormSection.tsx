@@ -117,7 +117,7 @@ export function LeadDemoFormSection({
         })}
         <p className="form-privacy-note">
           שליחת הטופס מהווה פנייה לקבלת הדגמה. פרטים נוספים ב{' '}
-          <a href="/privacy-policy">מדיניות הפרטיות</a>.
+          <a href="/privacy-policy/">מדיניות הפרטיות</a>.
         </p>
         <p className="form-note">
           אפשר גם להתקשר:{' '}

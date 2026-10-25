@@ -6,7 +6,7 @@ export const siteConfig = {
   brandName: 'קוליד',
   logoSrc: '/kolid-logo.png',
   logoAlt: 'קוליד — לוגו עם סמל רובוט ואוזניות',
-  siteUrl: 'https://num8.vercel.app',
+  siteUrl: 'https://kolid.co.il',
   /** תאריך עדכון מדיניות (ISO) — עדכנו בכל שינוי מהותי */
   policyLastUpdated: '2026-10-24',
   contact: {

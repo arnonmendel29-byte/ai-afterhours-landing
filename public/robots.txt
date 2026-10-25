@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://num8.vercel.app/sitemap.xml
+Sitemap: https://kolid.co.il/sitemap.xml

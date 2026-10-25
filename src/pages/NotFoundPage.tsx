@@ -32,7 +32,7 @@ export function NotFoundPage() {
           <p>
             <a href="/">חזרה לעמוד הבית</a>
             {' · '}
-            <a href="/lead-warming">תגובה מיידית — Kolid Flash</a>
+            <a href="/lead-warming/">תגובה מיידית — Kolid Flash</a>
           </p>
         </header>
       </main>

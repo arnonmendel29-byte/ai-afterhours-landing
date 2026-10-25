@@ -72,7 +72,7 @@ function RouteBody() {
   const path = normalizePath(window.location.pathname);
 
   if (path === '/instant-lead-response') {
-    window.history.replaceState(null, '', '/lead-warming');
+    window.history.replaceState(null, '', '/lead-warming/');
     return (
       <Suspense fallback={<RouteFallback />}>
         <LeadWarmingPage />

@@ -209,11 +209,7 @@ function SparkCallout({
 
 export function OutboundCallBotPage() {
   return (
-    <ServicePageLayout
-      path={PATH}
-      currentPath={PATH}
-      serviceName="Kolid Spark — שיחות יזומות וחימום לידים"
-    >
+    <ServicePageLayout path={PATH} currentPath={PATH}>
       <article className="essay essay--spark">
         <ReadingProgress />
         <SparkBackdrop />
@@ -221,7 +217,7 @@ export function OutboundCallBotPage() {
           <div className="spark-hero__inner">
             <Reveal className="spark-hero__copy">
               <div className="essay-header">
-                <p className="essay-kicker">Kolid Spark</p>
+                <p className="essay-kicker">Kolid Spark · בוט לחימום לידים</p>
                 <h1>
                   שיחות יזומות מתחילות ברשימה,{' '}
                   <span className="spark-title-accent">לא בנציג</span>
@@ -346,7 +342,7 @@ export function OutboundCallBotPage() {
                       זה מתאים כשיש מאגר: פניות ישנות, לידים מקמפיין שכבר נגמר, לקוחות שלא דיברתם
                       איתם תקופה. זה פחות העניין כשהליד השאיר פרטים עכשיו ומחכה שמישהו יחזור אליו.
                       בשביל זה יש{' '}
-                      <a href="/lead-warming">Kolid Flash</a>, שמתקשר לליד חדש אחרי הטופס.
+                      <a href="/lead-warming/">Kolid Flash</a>, שמתקשר לליד חדש אחרי הטופס.
                     </p>
                   </Reveal>
                   <SparkCallout icon="03" delayStep={2}>

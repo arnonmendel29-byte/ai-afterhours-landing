@@ -3,27 +3,27 @@
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://num8.vercel.app/#organization",
+      "@id": "https://kolid.co.il/#organization",
       "name": "קוליד",
       "alternateName": "Kolid",
-      "url": "https://num8.vercel.app/",
+      "url": "https://kolid.co.il/",
       "telephone": "+972544460533",
-      "logo": "https://num8.vercel.app/kolid-logo.png",
+      "logo": "https://kolid.co.il/kolid-logo.png",
       "description": "בוט שיחות AI לסינון לידים ולאוטומציה של השיחה הראשונה מול צוות המכירות."
     },
     {
       "@type": "WebSite",
-      "@id": "https://num8.vercel.app/#website",
+      "@id": "https://kolid.co.il/#website",
       "name": "קוליד",
-      "url": "https://num8.vercel.app/",
+      "url": "https://kolid.co.il/",
       "inLanguage": "he",
-      "publisher": { "@id": "https://num8.vercel.app/#organization" }
+      "publisher": { "@id": "https://kolid.co.il/#organization" }
     },
     {
       "@type": "Person",
       "name": "ניב אשור",
       "jobTitle": "מייסד ו-CEO",
-      "worksFor": { "@id": "https://num8.vercel.app/#organization" }
+      "worksFor": { "@id": "https://kolid.co.il/#organization" }
     }
   ]
 }

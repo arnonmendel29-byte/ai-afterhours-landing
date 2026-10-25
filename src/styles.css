@@ -1278,8 +1278,7 @@ p {
 }
 
 .pillars-suspense {
-  min-height: 100vh;
-  min-height: 100svh;
+  min-height: 300vh;
   background: linear-gradient(145deg, #5b21b6 0%, #6d28d9 38%, #7c3aed 72%, #9333ea 100%);
 }
 
@@ -1644,8 +1643,18 @@ p {
   align-items: center;
 }
 
-.about-copy h2 {
+.about-copy h2,
+.about-copy .about-title {
   color: var(--heading);
+}
+
+/* H1 סמנטי שנראה כמו כותרות h2 באתר */
+.about-copy .about-title {
+  max-width: none;
+  margin-bottom: 18px;
+  font-size: clamp(32px, 4.3vw, 44px);
+  letter-spacing: -0.045em;
+  line-height: 1.1;
 }
 
 .about-founder {
@@ -1879,7 +1888,6 @@ p {
   transition:
     opacity 560ms cubic-bezier(0.16, 1, 0.3, 1),
     transform 560ms cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
 }
 
 .reveal--fade {
@@ -2201,7 +2209,6 @@ p {
   .reveal:not(.is-visible) {
     transform: translate3d(0, 10px, 0);
     transition-duration: 420ms;
-    will-change: opacity;
   }
 
   .product-console::before {
@@ -2344,7 +2351,8 @@ p {
     object-position: center bottom;
   }
 
-  h2 {
+  h2,
+  .about-copy .about-title {
     margin-bottom: 14px;
     font-size: clamp(26px, 7.4vw, 34px);
     line-height: 1.15;
@@ -2484,6 +2492,10 @@ p {
 
   .pillars-track {
     height: 360vh;
+  }
+
+  .pillars-suspense {
+    min-height: 360vh;
   }
 
   .pillars-section {

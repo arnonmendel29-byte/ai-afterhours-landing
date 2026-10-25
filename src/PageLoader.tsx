@@ -195,7 +195,6 @@ export function PageLoader({ children }: PageLoaderProps) {
                 width={160}
                 height={160}
                 decoding="async"
-                fetchPriority="high"
               />
             </div>
 

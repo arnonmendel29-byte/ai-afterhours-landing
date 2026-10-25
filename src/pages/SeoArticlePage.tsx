@@ -62,7 +62,6 @@ export function SeoArticlePage({ article }: { article: SeoArticle }) {
     const page = getSeoPage(article.path);
     applyDocumentMeta({
       page: { ...page, ogType: 'article' },
-      ogImage: article.hero.src,
       jsonLd: buildArticleJsonLd(article),
     });
   }, [article]);

@@ -218,7 +218,7 @@ export function AccessibilityWidget() {
           <button type="button" className="a11y-widget__chip" onClick={reset}>
             איפוס הכל
           </button>
-          <a href="/accessibility">הצהרת נגישות מלאה</a>
+          <a href="/accessibility/">הצהרת נגישות מלאה</a>
         </div>
       </div>
     </div>

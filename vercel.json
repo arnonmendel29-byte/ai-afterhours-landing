@@ -6,12 +6,12 @@
   "redirects": [
     {
       "source": "/instant-lead-response",
-      "destination": "/lead-warming",
+      "destination": "/lead-warming/",
       "permanent": true
     },
     {
       "source": "/instant-lead-response/",
-      "destination": "/lead-warming",
+      "destination": "/lead-warming/",
       "permanent": true
     }
   ],
@@ -19,6 +19,18 @@
     {
       "source": "/lead-warming",
       "destination": "/lead-warming/index.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about/index.html"
+    },
+    {
+      "source": "/how-to-get-more-leads",
+      "destination": "/how-to-get-more-leads/index.html"
+    },
+    {
+      "source": "/improve-sales-process",
+      "destination": "/improve-sales-process/index.html"
     },
     {
       "source": "/outbound-call-bot",

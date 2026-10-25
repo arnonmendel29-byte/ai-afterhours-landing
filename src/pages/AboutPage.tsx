@@ -4,7 +4,7 @@ import { SiteHeader } from '../SiteHeader';
 import { BrandLogo } from '../BrandLogo';
 import { siteConfig } from '../siteConfig';
 import { applyDocumentMeta } from '../seo/documentMeta';
-import { getSeoPage } from '../seo/pages';
+import { buildAboutPageJsonLd, getSeoPage } from '../seo/pages';
 import { useEffect } from 'react';
 
 const PATH = '/about';
@@ -13,7 +13,7 @@ export function AboutPage() {
   useEffect(() => {
     applyDocumentMeta({
       page: getSeoPage(PATH),
-      jsonLd: null,
+      jsonLd: buildAboutPageJsonLd(),
     });
   }, []);
 
@@ -28,7 +28,9 @@ export function AboutPage() {
           <div className="container about-grid">
             <Reveal className="about-copy section-copy">
               <p className="eyebrow">{about.eyebrow}</p>
-              <h2 id="about-title">{about.title}</h2>
+              <h1 id="about-title" className="about-title">
+                {about.title}
+              </h1>
               <div className="about-founder">
                 <h3>{about.name}</h3>
                 <p>{about.role}</p>

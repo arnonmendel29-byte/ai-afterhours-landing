@@ -1,7 +1,7 @@
 import { BrandLogo } from '../BrandLogo';
 import { siteConfig } from '../siteConfig';
 import { applyDocumentMeta } from '../seo/documentMeta';
-import { getSeoPage } from '../seo/pages';
+import { buildBaseJsonLd, getSeoPage } from '../seo/pages';
 import { useEffect, type ReactNode } from 'react';
 
 type LegalLayoutProps = {
@@ -13,7 +13,7 @@ export function LegalLayout({ path, children }: LegalLayoutProps) {
   const page = getSeoPage(path);
 
   useEffect(() => {
-    applyDocumentMeta({ page, jsonLd: null });
+    applyDocumentMeta({ page, jsonLd: buildBaseJsonLd() });
   }, [page]);
 
   return (
@@ -26,9 +26,9 @@ export function LegalLayout({ path, children }: LegalLayoutProps) {
           <BrandLogo href="/" />
           <nav className="legal-nav" aria-label="ניווט משני">
             <a href="/">עמוד הבית</a>
-            <a href="/privacy-policy">מדיניות פרטיות</a>
-            <a href="/accessibility">הצהרת נגישות</a>
-            <a href="/cookie-policy">מידע על עוגיות</a>
+            <a href="/privacy-policy/">מדיניות פרטיות</a>
+            <a href="/accessibility/">הצהרת נגישות</a>
+            <a href="/cookie-policy/">מידע על עוגיות</a>
           </nav>
         </div>
       </header>

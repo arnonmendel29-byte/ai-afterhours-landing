@@ -1,9 +1,8 @@
-import { leadFormHref } from '../leadForm';
 import { Reveal } from '../Reveal';
 import { SiteHeader } from '../SiteHeader';
 import { siteConfig } from '../siteConfig';
 import { applyDocumentMeta } from '../seo/documentMeta';
-import { buildServicePageJsonLd, getSeoPage } from '../seo/pages';
+import { buildServicePageJsonLdForPath, getSeoPage } from '../seo/pages';
 import { useEffect, type ReactNode } from 'react';
 import './ServicePage.css';
 
@@ -13,38 +12,28 @@ export type ServiceNavItem = {
 };
 
 const RELATED_PAGES: ServiceNavItem[] = [
-  { href: '/lead-warming', label: 'תגובה מיידית — Kolid Flash' },
-  { href: '/outbound-call-bot', label: 'שיחות יזומות — Kolid Spark' },
-  { href: '/lead-warming#pricing', label: 'תמחור Kolid Flash' },
-  { href: '/ai-call-bots', label: 'מדריך בוטי שיחות AI' },
+  { href: '/lead-warming/', label: 'תגובה מיידית — Kolid Flash' },
+  { href: '/outbound-call-bot/', label: 'שיחות יזומות — Kolid Spark' },
+  { href: '/ai-call-bots/', label: 'מדריך בוטי שיחות AI' },
 ];
 
 type ServicePageLayoutProps = {
   path: string;
   currentPath: string;
-  /** תווית לפירורי לחם ול-Schema */
-  serviceName: string;
   children: ReactNode;
 };
 
 export function ServicePageLayout({
   path,
   currentPath,
-  serviceName,
   children,
 }: ServicePageLayoutProps) {
   useEffect(() => {
-    const page = getSeoPage(path);
     applyDocumentMeta({
-      page,
-      jsonLd: buildServicePageJsonLd({
-        name: serviceName,
-        description: page.description,
-        path: page.path,
-        crumbLabel: serviceName,
-      }),
+      page: getSeoPage(path),
+      jsonLd: buildServicePageJsonLdForPath(path),
     });
-  }, [path, serviceName]);
+  }, [path]);
 
   return (
     <div className="site-shell svc-page">
@@ -62,12 +51,12 @@ export function ServicePageLayout({
             <a href="/">חזרה לעמוד הבית</a>
           </p>
           <div className="svc-footer-links">
-            <a href="/lead-warming">תגובה מיידית — Kolid Flash</a>
-            <a href="/outbound-call-bot">שיחות יזומות — Kolid Spark</a>
-            <a href="/lead-warming#pricing">תמחור Kolid Flash</a>
-            <a href="/ai-call-bots">מדריך בוטי שיחות AI</a>
+            <a href="/lead-warming/">תגובה מיידית — Kolid Flash</a>
+            <a href="/outbound-call-bot/">שיחות יזומות — Kolid Spark</a>
+            <a href="/ai-call-bots/">מדריך בוטי שיחות AI</a>
+            <a href="/about/">אודות</a>
             <a href={`tel:${siteConfig.contact.phoneE164}`}>{siteConfig.contact.phoneDisplay}</a>
-            <a href="/privacy-policy">מדיניות פרטיות</a>
+            <a href="/privacy-policy/">מדיניות פרטיות</a>
           </div>
         </div>
       </footer>
@@ -77,7 +66,7 @@ export function ServicePageLayout({
 
 export function ServiceRelatedLinks({ exclude }: { exclude: string }) {
   const links = RELATED_PAGES.filter((item) => {
-    const pathOnly = item.href.split('#')[0];
+    const pathOnly = item.href.split('#')[0].replace(/\/+$/, '');
     return pathOnly !== exclude || item.href.includes('#');
   });
   return (
@@ -88,7 +77,6 @@ export function ServiceRelatedLinks({ exclude }: { exclude: string }) {
         </a>
       ))}
       <a href="/">עמוד הבית</a>
-      <a href={leadFormHref(exclude)}>קבל הדגמה</a>
     </Reveal>
   );
 }

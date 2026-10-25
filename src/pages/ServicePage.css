@@ -1472,6 +1472,12 @@
   max-width: 32em;
 }
 
+.essay.essay--flash .flash-audiences__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(24px, 4vw, 36px);
+}
+
 .essay.essay--flash .flash-audience-list p {
   margin: 0;
   padding: 16px 0;

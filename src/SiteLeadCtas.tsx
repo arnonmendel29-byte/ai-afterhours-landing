@@ -86,6 +86,10 @@ export function WhatsAppLeadButton({
 type SiteLeadCtasProps = {
   className?: string;
   formHref?: string;
+  /** ברירת מחדל: וואטסאפ + «להשארת פרטים». flash-try-and-form: ניסיון Kolid Flash + «להשארת פרטים» */
+  layout?: 'whatsapp-and-form' | 'flash-try-and-form';
+  /** נדרש כש-layout הוא flash-try-and-form — פותח את טופס הניסיון */
+  onFlashTry?: () => void;
   /** מחליף את קישור «להשארת פרטים» בכפתור פעולה, למשל ניסיון Kolid Flash */
   secondaryAction?: {
     label: string;
@@ -98,11 +102,14 @@ type SiteLeadCtasProps = {
 export function SiteLeadCtas({
   className = '',
   formHref: formHrefProp,
+  layout = 'whatsapp-and-form',
+  onFlashTry,
   secondaryAction,
 }: SiteLeadCtasProps) {
   const { whatsAppUrl } = siteConfig;
   const formHref = formHrefProp ?? leadFormHref();
-  const flashPromo = secondaryAction?.variant === 'flash-try';
+  const flashTryAndForm = layout === 'flash-try-and-form';
+  const flashPromo = !flashTryAndForm && secondaryAction?.variant === 'flash-try';
   const rootClass = [
     'site-lead-ctas',
     'site-lead-ctas--inline',
@@ -111,6 +118,16 @@ export function SiteLeadCtas({
   ]
     .filter(Boolean)
     .join(' ');
+
+  const formLink = (
+    <a
+      className="site-lead-ctas__btn site-lead-ctas__btn--form"
+      href={formHref}
+      aria-label="להשארת פרטים"
+    >
+      <span>להשארת פרטים</span>
+    </a>
+  );
 
   const flashTryButton = secondaryAction ? (
     flashPromo ? (
@@ -125,13 +142,7 @@ export function SiteLeadCtas({
       </button>
     )
   ) : (
-    <a
-      className="site-lead-ctas__btn site-lead-ctas__btn--form"
-      href={formHref}
-      aria-label="להשארת פרטים"
-    >
-      <span>להשארת פרטים</span>
-    </a>
+    formLink
   );
 
   const whatsAppButton =
@@ -151,6 +162,15 @@ export function SiteLeadCtas({
         <span>{WHATSAPP_CTA_LABEL}</span>
       </a>
     ) : null;
+
+  if (flashTryAndForm) {
+    return (
+      <div className={rootClass} role="group" aria-label="יצירת קשר">
+        <FlashTryLeadButton onClick={onFlashTry ?? (() => {})} />
+        {formLink}
+      </div>
+    );
+  }
 
   return (
     <div className={rootClass} role="group" aria-label="יצירת קשר">

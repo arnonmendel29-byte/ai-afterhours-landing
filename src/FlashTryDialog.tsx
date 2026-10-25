@@ -124,7 +124,7 @@ export function FlashTryDialog({ open, onClose }: FlashTryDialogProps) {
           </label>
           <p className="flash-try__privacy">
             שליחת הטופס מתחילה שיחה מ-Kolid Flash. פרטים נוספים ב{' '}
-            <a href="/privacy-policy">מדיניות הפרטיות</a>.
+            <a href="/privacy-policy/">מדיניות הפרטיות</a>.
           </p>
           <p className="flash-try__status" role="status" aria-live="polite">
             {status === 'sending' && 'שולח…'}

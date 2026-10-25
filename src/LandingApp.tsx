@@ -13,6 +13,7 @@ import GradientText from './GradientText';
 import { siteConfig } from './siteConfig';
 import { applyDocumentMeta } from './seo/documentMeta';
 import { buildHomeJsonLd, getSeoPage } from './seo/pages';
+import { FlashTryDialog } from './FlashTryDialog';
 import { LeadDemoFormSection } from './LeadDemoFormSection';
 import { isLeadFormHash, scrollToLeadForm, scrollToLeadFormWhenReady } from './leadForm';
 import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from 'react';
@@ -20,6 +21,42 @@ import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from 
 const PillarsSection = lazy(() =>
   import('./PillarsSection').then((module) => ({ default: module.PillarsSection })),
 );
+
+function DeferredPillars() {
+  const slotRef = useRef<HTMLDivElement>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const slot = slotRef.current;
+    if (!slot) return;
+    if (!('IntersectionObserver' in window)) {
+      setReady(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setReady(true);
+        observer.disconnect();
+      },
+      { rootMargin: '700px 0px', threshold: 0 },
+    );
+    observer.observe(slot);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={slotRef}>
+      {ready ? (
+        <Suspense fallback={<div className="pillars-suspense" aria-hidden="true" />}>
+          <PillarsSection />
+        </Suspense>
+      ) : (
+        <div className="pillars-suspense" aria-hidden="true" />
+      )}
+    </div>
+  );
+}
 
 export default function LandingApp() {
   useEffect(() => {
@@ -75,9 +112,7 @@ export default function LandingApp() {
           <Problem />
           <ProductDemo />
         </div>
-        <Suspense fallback={<div className="pillars-suspense" aria-hidden="true" />}>
-          <PillarsSection />
-        </Suspense>
+        <DeferredPillars />
         <Integrations />
         <HomeProductsSection />
         <PricingPreview />
@@ -183,12 +218,20 @@ function ProductDemo() {
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    const syncTimeline = () => {
+    let lastPainted = '';
+    const paintProgress = (value: number) => {
+      const next = value.toFixed(4);
+      if (next === lastPainted) return;
+      lastPainted = next;
+      trackRef.current?.style.setProperty('--progress', next);
+    };
+
+    const syncTimelinePainted = () => {
       const node = trackRef.current;
       if (!node || !inViewRef.current) return;
 
       if (reducedMotion.matches) {
-        node.style.setProperty('--progress', '1');
+        paintProgress(1);
         applyActiveClasses(productFlow.length);
         return;
       }
@@ -199,7 +242,7 @@ function ProductDemo() {
         1,
         Math.max(0, (trigger - rect.top) / Math.max(rect.height, 1)),
       );
-      node.style.setProperty('--progress', nextProgress.toFixed(4));
+      paintProgress(nextProgress);
 
       const steps = productFlow.length;
       const nextActive = Math.min(
@@ -210,8 +253,9 @@ function ProductDemo() {
     };
 
     const scheduleSync = () => {
+      if (!inViewRef.current) return;
       cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(syncTimeline);
+      rafRef.current = requestAnimationFrame(syncTimelinePainted);
     };
 
     const observer = new IntersectionObserver(
@@ -316,6 +360,8 @@ function Integrations() {
 }
 
 function PricingPreview() {
+  const [tryOpen, setTryOpen] = useState(false);
+
   return (
     <section
       className="section compact section-surface-purple pricing-section"
@@ -329,8 +375,14 @@ function PricingPreview() {
             המודל המסחרי יוצג בהדגמה, אחרי שנבין את תהליך המכירה ואת כמות הלידים.
           </p>
         </div>
-        <SiteLeadCtas className="pricing-lead-ctas" formHref="#demo-form" />
+        <SiteLeadCtas
+          className="pricing-lead-ctas site-lead-ctas--flash-promo"
+          formHref="#demo-form"
+          layout="flash-try-and-form"
+          onFlashTry={() => setTryOpen(true)}
+        />
       </Reveal>
+      <FlashTryDialog open={tryOpen} onClose={() => setTryOpen(false)} />
     </section>
   );
 }
@@ -373,16 +425,15 @@ function Footer() {
         <BrandLogo href="#top" compact />
         <div className="footer-links">
           <a href="#solutions">הפתרונות</a>
-          <a href="/lead-warming">תגובה מיידית — Kolid Flash</a>
-          <a href="/lead-warming#pricing">תמחור Kolid Flash</a>
-          <a href="/outbound-call-bot">שיחות יזומות — Kolid Spark</a>
-          <a href="/ai-call-bots">מדריך בוטי שיחות AI</a>
-          <a href="/about">אודות</a>
+          <a href="/lead-warming/">תגובה מיידית — Kolid Flash</a>
+          <a href="/outbound-call-bot/">שיחות יזומות — Kolid Spark</a>
+          <a href="/ai-call-bots/">מדריך בוטי שיחות AI</a>
+          <a href="/about/">אודות</a>
           <a href="#faq">שאלות</a>
           <a href="#demo-form">יצירת קשר</a>
-          <a href="/privacy-policy">מדיניות פרטיות</a>
-          <a href="/accessibility">הצהרת נגישות</a>
-          <a href="/cookie-policy">מידע על עוגיות</a>
+          <a href="/privacy-policy/">מדיניות פרטיות</a>
+          <a href="/accessibility/">הצהרת נגישות</a>
+          <a href="/cookie-policy/">מידע על עוגיות</a>
         </div>
         <p>
           © {new Date().getFullYear()} {siteConfig.brandName}. כל הזכויות שמורות.{' '}

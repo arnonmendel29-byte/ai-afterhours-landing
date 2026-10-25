@@ -17,8 +17,12 @@ function upsertMeta(attr: 'name' | 'property', key: string, content: string) {
   el.setAttribute('content', content);
 }
 
-function upsertCanonical(href: string) {
+function upsertCanonical(href: string | null) {
   let link = document.head.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+  if (!href) {
+    link?.remove();
+    return;
+  }
   if (!link) {
     link = document.createElement('link');
     link.rel = 'canonical';
@@ -55,11 +59,12 @@ export type ApplyDocumentMetaOptions = {
 export function applyDocumentMeta(options: ApplyDocumentMetaOptions = {}) {
   const page = options.page ?? getSeoPage(options.path ?? '/');
   const canonical = absoluteUrl(page.path);
-  const ogImage = absoluteUrl(options.ogImage ?? defaultOgImagePath);
+  const ogImage = absoluteUrl(options.ogImage ?? page.image ?? defaultOgImagePath);
+  const robots = page.robots ?? 'index, follow, max-image-preview:large';
 
   document.title = page.title;
   upsertMeta('name', 'description', page.description);
-  upsertMeta('name', 'robots', page.robots ?? 'index, follow');
+  upsertMeta('name', 'robots', robots);
 
   upsertMeta('property', 'og:type', page.ogType ?? 'website');
   upsertMeta('property', 'og:locale', 'he_IL');
@@ -74,7 +79,7 @@ export function applyDocumentMeta(options: ApplyDocumentMetaOptions = {}) {
   upsertMeta('name', 'twitter:description', page.description);
   upsertMeta('name', 'twitter:image', ogImage);
 
-  upsertCanonical(canonical);
+  upsertCanonical(robots.includes('noindex') ? null : canonical);
 
   if (options.jsonLd !== undefined) {
     upsertJsonLd(options.jsonLd);

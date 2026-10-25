@@ -11,11 +11,7 @@ function staggerStep(index: number): 0 | 1 | 2 {
 
 export function AiCallBotsPage() {
   return (
-    <ServicePageLayout
-      path={PATH}
-      currentPath={PATH}
-      serviceName="בוטים לשיחות AI לעסקים"
-    >
+    <ServicePageLayout path={PATH} currentPath={PATH}>
       <section className="svc-hero" aria-labelledby="acb-hero-title">
         <div className="container svc-hero-inner">
           <Reveal>
@@ -31,7 +27,7 @@ export function AiCallBotsPage() {
             <div className="svc-hero-actions svc-hero-actions--lead">
               <SiteLeadCtas />
               <div className="svc-hero-actions-row">
-                <a className="svc-link-quiet" href="/lead-warming">
+                <a className="svc-link-quiet" href="/lead-warming/">
                   ל-Kolid Flash
                 </a>
               </div>
@@ -187,7 +183,8 @@ export function AiCallBotsPage() {
               <h2 id="acb-cta-title">רוצים לבחון בוט שיחות לעסק שלכם?</h2>
               <p>
                 צרו קשר עם {siteConfig.brandName} להדגמה:{' '}
-                {siteConfig.contact.phoneDisplay}, או השאירו פרטים בטופס בעמוד הבית.
+                {siteConfig.contact.phoneDisplay}, או השאירו פרטים{' '}
+                <a href="/#demo-form">בטופס בעמוד הבית</a>.
               </p>
             </div>
             <LeadCtaStrip align="start" tone="on-purple" />

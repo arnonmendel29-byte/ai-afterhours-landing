@@ -57,8 +57,8 @@ export function CookiePolicyPage() {
       <section aria-labelledby="ck-more">
         <h2 id="ck-more">5. קישורים</h2>
         <p>
-          <a href="/privacy-policy">מדיניות פרטיות</a> ·{' '}
-          <a href="/accessibility">הצהרת נגישות</a>
+          <a href="/privacy-policy/">מדיניות פרטיות</a> ·{' '}
+          <a href="/accessibility/">הצהרת נגישות</a>
         </p>
       </section>
     </LegalLayout>

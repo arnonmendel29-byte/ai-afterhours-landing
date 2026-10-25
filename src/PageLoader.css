@@ -19,6 +19,13 @@
   pointer-events: none;
 }
 
+/* ה-HTML שנוצר מראש כולל את ה-loader; בלי JavaScript אין מי שיסגור אותו */
+@media (scripting: none) {
+  .page-loader {
+    display: none;
+  }
+}
+
 .page-loader__stage {
   display: flex;
   width: min(100%, 22rem);

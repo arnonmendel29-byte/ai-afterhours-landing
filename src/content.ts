@@ -1,11 +1,15 @@
 export const navItems = [
   { label: 'בית', href: '#top' },
-  { label: 'תגובה מיידית', href: '/lead-warming' },
-  { label: 'שיחות יזומות', href: '/outbound-call-bot' },
-  { label: 'איך להשיג עוד לידים', href: '/how-to-get-more-leads' },
-  { label: 'שיפור תהליך המכירה', href: '/improve-sales-process' },
-  { label: 'אודות', href: '/about' },
+  { label: 'תגובה מיידית', href: '/lead-warming/' },
+  { label: 'שיחות יזומות', href: '/outbound-call-bot/' },
+  { label: 'איך להשיג עוד לידים', href: '/how-to-get-more-leads/' },
+  { label: 'שיפור תהליך המכירה', href: '/improve-sales-process/' },
+  { label: 'אודות', href: '/about/' },
 ] as const;
+
+function trimTrailingSlash(path: string): string {
+  return path.replace(/\/+$/, '') || '/';
+}
 
 /** קישורי עוגן מעמוד הבית → קישורים מלאים מדפי משנה */
 export function navHrefForPage(href: string): string {
@@ -18,23 +22,25 @@ export function isNavItemCurrent(
   currentPath: string,
   locationHash = typeof window !== 'undefined' ? window.location.hash.replace(/^#/, '') : '',
 ): boolean {
+  const current = trimTrailingSlash(currentPath);
+
   if (href.includes('#')) {
     const hashIndex = href.indexOf('#');
-    const path = href.slice(0, hashIndex) || '/';
+    const path = trimTrailingSlash(href.slice(0, hashIndex) || '/');
     const anchor = href.slice(hashIndex + 1);
-    if (path !== currentPath) return false;
+    if (path !== current) return false;
     return locationHash === anchor;
   }
 
   if (href.startsWith('#')) {
-    if (currentPath !== '/') return false;
+    if (current !== '/') return false;
     const anchor = href.slice(1);
     if (anchor === 'top') return locationHash === '' || locationHash === 'top';
     return locationHash === anchor;
   }
 
   if (href.startsWith('/')) {
-    if (href !== currentPath) return false;
+    if (trimTrailingSlash(href) !== current) return false;
     return locationHash === '';
   }
 
@@ -92,8 +98,6 @@ export const leadWarmingFlow: RoadmapStage[] = [
     title: 'העברה להמשך טיפול',
     description:
       'לידים רלוונטיים מועברים לצוות המכירות שלכם, כדי שהזמן שלהם יושקע בשיחות שיכולות להתקדם.',
-    href: '/#demo-form',
-    linkLabel: 'קבל הדגמה',
   },
 ];
 

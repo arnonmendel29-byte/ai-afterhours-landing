@@ -1,5 +1,5 @@
 import { siteConfig } from '../siteConfig';
-import { absoluteUrl, buildOrganizationGraph } from '../seo/pages';
+import { absoluteUrl, buildOrganizationGraph, buildPersonGraph } from '../seo/pages';
 
 export type ArticleLink = {
   phrase: string;
@@ -192,7 +192,7 @@ export const moreLeadsArticle: SeoArticle = {
     {
       type: 'p',
       text: 'שלבים 4 עד 6 הם בדיוק החלק שאנשים לא אוהבים לעשות. לכן בנינו את Kolid Spark.',
-      links: [{ phrase: 'Kolid Spark', href: '/outbound-call-bot' }],
+      links: [{ phrase: 'Kolid Spark', href: '/outbound-call-bot/' }],
     },
     {
       type: 'p',
@@ -205,7 +205,7 @@ export const moreLeadsArticle: SeoArticle = {
     {
       type: 'p',
       text: 'אם הלידים שלכם חדשים, כלומר אנשים שהשאירו פרטים עכשיו ומחכים שיחזרו אליהם, זה מקרה אחר. בשביל זה יש את Kolid Flash, שמתקשר לליד מיד אחרי הטופס.',
-      links: [{ phrase: 'Kolid Flash', href: '/lead-warming' }],
+      links: [{ phrase: 'Kolid Flash', href: '/lead-warming/' }],
     },
     {
       type: 'figure',
@@ -226,8 +226,8 @@ export const moreLeadsArticle: SeoArticle = {
   ],
   faqs: moreLeadsFaqs,
   related: [
-    { label: 'איך לשפר את תהליך המכירה בעסק', href: '/improve-sales-process' },
-    { label: 'מדריך בוטי שיחות AI', href: '/ai-call-bots' },
+    { label: 'איך לשפר את תהליך המכירה בעסק', href: '/improve-sales-process/' },
+    { label: 'מדריך בוטי שיחות AI', href: '/ai-call-bots/' },
   ],
 };
 
@@ -325,7 +325,7 @@ export const salesProcessArticle: SeoArticle = {
     {
       type: 'p',
       text: 'בשביל הפער הזה בנינו את Kolid Flash. זה בוט קולי שמתקשר לליד אוטומטית אחרי שהשאיר פרטים, לפי השעות והכללים שאתם מגדירים. הוא מציג את העסק, שואל את השאלות שקבעתם בצעד 3 ובצעד 4, ואוסף את התשובות. כשהנציג נכנס, הוא כבר יודע עם מי הוא מדבר ומה הלקוח צריך.',
-      links: [{ phrase: 'Kolid Flash', href: '/lead-warming' }],
+      links: [{ phrase: 'Kolid Flash', href: '/lead-warming/' }],
     },
     {
       type: 'p',
@@ -334,7 +334,7 @@ export const salesProcessArticle: SeoArticle = {
     {
       type: 'p',
       text: 'ואם הבעיה אצלכם היא דווקא ההפך, כלומר גיליון מלא בלידים ישנים שאף אחד לא חזר אליהם, יש לזה פתרון נפרד: Kolid Spark, לשיחות יזומות ולחימום רשימות קיימות.',
-      links: [{ phrase: 'Kolid Spark', href: '/outbound-call-bot' }],
+      links: [{ phrase: 'Kolid Spark', href: '/outbound-call-bot/' }],
     },
     {
       type: 'figure',
@@ -351,8 +351,8 @@ export const salesProcessArticle: SeoArticle = {
   ],
   faqs: salesProcessFaqs,
   related: [
-    { label: 'איך להשיג עוד לידים', href: '/how-to-get-more-leads' },
-    { label: 'מדריך בוטי שיחות AI', href: '/ai-call-bots' },
+    { label: 'איך להשיג עוד לידים', href: '/how-to-get-more-leads/' },
+    { label: 'מדריך בוטי שיחות AI', href: '/ai-call-bots/' },
   ],
 };
 
@@ -360,17 +360,22 @@ export const seoArticles = [moreLeadsArticle, salesProcessArticle];
 
 export function buildArticleJsonLd(article: SeoArticle) {
   const pageUrl = absoluteUrl(article.path);
+  const founder = buildPersonGraph();
   return {
     '@context': 'https://schema.org',
     '@graph': [
       buildOrganizationGraph(),
+      founder,
       {
         '@type': 'BlogPosting',
+        '@id': `${pageUrl}#article`,
         headline: article.h1,
-        author: {
-          '@type': 'Person',
-          name: article.author,
-        },
+        description: article.description,
+        inLanguage: 'he',
+        author:
+          article.author === founder.name
+            ? { '@id': founder['@id'] }
+            : { '@type': 'Person', name: article.author },
         datePublished: article.datePublished,
         image: absoluteUrl(article.hero.src),
         mainEntityOfPage: pageUrl,

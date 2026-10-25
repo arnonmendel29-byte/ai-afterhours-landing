@@ -12,6 +12,8 @@ export default defineConfig({
     },
   },
   build: {
+    // scripts/generate-route-html.mjs קורא את ה-manifest כדי לטעון מראש CSS/JS של כל עמוד
+    manifest: true,
     rollupOptions: {
       output: {
         manualChunks: {
