@@ -14,11 +14,19 @@ export default defineConfig({
   build: {
     // scripts/generate-route-html.mjs קורא את ה-manifest כדי לטעון מראש CSS/JS של כל עמוד
     manifest: true,
+    modulePreload: {
+      resolveDependencies(_filename, deps) {
+        // Pillars (ו-framer-motion שבתוכו) לא נדרשים לצביעה הראשונה.
+        // preload מכריח את הדפדפן להוריד אותם במקביל לתמונת ה-LCP.
+        return deps.filter((dep) => dep.indexOf('Pillars') === -1 && dep.indexOf('motion') === -1);
+      },
+    },
     rollupOptions: {
       output: {
-        manualChunks: {
-          motion: ['framer-motion'],
-          react: ['react', 'react-dom'],
+        manualChunks(id) {
+          if (id.indexOf('node_modules/react-dom') !== -1 || id.indexOf('node_modules/react/') !== -1) {
+            return 'react';
+          }
         },
       },
     },

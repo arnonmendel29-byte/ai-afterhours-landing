@@ -1,7 +1,9 @@
+/** כל עמודי האתר (לפי routes + pages.meta.json) — מקור לניווט הראשי */
 export const navItems = [
   { label: 'בית', href: '#top' },
   { label: 'תגובה מיידית', href: '/lead-warming/' },
   { label: 'שיחות יזומות', href: '/outbound-call-bot/' },
+  { label: 'בוטי שיחות AI', href: '/ai-call-bots/' },
   { label: 'איך להשיג עוד לידים', href: '/how-to-get-more-leads/' },
   { label: 'שיפור תהליך המכירה', href: '/improve-sales-process/' },
   { label: 'אודות', href: '/about/' },

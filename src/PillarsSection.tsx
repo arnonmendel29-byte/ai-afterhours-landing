@@ -1,6 +1,8 @@
 import { pillars } from './pillars';
 import {
-  motion,
+  LazyMotion,
+  domAnimation,
+  m,
   useMotionTemplate,
   useReducedMotion,
   useScroll,
@@ -88,7 +90,7 @@ function PillarCard({
   );
 
   return (
-    <motion.article
+    <m.article
       className={`pillar pillar--${index + 1}${pillar.italic ? ' is-italic' : ''}${
         pillar.style === 'outline' ? ' is-outline' : ''
       }`}
@@ -98,17 +100,17 @@ function PillarCard({
         y: reveal.y,
       }}
     >
-      <motion.span
+      <m.span
         className="pillar-numeral"
         aria-hidden="true"
         style={{ y: numeralDrift }}
       >
         {pillar.id}
-      </motion.span>
+      </m.span>
       <div className="pillar-label">
         <h3 className="pillar-word">{pillar.word}</h3>
       </div>
-    </motion.article>
+    </m.article>
   );
 }
 
@@ -132,7 +134,7 @@ function PillarsMobileLayout() {
         </div>
         <div className="pillars-mobile-stack">
           {pillars.map((pillar, index) => (
-            <motion.article
+            <m.article
               className={`pillar pillar--${index + 1}${pillar.italic ? ' is-italic' : ''}${
                 pillar.style === 'outline' ? ' is-outline' : ''
               }`}
@@ -148,7 +150,7 @@ function PillarsMobileLayout() {
               <div className="pillar-label">
                 <h3 className="pillar-word">{pillar.word}</h3>
               </div>
-            </motion.article>
+            </m.article>
           ))}
         </div>
       </div>
@@ -177,7 +179,7 @@ function PillarsScroll({ isMobile }: { isMobile: boolean }) {
   return (
     <div className="pillars-track" ref={trackRef} id="use-cases">
       <section className="pillars-section" aria-labelledby="use-cases-title">
-        <motion.div className="pillars-glow" style={{ background: glow }} aria-hidden="true" />
+        <m.div className="pillars-glow" style={{ background: glow }} aria-hidden="true" />
 
         {pillars.map((_, index) => (
           <PillarCard
@@ -188,7 +190,7 @@ function PillarsScroll({ isMobile }: { isMobile: boolean }) {
           />
         ))}
 
-        <motion.div className="pillars-center" style={{ scale: headlineScale }}>
+        <m.div className="pillars-center" style={{ scale: headlineScale }}>
           <p className="pillars-eyebrow">יתרונות</p>
           <h2 id="use-cases-title">
             מה בוט השיחות עושה בשביל{' '}
@@ -197,7 +199,7 @@ function PillarsScroll({ isMobile }: { isMobile: boolean }) {
           <p className="pillars-sub">
             חמישה עמודי תווך של קוליד — משיחה ראשונה ועד ליד מוכן למכירה.
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="pillars-hint" aria-hidden="true">
           <span>גללו כדי ללמוד עוד</span>
@@ -212,9 +214,9 @@ export function PillarsSection() {
   const isMobile = useIsMobile();
   const prefersReducedMotion = useReducedMotion();
 
-  if (prefersReducedMotion) {
-    return <PillarsMobileLayout />;
-  }
-
-  return <PillarsScroll isMobile={isMobile} />;
+  return (
+    <LazyMotion features={domAnimation} strict>
+      {prefersReducedMotion ? <PillarsMobileLayout /> : <PillarsScroll isMobile={isMobile} />}
+    </LazyMotion>
+  );
 }

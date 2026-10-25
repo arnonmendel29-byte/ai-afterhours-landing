@@ -142,7 +142,8 @@ function Hero() {
               alt="איור של בוט שיחות AI של קוליד"
               width={520}
               height={496}
-              decoding="async"
+              decoding="sync"
+              fetchPriority="high"
             />
           </picture>
         </div>

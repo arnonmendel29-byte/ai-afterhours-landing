@@ -9,7 +9,7 @@
 - [עמוד הבית](https://kolid.co.il/): בוט שיחות AI לסינון לידים ואוטומציה של השיחה הראשונה
 - [Kolid Flash — תגובה מיידית ללידים](https://kolid.co.il/lead-warming/): בוט קולי שמתקשר לליד חדש אחרי השארת פרטים
 - [Kolid Spark — שיחות יזומות וחימום לידים](https://kolid.co.il/outbound-call-bot/): בוט שיחות לרשימות קיימות וללידים קרים
-- [מה זה בוט שיחות AI](https://kolid.co.il/ai-call-bots/): מדריך לבוטים קוליים לעסקים
+- [מה זה בוט שיחות AI](https://kolid.co.il/ai-call-bots/): מדריך: במה בוט קולי שונה מצ׳אטבוט, ואיך נראית שיחה עם ליד
 - [איך להשיג עוד לידים](https://kolid.co.il/how-to-get-more-leads/): עבודה עם מאגר לידים קיים
 - [איך לשפר את תהליך המכירה](https://kolid.co.il/improve-sales-process/): החלק שבין השיווק למכירות
 - [אודות](https://kolid.co.il/about/): קוליד וניב אשור

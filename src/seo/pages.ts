@@ -147,7 +147,6 @@ export function buildHomeJsonLd() {
 export const serviceNames: Record<string, string> = {
   '/lead-warming': 'Kolid Flash — תגובה מיידית ללידים',
   '/outbound-call-bot': 'Kolid Spark — שיחות יזומות וחימום לידים',
-  '/ai-call-bots': 'בוטים לשיחות AI לעסקים',
 };
 
 export function buildServicePageJsonLdForPath(path: string) {
