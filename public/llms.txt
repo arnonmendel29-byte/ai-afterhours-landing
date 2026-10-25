@@ -1,0 +1,18 @@
+# קוליד
+
+> בוט שיחות AI לעסקים: בוט קולי שמנהל שיחות עם לידים, מסנן מתעניינים ומעביר לצוות המכירות רק את מי שרלוונטי.
+
+קוליד מציעה שני מוצרים: Kolid Flash לתגובה מיידית ללידים חדשים, ו-Kolid Spark לשיחות יזומות ולחימום לידים.
+
+## עמודים
+
+- [עמוד הבית](https://kolid.co.il/): בוט שיחות AI לסינון לידים ואוטומציה של השיחה הראשונה
+- [Kolid Flash — תגובה מיידית ללידים](https://kolid.co.il/lead-warming/): בוט קולי שמתקשר לליד חדש אחרי השארת פרטים
+- [Kolid Spark — שיחות יזומות וחימום לידים](https://kolid.co.il/outbound-call-bot/): בוט שיחות לרשימות קיימות וללידים קרים
+- [מה זה בוט שיחות AI](https://kolid.co.il/ai-call-bots/): מדריך לבוטים קוליים לעסקים
+- [איך להשיג עוד לידים](https://kolid.co.il/how-to-get-more-leads/): עבודה עם מאגר לידים קיים
+- [איך לשפר את תהליך המכירה](https://kolid.co.il/improve-sales-process/): החלק שבין השיווק למכירות
+- [אודות](https://kolid.co.il/about/): קוליד וניב אשור
+- [מדיניות פרטיות](https://kolid.co.il/privacy-policy/)
+- [הצהרת נגישות](https://kolid.co.il/accessibility/)
+- [מידע על עוגיות](https://kolid.co.il/cookie-policy/)
